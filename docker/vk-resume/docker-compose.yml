@@ -7,6 +7,4 @@ services:
             context: ../..
             dockerfile: docker/vk-resume/Dockerfile
         ports:
-            - "8082:80"
-        volumes:
-            - .:/var/www/html
+            - "8082:8000"
