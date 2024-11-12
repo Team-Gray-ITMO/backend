@@ -16,7 +16,7 @@ public class Resume {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "body", length = 32767)
+    @Column(name = "body", length = 32767, nullable = false)
     private String body;
 
     @ManyToOne(cascade = CascadeType.ALL)
