@@ -31,5 +31,4 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resume> resumes = new LinkedHashSet<>();
-
 }

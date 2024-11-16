@@ -10,8 +10,8 @@ import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
+import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.entities.Education;
 import vk.itmo.teamgray.backend.job.entities.Job;
 import vk.itmo.teamgray.backend.language.entities.Language;
@@ -24,7 +24,7 @@ import vk.itmo.teamgray.backend.user.entities.User;
 @Table(name = "resume")
 public class Resume extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(length = 2000)
