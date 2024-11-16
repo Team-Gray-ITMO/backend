@@ -9,6 +9,9 @@ components:
     ResumeJson:
       type: object
       properties:
+        id:
+          type: integer
+          description: Unique identifier for the resume.
         createdAt:
           type: string
           format: date-time
@@ -83,7 +86,7 @@ components:
     Education:
       type: object
       properties:
-        degreeType:
+        degree:
           type: string
           description: Degree obtained.
         degreeName:
