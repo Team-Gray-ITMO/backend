@@ -23,7 +23,7 @@
             <column name="issue_date" type="DATE"/>
             <column name="expiration_date" type="DATE"/>
             <column name="credential_url" type="VARCHAR(255)"/>
-            <column name="language_proficiency" type="VARCHAR(255)"/>
+            <column name="language_proficiency" type="VARCHAR(32)"/>
         </createTable>
 
         <createTable tableName="education">
@@ -37,7 +37,7 @@
             <column name="education_institution_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="degree_type" type="VARCHAR(255)">
+            <column name="degree_type" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
             <column name="degree_name" type="VARCHAR(255)"/>
@@ -99,7 +99,7 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="proficiency" type="VARCHAR(255)">
+            <column name="proficiency" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -142,7 +142,7 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="proficiency" type="VARCHAR(255)">
+            <column name="proficiency" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
