@@ -1,0 +1,168 @@
+openapi: 3.1.0
+info:
+  title: Resume Builder app
+  description: ''
+  version: 1.0.0
+
+components:
+  schemas:
+    ResumeJson:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the resume.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date and time when the resume was created.
+        summary:
+          type: string
+          description: Short summary or objective of the resume.
+        user:
+          $ref: '#/components/schemas/User'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/Education'
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username of the user.
+        email:
+          type: string
+          description: Email address of the user.
+        vkId:
+          type: integer
+          description: VK ID of the user.
+
+    Certification:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the certification.
+        issuingOrganization:
+          type: string
+          description: Organization that issued the certification.
+        issueDate:
+          type: string
+          format: date
+          description: Date when the certification was issued.
+        expirationDate:
+          type: string
+          format: date
+          description: Expiration date of the certification.
+        credentialUrl:
+          type: string
+          description: URL for the certification credentials.
+        languageProficiency:
+          type: string
+          description: Language proficiency related to the certification.
+
+    Education:
+      type: object
+      properties:
+        degree:
+          type: string
+          description: Degree obtained.
+        degreeName:
+          type: string
+          description: Name of the degree.
+        fieldOfStudy:
+          type: string
+          description: Field of study for the degree.
+        specialization:
+          type: string
+          description: Specialization in the field of study.
+        startDate:
+          type: string
+          format: date
+          description: Start date of the education.
+        endDate:
+          type: string
+          format: date
+          description: End date of the education.
+        grade:
+          type: string
+          description: Grade obtained during the education.
+        educationInstitution:
+          type: string
+          description: Name of the educational institution.
+
+    Job:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Job title.
+        company:
+          type: string
+          description: Name of the company.
+        location:
+          type: string
+          description: Location of the job.
+        startDate:
+          type: string
+          format: date
+          description: Start date of the job.
+        endDate:
+          type: string
+          format: date
+          description: End date of the job.
+        description:
+          type: string
+          description: Job description or responsibilities.
+
+    Link:
+      type: object
+      properties:
+        platformName:
+          type: string
+          description: Name of the platform (e.g., LinkedIn, GitHub).
+        profileUrl:
+          type: string
+          description: URL to the user's profile on the platform.
+
+    Skill:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the skill.
+        proficiency:
+          type: string
+          description: Proficiency level in the skill.
+
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the language.
+        proficiency:
+          type: string
+          description: Proficiency level in the language.
