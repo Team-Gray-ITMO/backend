@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.language.dto;
+package vk.itmo.teamgray.backend.language.enums;
 
 public enum LanguageProficiency {
     A1,

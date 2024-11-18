@@ -1,6 +1,6 @@
 package vk.itmo.teamgray.backend.cetification.dto;
 
-import vk.itmo.teamgray.backend.language.dto.LanguageProficiency;
+import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 
 import java.io.Serializable;
 import java.util.Date;
