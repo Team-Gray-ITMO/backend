@@ -10,8 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
+import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.language.dto.LanguageProficiency;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
@@ -20,6 +25,7 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 @Getter
 @Setter
 @Table(name = "certification")
+@NoArgsConstructor
 public class Certification extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "resume_id", nullable = false)
@@ -43,4 +49,25 @@ public class Certification extends BaseEntity {
     @Column(name = "language_proficiency")
     @Enumerated(EnumType.STRING)
     private LanguageProficiency languageProficiency;
+
+    public Certification(CertificationCreateDto data, Resume resume){
+        name = data.name();
+        issuingOrganization = data.issuingOrganization();
+        issueDate = data.issueDate();
+        expirationDate = data.expirationDate();
+        credentialUrl = data.credentialUrl();
+        languageProficiency = data.languageProficiency();
+        this.resume = resume;
+    }
+
+    public Certification(CertificationUpdateDto data, Resume resume){
+        this.id = data.id();
+        name = data.name();
+        issuingOrganization = data.issuingOrganization();
+        issueDate = data.issueDate();
+        expirationDate = data.expirationDate();
+        credentialUrl = data.credentialUrl();
+        languageProficiency = data.languageProficiency();
+        this.resume = resume;
+    }
 }
