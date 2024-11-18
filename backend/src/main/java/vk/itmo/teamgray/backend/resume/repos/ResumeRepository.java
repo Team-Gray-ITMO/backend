@@ -1,9 +1,10 @@
-package vk.itmo.teamgray.backend.resume.entities;
+package vk.itmo.teamgray.backend.resume.repos;
 
 import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 //TODO Only a mockup, needs debugging
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
