@@ -13,7 +13,7 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
-import vk.itmo.teamgray.backend.education.dto.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
