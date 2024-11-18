@@ -9,12 +9,15 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.entities.Education;
 import vk.itmo.teamgray.backend.job.entities.Job;
 import vk.itmo.teamgray.backend.language.entities.Language;
+import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
+import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
 import vk.itmo.teamgray.backend.user.entities.User;
 
@@ -22,6 +25,7 @@ import vk.itmo.teamgray.backend.user.entities.User;
 @Setter
 @Entity
 @Table(name = "resume")
+@NoArgsConstructor
 public class Resume extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
@@ -47,4 +51,13 @@ public class Resume extends BaseEntity {
 
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Link> links;
+
+    public Resume(ResumeCreateDto data){
+        summary = data.summary();
+    }
+
+    public Resume(ResumeUpdateDto data){
+        id = data.id();
+        summary = data.summary();
+    }
 }
