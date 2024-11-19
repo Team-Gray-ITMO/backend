@@ -49,9 +49,6 @@ components:
     User:
       type: object
       properties:
-        username:
-          type: string
-          description: Username of the user.
         email:
           type: string
           description: Email address of the user.

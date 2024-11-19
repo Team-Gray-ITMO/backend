@@ -16,9 +16,7 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
                                'createdAt', res.created_at,
                                'summary', res.summary,
                                'user', jsonb_build_object(
-                                       'username', us.username,
                                        'email', us.email,
-                                       'password', us.password,
                                        'vkId', us.vk_id
                                        ),
                                'certifications', jsonb_agg(
