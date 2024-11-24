@@ -3,10 +3,6 @@ package vk.itmo.teamgray.backend.job.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
-import vk.itmo.teamgray.backend.education.dto.EducationInstitutionCreateDto;
-import vk.itmo.teamgray.backend.education.dto.EducationInstitutionUpdateDto;
-import vk.itmo.teamgray.backend.education.entities.EducationInstitution;
-import vk.itmo.teamgray.backend.education.repos.EducationInstitutionRepository;
 import vk.itmo.teamgray.backend.job.dto.CompanyCreateDto;
 import vk.itmo.teamgray.backend.job.dto.CompanyUpdateDto;
 import vk.itmo.teamgray.backend.job.entities.Company;
@@ -23,17 +19,17 @@ public class CompanyService {
 
     public Company createCompany(CompanyCreateDto data) {
         return companyRepository.save(new Company(
-                data
+            data
         ));
     }
 
     public Company updateCompany(CompanyUpdateDto data) {
         return companyRepository.save(new Company(
-                data
+            data
         ));
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         companyRepository.deleteById(id);
     }
 }

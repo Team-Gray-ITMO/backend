@@ -8,14 +8,17 @@ import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
+import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User extends BaseEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -25,4 +28,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resume> resumes = new LinkedHashSet<>();
+
+    public User(UserCreateDto data) {
+        email = data.email();
+        vkId = data.vkId();
+    }
 }
