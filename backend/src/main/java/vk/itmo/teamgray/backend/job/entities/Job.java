@@ -54,7 +54,6 @@ public class Job extends BaseEntity {
         location = data.location();
         startDate = data.startDate();
         endDate = data.endDate();
-
     }
 
     public Job(JobUpdateDto data, Resume resume, Company company) {

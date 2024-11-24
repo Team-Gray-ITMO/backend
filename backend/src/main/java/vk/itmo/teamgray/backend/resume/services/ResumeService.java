@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.resume.services;
 
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,9 @@ public class ResumeService {
 
     public void deleteById(Long id) {
         resumeRepository.deleteById(id);
+    }
+
+    public Map<String, Object> getResumeJson(long resumeId) {
+        return resumeRepository.getResumeJson(resumeId);
     }
 }
