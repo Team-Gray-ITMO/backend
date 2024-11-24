@@ -11,6 +11,11 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
+import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
+import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
+import vk.itmo.teamgray.backend.education.entities.EducationInstitution;
+import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
+import vk.itmo.teamgray.backend.job.dto.JobUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -40,4 +45,26 @@ public class Job extends BaseEntity {
 
     @Column(name = "description", length = 2000)
     private String description;
+
+    public Job(JobCreateDto data, Resume resume, Company company){
+        this.resume = resume;
+        this.company = company;
+
+        title = data.title();
+        description = data.description();
+        startDate = data.startDate();
+        endDate = data.endDate();
+
+    }
+
+    public Job(JobUpdateDto data, Resume resume, Company company){
+        id = data.id();
+        this.resume = resume;
+        this.company = company;
+
+        title = data.title();
+        description = data.description();
+        startDate = data.startDate();
+        endDate = data.endDate();
+    }
 }

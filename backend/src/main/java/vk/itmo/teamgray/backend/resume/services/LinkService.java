@@ -18,14 +18,14 @@ public class LinkService {
         return linkRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public Link createCertification(LinkCreateDto data){
+    public Link createLink(LinkCreateDto data){
         return linkRepository.save(new Link(
                 data,
                 resumeService.findById(data.resumeId())
         ));
     }
 
-    public Link updateCertification(LinkUpdateDto data){
+    public Link updateLink(LinkUpdateDto data){
         return linkRepository.save(new Link(
                 data,
                 resumeService.findById(data.resumeId())
