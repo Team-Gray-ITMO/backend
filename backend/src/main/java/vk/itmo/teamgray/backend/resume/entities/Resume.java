@@ -52,12 +52,13 @@ public class Resume extends BaseEntity {
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Link> links;
 
-    public Resume(ResumeCreateDto data){
+    public Resume(ResumeCreateDto data, User user) {
+        this.user = user;
+
         summary = data.summary();
     }
 
-    public Resume(ResumeUpdateDto data){
+    public Resume(ResumeUpdateDto data) {
         id = data.id();
-        summary = data.summary();
     }
 }

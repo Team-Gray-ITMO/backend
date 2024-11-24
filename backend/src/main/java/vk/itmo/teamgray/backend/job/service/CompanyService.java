@@ -2,6 +2,7 @@ package vk.itmo.teamgray.backend.job.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.job.dto.CompanyCreateDto;
 import vk.itmo.teamgray.backend.job.dto.CompanyUpdateDto;
@@ -10,6 +11,7 @@ import vk.itmo.teamgray.backend.job.repos.CompanyRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CompanyService {
     private final CompanyRepository companyRepository;
 

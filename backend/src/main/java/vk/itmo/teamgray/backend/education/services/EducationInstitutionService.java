@@ -2,6 +2,7 @@ package vk.itmo.teamgray.backend.education.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.education.dto.EducationInstitutionCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationInstitutionUpdateDto;
@@ -10,6 +11,7 @@ import vk.itmo.teamgray.backend.education.repos.EducationInstitutionRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EducationInstitutionService {
     private final EducationInstitutionRepository educationInstitutionRepository;
 
@@ -19,17 +21,17 @@ public class EducationInstitutionService {
 
     public EducationInstitution createEducationInstitution(EducationInstitutionCreateDto data) {
         return educationInstitutionRepository.save(new EducationInstitution(
-                data
+            data
         ));
     }
 
     public EducationInstitution updateEducationInstitution(EducationInstitutionUpdateDto data) {
         return educationInstitutionRepository.save(new EducationInstitution(
-                data
+            data
         ));
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         educationInstitutionRepository.deleteById(id);
     }
 }

@@ -5,5 +5,5 @@ import java.io.Serializable;
 /**
  * DTO for {@link vk.itmo.teamgray.backend.resume.entities.Resume}
  */
-public record ResumeCreateDto(String summary) implements Serializable {
+public record ResumeCreateDto(long userId, String summary) implements Serializable {
 }
