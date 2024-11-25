@@ -3,9 +3,14 @@ package vk.itmo.teamgray.backend.resume.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Map;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +32,9 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 import vk.itmo.teamgray.backend.language.services.LanguageService;
 import vk.itmo.teamgray.backend.resume.dto.LinkCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
+import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
+import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
+import vk.itmo.teamgray.backend.skill.services.SkillService;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
@@ -61,11 +69,16 @@ class ResumeServiceTest extends TestBase {
     private JobService jobService;
 
     @Autowired
-    private ObjectMapper jsonMapper;
+    private SkillService skillService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private final Random random = new Random();
 
     @Test
     void testJsonAggregation() throws JsonProcessingException {
-        var resumeIds = IntStream.range(0, 1)
+        var resumeIds = IntStream.range(1, 5)
             .mapToLong(i -> {
                 var user = userService.createUser(new UserCreateDto("email" + i + "@example.com", (long)i));
 
@@ -88,56 +101,83 @@ class ResumeServiceTest extends TestBase {
                         resume.getId(),
                         "Language Test Name " + i,
                         "Language Test Org " + i,
-                        Date.from(Instant.now()),
-                        Date.from(Instant.now()),
+                        Date.from(Instant.now().plus(1, ChronoUnit.DAYS)),
+                        Date.from(Instant.now().plus(1, ChronoUnit.DAYS)),
                         "https://test" + i + ".com",
                         LanguageProficiency.A1
                     )
                 );
 
-                var educationInstitution = educationInstitutionService.createEducationInstitution(
-                    new EducationInstitutionCreateDto(
-                        "TestName " + i
-                    )
-                );
+                Arrays.stream(SkillProficiency.values())
+                    .forEach(proficiency -> skillService.createSkill(
+                            new SkillCreateDto(
+                                resume.getId(),
+                                "Skill " + proficiency + " " + i,
+                                proficiency
+                            )
+                        )
+                    );
 
-                educationService.createEducation(
-                    new EducationCreateDto(
-                        resume.getId(),
-                        educationInstitution.getId(),
-                        EducationDegreeType.ELEMENTARY_SCHOOL,
-                        "TestDegree " + i,
-                        "TestField " + i,
-                        "TestSpec " + i,
-                        Date.from(Instant.now()),
-                        Date.from(Instant.now()),
-                        "Grade " + i
+                var educationInstitutions = Arrays.stream(EducationDegreeType.values()).collect(Collectors.toMap(
+                    Function.identity(),
+                    degreeType -> educationInstitutionService.createEducationInstitution(
+                        new EducationInstitutionCreateDto(
+                            "TestName " + degreeType + i
+                        )
                     )
-                );
+                ));
 
-                languageService.createLanguage(
-                    new LanguageCreateDto(
-                        resume.getId(),
-                        "TestName " + i,
-                        LanguageProficiency.A1
-                    )
-                );
+                educationInstitutions
+                    .forEach((degreeType, institution) -> educationService.createEducation(
+                        new EducationCreateDto(
+                            resume.getId(),
+                            institution.getId(),
+                            degreeType,
+                            "TestDegree " + degreeType + " " + i,
+                            "TestField " + degreeType + " " + i,
+                            "TestSpec " + degreeType + " " + i,
+                            Date.from(Instant.now().plus(degreeType.ordinal(), ChronoUnit.DAYS)),
+                            Date.from(Instant.now().plus(degreeType.ordinal(), ChronoUnit.DAYS)),
+                            "Grade " + degreeType + " " + i
+                        )
+                    ));
 
-                linkService.createLink(
+
+                Stream.of("RU", "EN", "DE").forEach(lang -> {
+                    var proficiency = Arrays.stream(LanguageProficiency.values())
+                        .skip(random.nextInt(LanguageProficiency.values().length))
+                        .findFirst()
+                        .orElseThrow();
+
+                    languageService.createLanguage(
+                        new LanguageCreateDto(
+                            resume.getId(),
+                            lang,
+                            proficiency
+                        )
+                    );
+                });
+
+                Stream.of("github", "linkedin").forEach(platform -> linkService.createLink(
                     new LinkCreateDto(
                         resume.getId(),
-                        "TestName " + i,
-                        "https://paltform" + i + ".url"
+                        platform + " " + i,
+                        "https://" + platform + ".com"
                     )
-                );
+                ));
 
-                var company = companyService.createCompany(
-                    new CompanyCreateDto(
-                        "TestCompany " + i
+
+                var companies = Stream.of("Google", "Microsoft")
+                    .map(company -> companyService.createCompany(
+                            new CompanyCreateDto(
+                                company
+                            )
+                        )
                     )
-                );
+                    .toList();
 
-                var job = jobService.createJob(
+
+                companies.forEach(company -> jobService.createJob(
                     new JobCreateDto(
                         resume.getId(),
                         company.getId(),
@@ -147,19 +187,18 @@ class ResumeServiceTest extends TestBase {
                         Date.from(Instant.now()),
                         "TestDescription " + i
                     )
-                );
+                ));
 
                 return resume.getId();
             })
             .boxed()
             .toList();
 
-        var maps = resumeIds.stream()
-            .map(id -> resumeService.getResumeJson(id))
+        var resumes = resumeIds.stream()
+            .map(id -> resumeService.getResumeJsonForMerge(id))
             .toList();
 
-        for (Map<String, Object> map : maps) {
-            log.info(jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map));
-        }
+        //TODO Replace with proper assertions
+        log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(resumes));
     }
 }
