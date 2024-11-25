@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.education.dto;
+package vk.itmo.teamgray.backend.education.enums;
 
 public enum EducationDegreeType {
     ELEMENTARY_SCHOOL,

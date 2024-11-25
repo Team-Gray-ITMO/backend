@@ -11,15 +11,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
-import vk.itmo.teamgray.backend.education.dto.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
+import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
+import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "education")
+@NoArgsConstructor
 public class Education extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "resume_id", nullable = false)
@@ -50,4 +54,29 @@ public class Education extends BaseEntity {
 
     @Column(name = "grade")
     private String grade;
+
+    public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
+        this.resume = resume;
+        this.institution = institution;
+        degreeType = data.degreeType();
+        degreeName = data.degreeName();
+        fieldOfStudy = data.fieldOfStudy();
+        specialization = data.specialization();
+        startDate = data.startDate();
+        endDate = data.endDate();
+        grade = data.grade();
+    }
+
+    public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution) {
+        id = data.id();
+        this.resume = resume;
+        this.institution = institution;
+        degreeType = data.degreeType();
+        degreeName = data.degreeName();
+        fieldOfStudy = data.fieldOfStudy();
+        specialization = data.specialization();
+        startDate = data.startDate();
+        endDate = data.endDate();
+        grade = data.grade();
+    }
 }

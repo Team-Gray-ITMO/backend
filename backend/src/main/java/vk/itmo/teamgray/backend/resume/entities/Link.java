@@ -8,13 +8,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
+import vk.itmo.teamgray.backend.resume.dto.LinkCreateDto;
+import vk.itmo.teamgray.backend.resume.dto.LinkUpdateDto;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "link")
+@NoArgsConstructor
 public class Link extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "resume_id", nullable = false)
@@ -25,4 +29,17 @@ public class Link extends BaseEntity {
 
     @Column(name = "profile_url", nullable = false)
     private String profileUrl;
+
+    public Link(LinkCreateDto data, Resume resume){
+        this.resume = resume;
+        platformName = data.platformName();
+        profileUrl = data.profileUrl();
+    }
+
+    public Link(LinkUpdateDto data, Resume resume){
+        id = data.id();
+        this.resume = resume;
+        platformName = data.platformName();
+        profileUrl = data.profileUrl();
+    }
 }

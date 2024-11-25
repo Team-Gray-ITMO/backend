@@ -1,9 +1,10 @@
-package vk.itmo.teamgray.backend.resume.entities;
+package vk.itmo.teamgray.backend.resume.repos;
 
 import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 //TODO Only a mockup, needs debugging
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
@@ -15,9 +16,7 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
                                'createdAt', res.created_at,
                                'summary', res.summary,
                                'user', jsonb_build_object(
-                                       'username', us.username,
                                        'email', us.email,
-                                       'password', us.password,
                                        'vkId', us.vk_id
                                        ),
                                'certifications', jsonb_agg(

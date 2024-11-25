@@ -1,13 +1,9 @@
 package vk.itmo.teamgray.backend;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class BackendApplicationTests {
-
+class BackendApplicationTest extends TestBase {
     @Test
     void contextLoads() {
     }
-
 }

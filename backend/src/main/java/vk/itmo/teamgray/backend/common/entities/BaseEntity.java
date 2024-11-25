@@ -17,10 +17,10 @@ public abstract class BaseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @Column(name = "created_at", updatable = false)
-    private Instant createdAt;
+    protected Instant createdAt;
 
     @PrePersist
     protected void onCreate() {

@@ -9,14 +9,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
+import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
+import vk.itmo.teamgray.backend.job.dto.JobUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "job")
+@NoArgsConstructor
 public class Job extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "resume_id", nullable = false)
@@ -40,4 +44,28 @@ public class Job extends BaseEntity {
 
     @Column(name = "description", length = 2000)
     private String description;
+
+    public Job(JobCreateDto data, Resume resume, Company company) {
+        this.resume = resume;
+        this.company = company;
+
+        title = data.title();
+        description = data.description();
+        location = data.location();
+        startDate = data.startDate();
+        endDate = data.endDate();
+
+    }
+
+    public Job(JobUpdateDto data, Resume resume, Company company) {
+        id = data.id();
+        this.resume = resume;
+        this.company = company;
+
+        title = data.title();
+        description = data.description();
+        location = data.location();
+        startDate = data.startDate();
+        endDate = data.endDate();
+    }
 }

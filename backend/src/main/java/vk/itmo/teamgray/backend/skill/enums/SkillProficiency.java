@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.skill.dto;
+package vk.itmo.teamgray.backend.skill.enums;
 
 public enum SkillProficiency {
     BEGINNER,
