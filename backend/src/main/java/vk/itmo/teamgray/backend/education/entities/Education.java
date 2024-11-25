@@ -55,10 +55,11 @@ public class Education extends BaseEntity {
     @Column(name = "grade")
     private String grade;
 
-    public Education(EducationCreateDto data, Resume resume, EducationInstitution institution){
+    public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
         this.resume = resume;
         this.institution = institution;
         degreeType = data.degreeType();
+        degreeName = data.degreeName();
         fieldOfStudy = data.fieldOfStudy();
         specialization = data.specialization();
         startDate = data.startDate();
@@ -66,11 +67,12 @@ public class Education extends BaseEntity {
         grade = data.grade();
     }
 
-    public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution){
+    public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution) {
         id = data.id();
         this.resume = resume;
         this.institution = institution;
         degreeType = data.degreeType();
+        degreeName = data.degreeName();
         fieldOfStudy = data.fieldOfStudy();
         specialization = data.specialization();
         startDate = data.startDate();

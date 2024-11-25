@@ -51,6 +51,7 @@ public class Job extends BaseEntity {
 
         title = data.title();
         description = data.description();
+        location = data.location();
         startDate = data.startDate();
         endDate = data.endDate();
 
@@ -63,6 +64,7 @@ public class Job extends BaseEntity {
 
         title = data.title();
         description = data.description();
+        location = data.location();
         startDate = data.startDate();
         endDate = data.endDate();
     }
