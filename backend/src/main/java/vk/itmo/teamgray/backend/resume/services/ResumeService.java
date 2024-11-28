@@ -10,6 +10,8 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -17,6 +19,10 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     private final UserRepository userRepository;
+
+    public List<Resume> findAll(){
+        return resumeRepository.findAll();
+    }
 
     public Resume findById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
