@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
 import vk.itmo.teamgray.backend.cetification.services.CertificationService;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
@@ -76,7 +75,6 @@ public class ResumeTestGenerator {
 
     private final Random random = new Random();
 
-    @Transactional
     public List<ResumeDto> generateResumes(int amount) {
         var resumes = IntStream.range(1, amount + 1)
             .mapToObj(i -> {
@@ -189,10 +187,10 @@ public class ResumeTestGenerator {
                     )
                 ));
 
-                return resumeService.findById(resume.getId());
+                return resumeService.getById(resume.getId());
             })
             .toList();
 
-        return resumeMapper.toDtoList(resumes);
+        return resumes;
     }
 }

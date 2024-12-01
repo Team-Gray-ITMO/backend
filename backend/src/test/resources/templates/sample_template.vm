@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме</title>
+</head>
+<body>
+    <header>
+        <h1>Резюме</h1>
+        <p><strong>ID Резюме:</strong> ${id}</p>
+        <p><strong>Дата создания:</strong> ${createdAt}</p>
+    </header>
+    <section>
+        <h2>Личная информация</h2>
+        <p><strong>Email:</strong> ${user.email}</p>
+        <p><strong>VK ID:</strong> ${user.vkId}</p>
+    </section>
+    <section>
+        <h2>Саммари</h2>
+        <p>${summary}</p>
+    </section>
+    <section>
+        <h2>Ссылки</h2>
+        <ul>
+            #foreach ($link in ${links})
+                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
+            #end
+        </ul>
+    </section>
+    <section>
+        <h2>Навыки</h2>
+        <ul>
+            #foreach ($skill in ${skills})
+                <li><strong>${skill.name}:</strong> ${skill.proficiency}</li>
+            #end
+        </ul>
+    </section>
+    <section>
+        <h2>Образование</h2>
+        <ul>
+            #foreach ($edu in ${education})
+                <li>
+                    <p><strong>Институт:</strong> ${edu.educationInstitution}</p>
+                    <p><strong>Степень:</strong> ${edu.degreeName} (${edu.degreeType})</p>
+                    <p><strong>Направление:</strong> ${edu.fieldOfStudy}</p>
+                    <p><strong>Специализация:</strong> ${edu.specialization}</p>
+                    <p><strong>Период обучения:</strong> ${edu.startDate} - ${edu.endDate}</p>
+                    #if ($edu.grade)
+                        <p><strong>Оценка:</strong> ${edu.grade}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    <section>
+        <h2>Опыт работы</h2>
+        <ul>
+            #foreach ($job in ${jobs})
+                <li>
+                    <p><strong>Должность:</strong> ${job.title}</p>
+                    <p><strong>Компания:</strong> ${job.company}</p>
+                    <p><strong>Местоположение:</strong> ${job.location}</p>
+                    <p><strong>Период работы:</strong> ${job.startDate} - ${job.endDate}</p>
+                    <p><strong>Описание:</strong> ${job.description}</p>
+                </li>
+            #end
+        </ul>
+    </section>
+    <section>
+        <h2>Сертификаты</h2>
+        <ul>
+            #foreach ($cert in ${certifications})
+                <li>
+                    <p><strong>Название:</strong> ${cert.name}</p>
+                    <p><strong>Организация:</strong> ${cert.issuingOrganization}</p>
+                    <p><strong>Дата выдачи:</strong> ${cert.issueDate}</p>
+                    #if ($cert.expirationDate)
+                        <p><strong>Действителен до:</strong> ${cert.expirationDate}</p>
+                    #end
+                    #if ($cert.credentialUrl)
+                        <p><strong>Ссылка:</strong> <a href="${cert.credentialUrl}">${cert.credentialUrl}</a></p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    <section>
+        <h2>Языки</h2>
+        <ul>
+            #foreach ($language in ${languages})
+                <li><strong>${language.name}:</strong> ${language.proficiency}</li>
+            #end
+        </ul>
+    </section>
+</body>
+</html>

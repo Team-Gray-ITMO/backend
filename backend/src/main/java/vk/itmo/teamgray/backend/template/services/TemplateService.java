@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.template;
+package vk.itmo.teamgray.backend.template.services;
 
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;

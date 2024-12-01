@@ -1,7 +1,5 @@
-package vk.itmo.teamgray.backend.template;
+package vk.itmo.teamgray.backend.template.services;
 
-import java.io.IOException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import vk.itmo.teamgray.backend.TestBase;
@@ -16,34 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TemplateServiceTest extends TestBase {
     public static final byte[] EMPTY_BYTE_ARRAY = {};
+
     @Autowired
     private TemplateService templateService;
 
-    private FileDto fileDto;
-
-    @BeforeEach
-    public void setUp() {
-        fileDto = new FileDto();
-
-        var filename = "/payloads/sample_template.zip";
-
-        fileDto.setFilename(filename);
-        fileDto.setContentType("application/zip");
-
-        try (var stream = TemplateServiceTest.class.getResourceAsStream(filename)) {
-            if (stream == null) {
-                throw new AssertionError("Null stream for file " + filename);
-            }
-
-            fileDto.setContent(stream.readAllBytes());
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-    }
-
     @Test
     void testTemplate() {
-        var name = "Test_Template";
+        var fileDto = sampleTemplate.getFile();
+        var name = sampleTemplate.getName() + "2";
 
         var template = templateService.createTemplate(
             new TemplateCreateDto(

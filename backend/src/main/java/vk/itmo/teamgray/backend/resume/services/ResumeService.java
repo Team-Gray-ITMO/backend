@@ -13,6 +13,7 @@ import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.resume.dto.LinkDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
+import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
@@ -31,6 +32,10 @@ public class ResumeService {
     private final ResumeMapper resumeMapper;
 
     private final ObjectMapper objectMapper;
+
+    public ResumeDto getById(Long id) {
+        return resumeMapper.toDto(resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new));
+    }
 
     public Resume findById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
@@ -90,6 +95,6 @@ public class ResumeService {
             Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
+        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
     }
 }

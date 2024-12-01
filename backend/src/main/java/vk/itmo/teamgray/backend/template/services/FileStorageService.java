@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.template;
+package vk.itmo.teamgray.backend.template.services;
 
 import jakarta.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
