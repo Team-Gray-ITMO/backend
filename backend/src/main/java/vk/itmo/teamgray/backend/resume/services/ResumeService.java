@@ -13,7 +13,6 @@ import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.resume.dto.LinkDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
-import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
@@ -33,35 +32,27 @@ public class ResumeService {
 
     private final ObjectMapper objectMapper;
 
-    public ResumeDto findById(Long id) {
-        return resumeMapper.toDto(findEntityById(id));
-    }
-
-    public Resume findEntityById(Long id) {
+    public Resume findById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public ResumeDto createResume(ResumeCreateDto data) {
+    public Resume createResume(ResumeCreateDto data) {
         //TODO Maybe resolve user from auth context.
         var user = userRepository.findById(data.userId())
             .orElseThrow(ModelNotFoundException::new);
 
-        return resumeMapper.toDto(
-            resumeRepository.save(
-                new Resume(
-                    data,
-                    user
-                )
+        return resumeRepository.save(
+            new Resume(
+                data,
+                user
             )
         );
     }
 
-    public ResumeDto updateResume(ResumeUpdateDto data) {
-        return resumeMapper.toDto(
-            resumeRepository.save(
-                new Resume(
-                    data
-                )
+    public Resume updateResume(ResumeUpdateDto data) {
+        return resumeRepository.save(
+            new Resume(
+                data
             )
         );
     }
@@ -99,6 +90,6 @@ public class ResumeService {
             Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
+        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
     }
 }

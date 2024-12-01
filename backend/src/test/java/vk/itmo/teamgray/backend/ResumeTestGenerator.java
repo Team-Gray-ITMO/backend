@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
 import vk.itmo.teamgray.backend.cetification.services.CertificationService;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
@@ -29,6 +30,7 @@ import vk.itmo.teamgray.backend.language.services.LanguageService;
 import vk.itmo.teamgray.backend.resume.dto.LinkCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
+import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.services.LinkService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
@@ -69,10 +71,14 @@ public class ResumeTestGenerator {
     @Autowired
     private ResumeService resumeService;
 
+    @Autowired
+    private ResumeMapper resumeMapper;
+
     private final Random random = new Random();
 
+    @Transactional
     public List<ResumeDto> generateResumes(int amount) {
-        return IntStream.range(1, amount + 1)
+        var resumes = IntStream.range(1, amount + 1)
             .mapToObj(i -> {
                 var user = userService.createUser(new UserCreateDto("email" + i + "@example.com", (long)i));
 
@@ -186,5 +192,7 @@ public class ResumeTestGenerator {
                 return resumeService.findById(resume.getId());
             })
             .toList();
+
+        return resumeMapper.toDtoList(resumes);
     }
 }

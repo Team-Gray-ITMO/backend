@@ -23,14 +23,14 @@ public class LinkService {
     public Link createLink(LinkCreateDto data) {
         return linkRepository.save(new Link(
             data,
-            resumeService.findEntityById(data.resumeId())
+            resumeService.findById(data.resumeId())
         ));
     }
 
     public Link updateLink(LinkUpdateDto data) {
         return linkRepository.save(new Link(
             data,
-            resumeService.findEntityById(data.resumeId())
+            resumeService.findById(data.resumeId())
         ));
     }
 
