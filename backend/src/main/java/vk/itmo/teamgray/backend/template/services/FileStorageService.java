@@ -29,8 +29,6 @@ import vk.itmo.teamgray.backend.template.exception.FileStorageServiceException;
 @Slf4j
 @Service
 public class FileStorageService {
-    private static final String CONTENT_TYPE_META = "contentType";
-
     private final S3Client s3Client;
     private final String bucketName;
 
@@ -95,15 +93,11 @@ public class FileStorageService {
     public String uploadFile(FileDto file) {
         String fileName = UUID.randomUUID() + "-" + file.getFilename();
 
-        Map<String, String> userMetaData = new HashMap<>();
-        userMetaData.put(CONTENT_TYPE_META, file.getContentType());
-
         try {
             s3Client.putObject(
                 PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(fileName)
-                    .metadata(userMetaData)
                     .contentType(file.getContentType())
                     .build(),
                 RequestBody.fromInputStream(new ByteArrayInputStream(file.getContent()), file.getContent().length)
@@ -134,7 +128,7 @@ public class FileStorageService {
 
             fileDto.setFilename(filePath);
             fileDto.setContent(inputStream.readAllBytes());
-            fileDto.setContentType(head.metadata().get(CONTENT_TYPE_META));
+            fileDto.setContentType(head.contentType());
 
             return fileDto;
         } catch (Exception e) {
