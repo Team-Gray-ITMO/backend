@@ -25,7 +25,7 @@ public class JobService {
     public Job createJob(JobCreateDto data) {
         return jobRepository.save(new Job(
             data,
-            resumeService.findById(data.resumeId()),
+            resumeService.findEntityById(data.resumeId()),
             companyService.findById(data.companyId())
         ));
     }
@@ -33,7 +33,7 @@ public class JobService {
     public Job updateJob(JobUpdateDto data) {
         return jobRepository.save(new Job(
             data,
-            resumeService.findById(data.resumeId()),
+            resumeService.findEntityById(data.resumeId()),
             companyService.findById(data.companyId())
         ));
     }

@@ -24,14 +24,14 @@ public class LanguageService {
     public Language createLanguage(LanguageCreateDto data) {
         return languageRepository.save(new Language(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 
     public Language updateLanguage(LanguageUpdateDto data) {
         return languageRepository.save(new Language(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 

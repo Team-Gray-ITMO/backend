@@ -24,14 +24,14 @@ public class CertificationService {
     public Certification createCertification(CertificationCreateDto data) {
         return certificationRepository.save(new Certification(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 
     public Certification updateCertification(CertificationUpdateDto data) {
         return certificationRepository.save(new Certification(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 

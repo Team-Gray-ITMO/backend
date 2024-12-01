@@ -25,7 +25,7 @@ public class EducationService {
     public Education createEducation(EducationCreateDto data) {
         return educationRepository.save(new Education(
             data,
-            resumeService.findById(data.resumeId()),
+            resumeService.findEntityById(data.resumeId()),
             educationInstitutionService.findById(data.educationInstitutionId())
         ));
     }
@@ -33,7 +33,7 @@ public class EducationService {
     public Education updateEducation(EducationUpdateDto data) {
         return educationRepository.save(new Education(
             data,
-            resumeService.findById(data.resumeId()),
+            resumeService.findEntityById(data.resumeId()),
             educationInstitutionService.findById(data.educationInstitutionId())
         ));
     }

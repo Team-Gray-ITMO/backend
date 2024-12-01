@@ -24,14 +24,14 @@ public class SkillService {
     public Skill createSkill(SkillCreateDto data) {
         return skillRepository.save(new Skill(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 
     public Skill updateSkill(SkillUpdateDto data) {
         return skillRepository.save(new Skill(
             data,
-            resumeService.findById(data.resumeId())
+            resumeService.findEntityById(data.resumeId())
         ));
     }
 

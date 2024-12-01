@@ -22,6 +22,9 @@ public abstract class TestBase {
     @Autowired
     private EducationInstitutionRepository educationInstitutionRepository;
 
+    @Autowired
+    protected ResumeTestGenerator resumeGenerator;
+
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();

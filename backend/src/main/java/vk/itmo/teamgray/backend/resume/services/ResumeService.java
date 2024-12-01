@@ -3,7 +3,6 @@ package vk.itmo.teamgray.backend.resume.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,27 +33,35 @@ public class ResumeService {
 
     private final ObjectMapper objectMapper;
 
-    public Resume findById(Long id) {
+    public ResumeDto findById(Long id) {
+        return resumeMapper.toDto(findEntityById(id));
+    }
+
+    public Resume findEntityById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public Resume createResume(ResumeCreateDto data) {
+    public ResumeDto createResume(ResumeCreateDto data) {
         //TODO Maybe resolve user from auth context.
         var user = userRepository.findById(data.userId())
             .orElseThrow(ModelNotFoundException::new);
 
-        return resumeRepository.save(
-            new Resume(
-                data,
-                user
+        return resumeMapper.toDto(
+            resumeRepository.save(
+                new Resume(
+                    data,
+                    user
+                )
             )
         );
     }
 
-    public Resume updateResume(ResumeUpdateDto data) {
-        return resumeRepository.save(
-            new Resume(
-                data
+    public ResumeDto updateResume(ResumeUpdateDto data) {
+        return resumeMapper.toDto(
+            resumeRepository.save(
+                new Resume(
+                    data
+                )
             )
         );
     }
@@ -92,6 +99,6 @@ public class ResumeService {
             Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
+        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
     }
 }
