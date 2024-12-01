@@ -1,12 +1,21 @@
 package vk.itmo.teamgray.backend;
 
+import java.io.IOException;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import vk.itmo.teamgray.backend.education.repos.EducationInstitutionRepository;
 import vk.itmo.teamgray.backend.job.repos.CompanyRepository;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
+import vk.itmo.teamgray.backend.template.dto.FileDto;
+import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
+import vk.itmo.teamgray.backend.template.dto.TemplateDto;
+import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
+
+import static vk.itmo.teamgray.backend.template.services.TemplateMergeService.INDEX_HTML_FILENAME;
+import static vk.itmo.teamgray.backend.template.utils.ZipUtils.repackZip;
 
 @SpringBootTest
 public abstract class TestBase {
@@ -22,11 +31,55 @@ public abstract class TestBase {
     @Autowired
     private EducationInstitutionRepository educationInstitutionRepository;
 
+    @Autowired
+    private TemplateService templateService;
+
+    @Autowired
+    protected ResumeTestGenerator resumeGenerator;
+
+    protected TemplateDto sampleTemplate;
+
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();
         resumeRepository.deleteAll();
         companyRepository.deleteAll();
         educationInstitutionRepository.deleteAll();
+
+        sampleTemplate = createSampleTemplate();
+    }
+
+    private TemplateDto createSampleTemplate() {
+        var fileDto = new FileDto();
+
+        var filename = "sample_template";
+
+        var filepath = "/templates/" + filename + ".vm";
+
+        var zipFileName = filename + ".zip";
+
+        fileDto.setFilename(zipFileName);
+        fileDto.setContentType("application/zip");
+
+        try (var stream = TestBase.class.getResourceAsStream(filepath)) {
+            if (stream == null) {
+                throw new AssertionError("Null stream for file " + filepath);
+            }
+
+            var zipFile = repackZip(Map.of(INDEX_HTML_FILENAME, stream.readAllBytes()));
+
+            fileDto.setContent(zipFile);
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+
+        var name = "Test_Template";
+
+        return templateService.createTemplate(
+            new TemplateCreateDto(
+                name,
+                fileDto
+            )
+        );
     }
 }
