@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.template.services;
+package vk.itmo.teamgray.backend.template.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -75,7 +75,7 @@ public class ResumeService {
         );
 
         dto.getEducations().sort(
-            Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal())
+            Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
                 .thenComparing(EducationDto::getStartDate).reversed()
         );
 

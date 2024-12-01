@@ -16,9 +16,10 @@ import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
+import vk.itmo.teamgray.backend.template.utils.TemplateUtils;
 
-import static vk.itmo.teamgray.backend.template.services.ZipUtils.extractZipContents;
-import static vk.itmo.teamgray.backend.template.services.ZipUtils.repackZip;
+import static vk.itmo.teamgray.backend.template.utils.ZipUtils.extractZipContents;
+import static vk.itmo.teamgray.backend.template.utils.ZipUtils.repackZip;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +71,8 @@ public class TemplateMergeService {
         repo.putStringResource(INDEX_HTML_FILENAME, templateContent);
 
         VelocityContext context = new VelocityContext();
+        context.put("utils", new TemplateUtils());
+
         valuesMap.forEach(context::put);
 
         try (

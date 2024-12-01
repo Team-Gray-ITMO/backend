@@ -15,7 +15,7 @@ import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
 import static vk.itmo.teamgray.backend.template.services.TemplateMergeService.INDEX_HTML_FILENAME;
-import static vk.itmo.teamgray.backend.template.services.ZipUtils.repackZip;
+import static vk.itmo.teamgray.backend.template.utils.ZipUtils.repackZip;
 
 @SpringBootTest
 public abstract class TestBase {

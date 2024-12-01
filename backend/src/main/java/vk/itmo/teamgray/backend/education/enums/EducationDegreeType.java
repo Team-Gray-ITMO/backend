@@ -1,9 +1,9 @@
 package vk.itmo.teamgray.backend.education.enums;
 
 public enum EducationDegreeType {
-    ELEMENTARY_SCHOOL,
-    HIGH_SCHOOL,
-    COLLEGE,
     UNIVERSITY,
+    COLLEGE,
+    HIGH_SCHOOL,
+    ELEMENTARY_SCHOOL,
     OTHER
 }
