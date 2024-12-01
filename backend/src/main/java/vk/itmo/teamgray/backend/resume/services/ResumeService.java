@@ -39,8 +39,12 @@ public class ResumeService {
 
     private final ObjectMapper objectMapper;
 
-    public ResumeDto getById(Long id) {
+    public ResumeDto getDTOById(Long id) {
         return resumeMapper.toDto(resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new));
+    }
+
+    public Resume findById(Long id) {
+        return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
     public Resume createResume(ResumeCreateDto data) {
