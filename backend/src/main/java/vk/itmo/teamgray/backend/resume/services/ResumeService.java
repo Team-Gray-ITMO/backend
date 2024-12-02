@@ -1,8 +1,10 @@
 package vk.itmo.teamgray.backend.resume.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Comparator;
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
+import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
 @Service
@@ -28,6 +31,7 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     private final UserRepository userRepository;
+    private final TemplateRepository templateRepository;
 
     private final ResumeMapper resumeMapper;
 
@@ -44,21 +48,29 @@ public class ResumeService {
     public Resume createResume(ResumeCreateDto data) {
         //TODO Maybe resolve user from auth context.
         var user = userRepository.findById(data.userId())
-            .orElseThrow(ModelNotFoundException::new);
+                .orElseThrow(ModelNotFoundException::new);
+        var template = templateRepository.findById(data.templateId())
+                .orElseThrow(ModelNotFoundException::new);
 
         return resumeRepository.save(
-            new Resume(
-                data,
-                user
-            )
+                new Resume(
+                        data,
+                        user,
+                        template
+                )
         );
     }
 
     public Resume updateResume(ResumeUpdateDto data) {
+        //TODO Maybe resolve user from auth context.
+        var template = templateRepository.findById(data.templateId())
+                .orElseThrow(ModelNotFoundException::new);
+
         return resumeRepository.save(
-            new Resume(
-                data
-            )
+                new Resume(
+                        data,
+                        template
+                )
         );
     }
 
@@ -71,30 +83,30 @@ public class ResumeService {
         var dto = resumeMapper.toDto(resumeRepository.getResume(resumeId));
 
         dto.getCertifications().sort(
-            Comparator.comparing(CertificationDto::getIssueDate).reversed()
+                Comparator.comparing(CertificationDto::getIssueDate).reversed()
         );
 
         dto.getEducations().sort(
-            Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
-                .thenComparing(EducationDto::getStartDate).reversed()
+                Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
+                        .thenComparing(EducationDto::getStartDate).reversed()
         );
 
         dto.getJobs().sort(
-            Comparator.comparing(JobDto::getStartDate).reversed()
+                Comparator.comparing(JobDto::getStartDate).reversed()
         );
 
         dto.getLinks().sort(
-            Comparator.comparing(LinkDto::getPlatformName)
+                Comparator.comparing(LinkDto::getPlatformName)
         );
 
         dto.getSkills().sort(
-            Comparator.comparing((SkillDto it) -> it.getProficiency().ordinal()).reversed()
+                Comparator.comparing((SkillDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
         dto.getLanguages().sort(
-            Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
+                Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
+        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
     }
 }
