@@ -9,6 +9,12 @@
         <addColumn tableName="resume">
             <column name="template_id" type="BIGINT"/>
         </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="template_id"
+                                 baseTableName="resume"
+                                 constraintName="FK_RESUME_ON_TEMPLATE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="template"/>
     </changeSet>
 
 </databaseChangeLog>
