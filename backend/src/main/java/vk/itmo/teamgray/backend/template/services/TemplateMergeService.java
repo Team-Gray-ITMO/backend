@@ -16,8 +16,6 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
-import vk.itmo.teamgray.backend.template.entities.Template;
-import vk.itmo.teamgray.backend.template.entities.TemplateMapper;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
 import vk.itmo.teamgray.backend.template.utils.TemplateUtils;
 
@@ -32,20 +30,50 @@ public class TemplateMergeService {
     private final TemplateService templateService;
 
     private final ResumeService resumeService;
-    private final TemplateMapper templateMapper;
+
+    private static byte[] processHtml(Map<String, Object> valuesMap, String templateContent) {
+        if (templateContent == null) {
+            throw new IllegalArgumentException(INDEX_HTML_FILENAME + "not found in the provided zip file.");
+        }
+
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADERS, "string");
+        Velocity.addProperty("resource.loader.string.class", StringResourceLoader.class.getName());
+        Velocity.init();
+
+        StringResourceRepository repo = StringResourceLoader.getRepository();
+        repo.putStringResource(INDEX_HTML_FILENAME, templateContent);
+
+        VelocityContext context = new VelocityContext();
+        context.put("utils", new TemplateUtils());
+
+        valuesMap.forEach(context::put);
+
+        try (
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)
+        ) {
+            Velocity.mergeTemplate(INDEX_HTML_FILENAME, "UTF-8", context, writer);
+
+            writer.flush();
+
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            throw new TemplateMergeServiceException("Failed to merge template content.", e);
+        }
+    }
 
     public FileDto mergeTemplate(long resumeId, long templateId) {
-        var template = templateService.findById(templateId);
+        var template = templateService.getDtoById(templateId);
 
         var resume = resumeService.getResumeJsonForMerge(resumeId);
 
         return mergeTemplate(template, resume);
     }
 
-    public byte[] mergeTemplateToHtml(Resume resume, Template template) {
+    public byte[] mergeTemplateToHtml(Resume resume) {
         return mergeTemplateToHtml(
-                templateMapper.toDto(template),
-                resumeService.getResumeJsonForMerge(resume)
+            templateService.getTemplateDto(resume.getTemplate()),
+            resumeService.getResumeJsonForMerge(resume)
         );
     }
 
@@ -81,36 +109,5 @@ public class TemplateMergeService {
         byte[] newZipContent = repackZip(zipContents);
 
         return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
-    }
-
-    private static byte[] processHtml(Map<String, Object> valuesMap, String templateContent) {
-        if (templateContent == null) {
-            throw new IllegalArgumentException(INDEX_HTML_FILENAME + "not found in the provided zip file.");
-        }
-
-        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADERS, "string");
-        Velocity.addProperty("resource.loader.string.class", StringResourceLoader.class.getName());
-        Velocity.init();
-
-        StringResourceRepository repo = StringResourceLoader.getRepository();
-        repo.putStringResource(INDEX_HTML_FILENAME, templateContent);
-
-        VelocityContext context = new VelocityContext();
-        context.put("utils", new TemplateUtils());
-
-        valuesMap.forEach(context::put);
-
-        try (
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)
-        ) {
-            Velocity.mergeTemplate(INDEX_HTML_FILENAME, "UTF-8", context, writer);
-
-            writer.flush();
-
-            return outputStream.toByteArray();
-        } catch (IOException e) {
-            throw new TemplateMergeServiceException("Failed to merge template content.", e);
-        }
     }
 }
