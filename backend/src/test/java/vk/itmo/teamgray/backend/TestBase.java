@@ -49,7 +49,7 @@ public abstract class TestBase {
         sampleTemplate = createSampleTemplate();
     }
 
-    private TemplateDto createSampleTemplate() {
+    protected TemplateDto createSampleTemplate() {
         var fileDto = new FileDto();
 
         var filename = "sample_template";

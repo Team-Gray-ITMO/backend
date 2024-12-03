@@ -26,7 +26,7 @@ class TemplateMergeServiceTest extends TestBase {
 
     @Test
     void testMerge() throws IOException {
-        var resume = resumeGenerator.generateResumes(1).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
 
         FileDto mergedFile = templateMergeService.mergeTemplate(resume.getId(), sampleTemplate.getId());
 

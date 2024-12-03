@@ -12,9 +12,12 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.springframework.stereotype.Service;
+import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
+import vk.itmo.teamgray.backend.template.entities.Template;
+import vk.itmo.teamgray.backend.template.entities.TemplateMapper;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
 import vk.itmo.teamgray.backend.template.utils.TemplateUtils;
 
@@ -29,6 +32,7 @@ public class TemplateMergeService {
     private final TemplateService templateService;
 
     private final ResumeService resumeService;
+    private final TemplateMapper templateMapper;
 
     public FileDto mergeTemplate(long resumeId, long templateId) {
         var template = templateService.findById(templateId);
@@ -36,6 +40,27 @@ public class TemplateMergeService {
         var resume = resumeService.getResumeJsonForMerge(resumeId);
 
         return mergeTemplate(template, resume);
+    }
+
+    public byte[] mergeTemplateToHtml(Resume resume, Template template) {
+        return mergeTemplateToHtml(
+                templateMapper.toDto(template),
+                resumeService.getResumeJsonForMerge(resume)
+        );
+    }
+
+    private byte[] mergeTemplateToHtml(TemplateDto templateDto, Map<String, Object> valuesMap) {
+        Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
+
+        byte[] templateBytes = zipContents.get(INDEX_HTML_FILENAME);
+
+        if (templateBytes == null) {
+            throw new IllegalArgumentException(INDEX_HTML_FILENAME + " not found in the provided zip file.");
+        }
+
+        String templateContent = new String(templateBytes, StandardCharsets.UTF_8);
+
+        return processHtml(valuesMap, templateContent);
     }
 
     private FileDto mergeTemplate(TemplateDto templateDto, Map<String, Object> valuesMap) {
