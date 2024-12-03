@@ -18,10 +18,10 @@ public interface TemplateMapper {
 
     List<TemplateBaseDto> toBaseDtoList(List<Template> entities);
 
-    TemplateDto toDto(Template template);
+    TemplateDto toDtoEmptyFile(Template template);
 
     default TemplateDto toDto(Template entity, FileDto file) {
-        var dto = toDto(entity);
+        var dto = toDtoEmptyFile(entity);
 
         dto.setFile(file);
 
