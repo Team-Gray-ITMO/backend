@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend;
+package vk.itmo.teamgray.backend.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
