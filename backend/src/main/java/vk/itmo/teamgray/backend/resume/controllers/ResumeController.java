@@ -2,7 +2,6 @@ package vk.itmo.teamgray.backend.resume.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +21,15 @@ public class ResumeController {
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
         byte[] htmlAsArray = templateMergeService.mergeTemplateToHtml(
                 resumeService.findById(resumeId)
+        );
+        ByteArrayResource response = new ByteArrayResource(htmlAsArray);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{resumeId}/docx")
+    public ResponseEntity<ByteArrayResource> getDocx(@PathVariable Long resumeId) {
+        byte[] htmlAsArray = resumeExportService.extractDocx(
+                resumeId
         );
         ByteArrayResource response = new ByteArrayResource(htmlAsArray);
         return ResponseEntity.ok(response);
