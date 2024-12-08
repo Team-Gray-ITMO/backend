@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.cetification.services.CertificationService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/certifications")
+@RequestMapping(API_VER + "/certification")
 @RequiredArgsConstructor
-@Tag(name = "Certifications", description = "CRUD operations for certifications")
+@Tag(name = "Certification", description = "CRUD operations for certifications")
 public class CertificationController {
     private final CertificationService certificationService;
 

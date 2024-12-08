@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @Configuration
 public class OpenAPIConfiguration {
-
-    public static final String API_VER = "/api/v1";
-
     @Bean
     public GroupedOpenApi publicUserApi() {
         return GroupedOpenApi.builder()
@@ -63,10 +62,26 @@ public class OpenAPIConfiguration {
     }
 
     @Bean
+    public GroupedOpenApi publicCompanyApi() {
+        return GroupedOpenApi.builder()
+            .group("Company")
+            .pathsToMatch(API_VER + "/company/**")
+            .build();
+    }
+
+    @Bean
     public GroupedOpenApi publicEducationApi() {
         return GroupedOpenApi.builder()
             .group("Education")
             .pathsToMatch(API_VER + "/education/**")
+            .build();
+    }
+
+    @Bean
+    public GroupedOpenApi publicEducationInstitutionApi() {
+        return GroupedOpenApi.builder()
+            .group("Education Institution")
+            .pathsToMatch(API_VER + "/education-institution/**")
             .build();
     }
 

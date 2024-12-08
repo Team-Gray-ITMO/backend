@@ -17,9 +17,11 @@ import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.services.ResumeExportService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/resume")
+@RequestMapping(API_VER + "/resume")
 public class ResumeController {
     private final ResumeExportService resumeExportService;
     private final ResumeService resumeService;

@@ -18,8 +18,10 @@ import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping(API_VER + "/user")
 @RequiredArgsConstructor
 @Tag(name = "User Management", description = "Operations related to user management")
 public class UserController {

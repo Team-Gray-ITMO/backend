@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.services.EducationService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/educations")
+@RequestMapping(API_VER + "/education")
 @RequiredArgsConstructor
-@Tag(name = "Educations", description = "CRUD operations for education records")
+@Tag(name = "Education", description = "CRUD operations for education records")
 public class EducationController {
     private final EducationService educationService;
 

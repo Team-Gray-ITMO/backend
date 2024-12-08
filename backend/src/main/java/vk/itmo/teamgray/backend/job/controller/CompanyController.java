@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.job.dto.CompanyDto;
 import vk.itmo.teamgray.backend.job.dto.CompanyUpdateDto;
 import vk.itmo.teamgray.backend.job.service.CompanyService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/companies")
+@RequestMapping(API_VER + "/company")
 @RequiredArgsConstructor
-@Tag(name = "Companies", description = "CRUD operations for company records")
+@Tag(name = "Company", description = "CRUD operations for company records")
 public class CompanyController {
     private final CompanyService companyService;
 

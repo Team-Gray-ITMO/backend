@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.skill.dto.SkillUpdateDto;
 import vk.itmo.teamgray.backend.skill.services.SkillService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/skills")
+@RequestMapping(API_VER + "/skill")
 @RequiredArgsConstructor
-@Tag(name = "Skills", description = "CRUD operations for skills")
+@Tag(name = "Skill", description = "CRUD operations for skills")
 public class SkillController {
 
     private final SkillService skillService;

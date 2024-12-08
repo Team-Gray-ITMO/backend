@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageUpdateDto;
 import vk.itmo.teamgray.backend.language.services.LanguageService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/languages")
+@RequestMapping(API_VER + "/language")
 @RequiredArgsConstructor
-@Tag(name = "Languages", description = "CRUD operations for language records")
+@Tag(name = "Language", description = "CRUD operations for language records")
 public class LanguageController {
 
     private final LanguageService languageService;

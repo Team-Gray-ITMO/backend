@@ -21,10 +21,12 @@ import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.job.dto.JobUpdateDto;
 import vk.itmo.teamgray.backend.job.service.JobService;
 
+import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+
 @RestController
-@RequestMapping("/api/v1/jobs")
+@RequestMapping(API_VER + "/job")
 @RequiredArgsConstructor
-@Tag(name = "Jobs", description = "CRUD operations for job records")
+@Tag(name = "Job", description = "CRUD operations for job records")
 public class JobController {
     private final JobService jobService;
 
