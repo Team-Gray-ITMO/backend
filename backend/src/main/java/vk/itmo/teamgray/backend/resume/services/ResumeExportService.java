@@ -28,13 +28,13 @@ public class ResumeExportService {
     private final TemplateMergeService templateMergeService;
 
     public byte[] extractHtml(Long resumeId) {
-        Resume resume = resumeService.findById(resumeId);
+        Resume resume = resumeService.findEntityById(resumeId);
         return templateMergeService.mergeTemplateToHtml(resume);
     }
 
     public byte[] extractPdf(Long resumeId) {
         try {
-            Resume resume = resumeService.findById(resumeId);
+            Resume resume = resumeService.findEntityById(resumeId);
             var htmlTemplate = templateMergeService.mergeTemplateToHtml(resume);
             ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
             HtmlConverter.convertToPdf(new ByteArrayInputStream(htmlTemplate), pdfOutputStream);
@@ -46,7 +46,7 @@ public class ResumeExportService {
     }
 
     public byte[] extractDocx(Long resumeId) {
-        Resume resume = resumeService.findById(resumeId);
+        Resume resume = resumeService.findEntityById(resumeId);
         byte[] htmlTemplate = templateMergeService.mergeTemplateToHtml(resume);
 
         String htmlContent = new String(htmlTemplate, StandardCharsets.UTF_8);

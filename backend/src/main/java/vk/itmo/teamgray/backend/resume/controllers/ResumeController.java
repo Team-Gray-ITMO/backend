@@ -30,7 +30,9 @@ public class ResumeController {
         byte[] htmlAsArray = resumeExportService.extractHtml(
             resumeId
         );
+
         ByteArrayResource response = new ByteArrayResource(htmlAsArray);
+
         return ResponseEntity.ok(response);
     }
 
@@ -39,10 +41,12 @@ public class ResumeController {
         byte[] pdfAsArray = resumeExportService.extractPdf(
             resumeId
         );
+
         ByteArrayResource resource = new ByteArrayResource(pdfAsArray);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=resume_" + resumeId + ".pdf");
         headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+
         return ResponseEntity
             .status(HttpStatus.OK)
             .headers(headers)
@@ -65,8 +69,7 @@ public class ResumeController {
         return ResponseEntity.ok(resumeMapper.toDto(resumeService.findEntityById(id)));
     }
 
-
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<ResumeDto>> getMyResumes() {
         return ResponseEntity.ok(resumeMapper.toDtoList(resumeService.findAll()));
     }
