@@ -20,19 +20,19 @@ import static vk.itmo.teamgray.backend.template.utils.ZipUtils.repackZip;
 @SpringBootTest
 public abstract class TestBase {
     @Autowired
-    private ResumeRepository resumeRepository;
+    protected ResumeRepository resumeRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    protected UserRepository userRepository;
 
     @Autowired
-    private CompanyRepository companyRepository;
+    protected CompanyRepository companyRepository;
 
     @Autowired
-    private EducationInstitutionRepository educationInstitutionRepository;
+    protected EducationInstitutionRepository educationInstitutionRepository;
 
     @Autowired
-    private TemplateService templateService;
+    protected TemplateService templateService;
 
     @Autowired
     protected ResumeTestGenerator resumeGenerator;
@@ -49,7 +49,7 @@ public abstract class TestBase {
         sampleTemplate = createSampleTemplate();
     }
 
-    private TemplateDto createSampleTemplate() {
+    protected TemplateDto createSampleTemplate() {
         var fileDto = new FileDto();
 
         var filename = "sample_template";

@@ -10,6 +10,7 @@ import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
 import vk.itmo.teamgray.backend.template.entities.Template;
+import vk.itmo.teamgray.backend.template.mapper.TemplateMapper;
 import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
 
 @Service
@@ -19,9 +20,10 @@ public class TemplateService {
     private final TemplateRepository templateRepository;
 
     private final FileStorageService fileStorageService;
+    private final TemplateMapper templateMapper;
 
-    public TemplateDto findById(Long id) {
-        return getTemplateDto(getEntityById(id));
+    public TemplateDto getDtoById(Long id) {
+        return getTemplateDto(getById(id));
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
@@ -39,7 +41,7 @@ public class TemplateService {
     }
 
     public TemplateDto updateTemplate(TemplateUpdateDto dto) {
-        var template = getEntityById(dto.getId());
+        var template = getById(dto.getId());
 
         if (dto.getFile() != null) {
             var file = dto.getFile();
@@ -60,18 +62,14 @@ public class TemplateService {
         templateRepository.deleteById(id);
     }
 
-    private Template getEntityById(Long id) {
+    private Template getById(Long id) {
         return templateRepository.findById(id)
             .orElseThrow(ModelNotFoundException::new);
     }
 
-    private TemplateDto getTemplateDto(Template template) {
+    public TemplateDto getTemplateDto(Template template) {
         FileDto file = fileStorageService.getFile(template.getFilePath());
 
-        return new TemplateDto(
-            template.getId(),
-            template.getName(),
-            file
-        );
+        return templateMapper.toDto(template, file);
     }
 }

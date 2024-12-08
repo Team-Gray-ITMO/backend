@@ -75,12 +75,16 @@ public class ResumeTestGenerator {
 
     private final Random random = new Random();
 
-    public List<ResumeDto> generateResumes(int amount) {
+    public List<ResumeDto> generateResumes(int amount, long templateId) {
         var resumes = IntStream.range(1, amount + 1)
             .mapToObj(i -> {
                 var user = userService.createUser(new UserCreateDto("email" + i + "@example.com", (long)i));
 
-                var resume = resumeService.createResume(new ResumeCreateDto(user.getId(), "Test Summary " + i));
+                var resume = resumeService.createResume(
+                        new ResumeCreateDto(
+                                user.getId(), "Test Summary " + i, templateId
+                        )
+                );
 
                 certificationService.createCertification(
                     new CertificationCreateDto(

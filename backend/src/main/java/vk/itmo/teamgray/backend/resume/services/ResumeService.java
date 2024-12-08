@@ -21,7 +21,9 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
+import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
+import vk.itmo.teamgray.backend.template.services.TemplateMergeService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
 import java.util.List;
@@ -31,7 +33,6 @@ import java.util.List;
 @Transactional
 public class ResumeService {
     private final ResumeRepository resumeRepository;
-
     private final UserRepository userRepository;
     private final TemplateRepository templateRepository;
 
@@ -87,6 +88,38 @@ public class ResumeService {
     @SuppressWarnings("unchecked")
     public Map<String, Object> getResumeJsonForMerge(long resumeId) {
         var dto = resumeMapper.toDto(resumeRepository.getResume(resumeId));
+
+        dto.getCertifications().sort(
+                Comparator.comparing(CertificationDto::getIssueDate).reversed()
+        );
+
+        dto.getEducations().sort(
+                Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
+                        .thenComparing(EducationDto::getStartDate).reversed()
+        );
+
+        dto.getJobs().sort(
+                Comparator.comparing(JobDto::getStartDate).reversed()
+        );
+
+        dto.getLinks().sort(
+                Comparator.comparing(LinkDto::getPlatformName)
+        );
+
+        dto.getSkills().sort(
+                Comparator.comparing((SkillDto it) -> it.getProficiency().ordinal()).reversed()
+        );
+
+        dto.getLanguages().sort(
+                Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
+        );
+
+        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getResumeJsonForMerge(Resume resume) {
+        var dto = resumeMapper.toDto(resume);
 
         dto.getCertifications().sort(
                 Comparator.comparing(CertificationDto::getIssueDate).reversed()
