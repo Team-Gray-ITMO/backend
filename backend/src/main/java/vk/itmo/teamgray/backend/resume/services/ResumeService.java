@@ -37,6 +37,7 @@ public class ResumeService {
     private final TemplateRepository templateRepository;
 
     public List<Resume> findAll(){
+        //TODO Do join fetch, to avoid N+1
         return resumeRepository.findAll();
     }
 

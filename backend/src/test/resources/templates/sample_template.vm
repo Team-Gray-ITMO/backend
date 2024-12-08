@@ -60,8 +60,8 @@
                     #if ($job.title)
                         <p><strong>Должность:</strong> ${job.title}</p>
                     #end
-                    #if ($job.company)
-                        <p><strong>Компания:</strong> ${job.company}</p>
+                    #if ($job.company.name)
+                        <p><strong>Компания:</strong> ${job.company.name}</p>
                     #end
                     #if ($job.location)
                         <p><strong>Местоположение:</strong> ${job.location}</p>
@@ -84,8 +84,8 @@
         <ul>
             #foreach ($edu in ${educations})
                 <li>
-                    #if ($edu.educationInstitution)
-                        <p><strong>Институт:</strong> ${edu.educationInstitution}</p>
+                    #if ($edu.institution.name)
+                        <p><strong>Институт:</strong> ${edu.institution.name}</p>
                     #end
                     #if ($edu.degreeName && $edu.degreeType)
                         <p><strong>Степень:</strong> ${edu.degreeName} (${edu.degreeType})</p>
