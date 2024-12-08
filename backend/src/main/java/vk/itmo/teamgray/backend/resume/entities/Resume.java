@@ -20,6 +20,7 @@ import vk.itmo.teamgray.backend.language.entities.Language;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
+import vk.itmo.teamgray.backend.template.entities.Template;
 import vk.itmo.teamgray.backend.user.entities.User;
 
 @Getter
@@ -53,13 +54,19 @@ public class Resume extends BaseEntity {
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Link> links;
 
-    public Resume(ResumeCreateDto data, User user) {
-        this.user = user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "template_id")
+    private Template template;
 
+    public Resume(ResumeCreateDto data, User user, Template template) {
+        this.user = user;
+        this.template = template;
         summary = data.summary();
     }
 
-    public Resume(ResumeUpdateDto data) {
+    public Resume(ResumeUpdateDto data, Template template) {
         id = data.id();
+        this.template = template;
+        summary = data.summary();
     }
 }
