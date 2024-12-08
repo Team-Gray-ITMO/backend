@@ -20,10 +20,16 @@ public class TemplateService {
     private final TemplateRepository templateRepository;
 
     private final FileStorageService fileStorageService;
+
     private final TemplateMapper templateMapper;
 
-    public TemplateDto getDtoById(Long id) {
-        return getTemplateDto(getById(id));
+    public TemplateDto findById(Long id) {
+        return getTemplateDto(findEntityById(id));
+    }
+
+    private Template findEntityById(Long id) {
+        return templateRepository.findById(id)
+            .orElseThrow(ModelNotFoundException::new);
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
@@ -41,7 +47,7 @@ public class TemplateService {
     }
 
     public TemplateDto updateTemplate(TemplateUpdateDto dto) {
-        var template = getById(dto.getId());
+        var template = findEntityById(dto.getId());
 
         if (dto.getFile() != null) {
             var file = dto.getFile();
@@ -60,11 +66,6 @@ public class TemplateService {
 
     public void deleteById(Long id) {
         templateRepository.deleteById(id);
-    }
-
-    private Template getById(Long id) {
-        return templateRepository.findById(id)
-            .orElseThrow(ModelNotFoundException::new);
     }
 
     public TemplateDto getTemplateDto(Template template) {

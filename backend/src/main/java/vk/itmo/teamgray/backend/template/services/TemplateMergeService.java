@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -50,8 +49,8 @@ public class TemplateMergeService {
         valuesMap.forEach(context::put);
 
         try (
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)
         ) {
             Velocity.mergeTemplate(INDEX_HTML_FILENAME, "UTF-8", context, writer);
 
@@ -64,7 +63,7 @@ public class TemplateMergeService {
     }
 
     public FileDto mergeTemplate(long resumeId, long templateId) {
-        var template = templateService.getDtoById(templateId);
+        var template = templateService.findById(templateId);
 
         var resume = resumeService.getResumeJsonForMerge(resumeId);
 
@@ -76,8 +75,8 @@ public class TemplateMergeService {
 
         var resumeMap = resumeService.getResumeJsonForMerge(resume.getId());
         return mergeTemplateToHtml(
-                template,
-                resumeMap
+            template,
+            resumeMap
         );
     }
 

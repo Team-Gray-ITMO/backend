@@ -30,7 +30,7 @@ class TemplateServiceTest extends TestBase {
             )
         );
 
-        template = templateService.getDtoById(template.getId());
+        template = templateService.findById(template.getId());
 
         assertEquals(name, template.getName());
         assertArrayEquals(fileDto.getContent(), template.getFile().getContent());
@@ -51,7 +51,7 @@ class TemplateServiceTest extends TestBase {
             )
         );
 
-        template = templateService.getDtoById(template.getId());
+        template = templateService.findById(template.getId());
 
         assertEquals(name, template.getName());
         assertArrayEquals(fileDto2.getContent(), template.getFile().getContent());
@@ -60,6 +60,6 @@ class TemplateServiceTest extends TestBase {
 
         var templateId = template.getId();
 
-        assertThrows(ModelNotFoundException.class, () -> templateService.getDtoById(templateId));
+        assertThrows(ModelNotFoundException.class, () -> templateService.findById(templateId));
     }
 }

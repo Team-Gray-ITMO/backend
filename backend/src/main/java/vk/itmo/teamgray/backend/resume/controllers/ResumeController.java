@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
-import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.services.ResumeExportService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 
@@ -25,7 +24,6 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 public class ResumeController {
     private final ResumeExportService resumeExportService;
     private final ResumeService resumeService;
-    private final ResumeMapper resumeMapper;
 
     @GetMapping("/{resumeId}/html")
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
@@ -68,11 +66,11 @@ public class ResumeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(resumeMapper.toDto(resumeService.findEntityById(id)));
+        return ResponseEntity.ok(resumeService.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<ResumeDto>> getMyResumes() {
-        return ResponseEntity.ok(resumeMapper.toDtoList(resumeService.findAll()));
+        return ResponseEntity.ok(resumeService.findAll());
     }
 }
