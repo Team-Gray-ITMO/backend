@@ -3,6 +3,7 @@ package vk.itmo.teamgray.backend.template.services;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -56,5 +57,36 @@ class TemplateMergeServiceTest extends TestBase {
 
         Path extractedIndexHtml = outputDir.resolve(INDEX_HTML_FILENAME);
         assertTrue(Files.exists(extractedIndexHtml));
+    }
+
+    @Test
+    void testToHtml() {
+        var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
+        var resumeEntity = this.resumeRepository.getResume(resume.getId());
+
+        byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resumeEntity);
+
+        String htmlContent = new String(mergedHtml, StandardCharsets.UTF_8);
+        assertNotNull(htmlContent);
+        assertTrue(htmlContent.contains("email1@example.com"));
+        assertTrue(htmlContent.contains("Test Summary 1"));
+        assertTrue(htmlContent.contains("https://github.com"));
+        assertTrue(htmlContent.contains("https://linkedin.com"));
+        assertTrue(htmlContent.contains("Skill EXPERT 1"));
+        assertTrue(htmlContent.contains("Skill ADVANCED 1"));
+        assertTrue(htmlContent.contains("Skill INTERMEDIATE 1"));
+        assertTrue(htmlContent.contains("Skill BEGINNER 1"));
+        assertTrue(htmlContent.contains("Microsoft"));
+        assertTrue(htmlContent.contains("Google"));
+        assertTrue(htmlContent.contains("TestName UNIVERSITY1"));
+        assertTrue(htmlContent.contains("TestName COLLEGE1"));
+        assertTrue(htmlContent.contains("TestName HIGH_SCHOOL1"));
+        assertTrue(htmlContent.contains("TestName ELEMENTARY_SCHOOL1"));
+        assertTrue(htmlContent.contains("TestName OTHER1"));
+        assertTrue(htmlContent.contains("Language Test Name 1"));
+        assertTrue(htmlContent.contains("Test Name 1"));
+        assertTrue(htmlContent.contains("DE"));
+        assertTrue(htmlContent.contains("RU"));
+        assertTrue(htmlContent.contains("EN"));
     }
 }
