@@ -187,7 +187,7 @@ public class ResumeTestGenerator {
                     )
                 ));
 
-                return resumeService.getById(resume.getId());
+                return resumeService.getDTOById(resume.getId());
             })
             .toList();
 

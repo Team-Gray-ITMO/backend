@@ -24,6 +24,8 @@ import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -33,11 +35,15 @@ public class ResumeService {
     private final UserRepository userRepository;
     private final TemplateRepository templateRepository;
 
+    public List<Resume> findAll(){
+        return resumeRepository.findAll();
+    }
+
     private final ResumeMapper resumeMapper;
 
     private final ObjectMapper objectMapper;
 
-    public ResumeDto getById(Long id) {
+    public ResumeDto getDTOById(Long id) {
         return resumeMapper.toDto(resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new));
     }
 
