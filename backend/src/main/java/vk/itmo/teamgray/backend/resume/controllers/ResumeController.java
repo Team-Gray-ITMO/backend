@@ -42,13 +42,4 @@ public class ResumeController {
                 .headers(headers)
                 .body(resource);
     }
-
-    @GetMapping("/{resumeId}/docx")
-    public ResponseEntity<ByteArrayResource> getDocx(@PathVariable Long resumeId) {
-        byte[] htmlAsArray = resumeExportService.extractDocx(
-                resumeId
-        );
-        ByteArrayResource response = new ByteArrayResource(htmlAsArray);
-        return ResponseEntity.ok(response);
-    }
 }
