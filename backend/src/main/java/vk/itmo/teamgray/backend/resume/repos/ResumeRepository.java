@@ -12,8 +12,10 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
             FROM Resume r
             LEFT JOIN FETCH r.user
             LEFT JOIN FETCH r.certifications
-            LEFT JOIN FETCH r.educations
-            LEFT JOIN FETCH r.jobs
+            LEFT JOIN FETCH r.educations ed
+            LEFT JOIN FETCH ed.institution
+            LEFT JOIN FETCH r.jobs j
+            LEFT JOIN FETCH j.company
             LEFT JOIN FETCH r.links
             LEFT JOIN FETCH r.skills
             WHERE r.id = :resumeId

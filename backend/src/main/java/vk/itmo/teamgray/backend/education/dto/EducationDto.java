@@ -14,5 +14,5 @@ public class EducationDto {
     private Date startDate;
     private Date endDate;
     private String grade;
-    private EducationInstitutionDto educationInstitution;
+    private EducationInstitutionDto institution;
 }

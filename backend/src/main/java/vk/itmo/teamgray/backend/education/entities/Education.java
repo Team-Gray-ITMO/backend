@@ -29,7 +29,7 @@ public class Education extends BaseEntity {
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
 
