@@ -26,6 +26,6 @@ public class ResumeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> findById(@PathVariable Long id){
-        return ResponseEntity.ok(resumeMapper.toDto(resumeService.findById(id)));
+        return ResponseEntity.ok(resumeMapper.toDto(resumeService.findEntityById(id)));
     }
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
+import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.entities.Education;
+import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.education.repos.EducationRepository;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 
@@ -17,25 +19,34 @@ public class EducationService {
     private final EducationRepository educationRepository;
     private final ResumeService resumeService;
     private final EducationInstitutionService educationInstitutionService;
+    private final EducationMapper educationMapper;
 
-    public Education findById(Long id) {
+    public Education findEntityById(Long id) {
         return educationRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public Education createEducation(EducationCreateDto data) {
-        return educationRepository.save(new Education(
-            data,
-            resumeService.findById(data.resumeId()),
-            educationInstitutionService.findById(data.educationInstitutionId())
-        ));
+    public EducationDto findById(Long id) {
+        return educationMapper.toDto(findEntityById(id));
     }
 
-    public Education updateEducation(EducationUpdateDto data) {
-        return educationRepository.save(new Education(
-            data,
-            resumeService.findById(data.resumeId()),
-            educationInstitutionService.findById(data.educationInstitutionId())
-        ));
+    public EducationDto createEducation(EducationCreateDto data) {
+        return educationMapper.toDto(
+            educationRepository.save(new Education(
+                data,
+                resumeService.findEntityById(data.resumeId()),
+                educationInstitutionService.findEntityById(data.educationInstitutionId())
+            ))
+        );
+    }
+
+    public EducationDto updateEducation(EducationUpdateDto data) {
+        return educationMapper.toDto(
+            educationRepository.save(new Education(
+                data,
+                resumeService.findEntityById(data.resumeId()),
+                educationInstitutionService.findEntityById(data.educationInstitutionId())
+            ))
+        );
     }
 
     public void deleteById(Long id) {

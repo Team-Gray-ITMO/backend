@@ -47,7 +47,7 @@ public class ResumeService {
         return resumeMapper.toDto(resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new));
     }
 
-    public Resume findById(Long id) {
+    public Resume findEntityById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 

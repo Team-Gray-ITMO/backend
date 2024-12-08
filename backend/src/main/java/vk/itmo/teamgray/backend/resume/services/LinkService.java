@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.resume.dto.LinkCreateDto;
+import vk.itmo.teamgray.backend.resume.dto.LinkDto;
 import vk.itmo.teamgray.backend.resume.dto.LinkUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Link;
+import vk.itmo.teamgray.backend.resume.mapper.LinkMapper;
 import vk.itmo.teamgray.backend.resume.repos.LinkRepository;
 
 @Service
@@ -15,23 +17,31 @@ import vk.itmo.teamgray.backend.resume.repos.LinkRepository;
 public class LinkService {
     private final LinkRepository linkRepository;
     private final ResumeService resumeService;
+    private final LinkMapper linkMapper;
 
-    public Link findById(Long id) {
+    public Link findEntityById(Long id) {
         return linkRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public Link createLink(LinkCreateDto data) {
-        return linkRepository.save(new Link(
-            data,
-            resumeService.findById(data.resumeId())
-        ));
+    public LinkDto findById(Long id) {
+        return linkMapper.toDto(findEntityById(id));
     }
 
-    public Link updateLink(LinkUpdateDto data) {
-        return linkRepository.save(new Link(
-            data,
-            resumeService.findById(data.resumeId())
-        ));
+    public LinkDto createLink(LinkCreateDto data) {
+        return linkMapper.toDto(
+            linkRepository.save(new Link(
+                data,
+                resumeService.findEntityById(data.resumeId())
+            ))
+        );
+    }
+
+    public LinkDto updateLink(LinkUpdateDto data) {
+        return linkMapper.toDto(linkRepository.save(new Link(
+                data,
+                resumeService.findEntityById(data.resumeId())
+            ))
+        );
     }
 
     public void deleteById(Long id) {
