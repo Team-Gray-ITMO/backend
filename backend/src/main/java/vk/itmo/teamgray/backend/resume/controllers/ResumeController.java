@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.resume.controllers;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -44,11 +45,13 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}/docx")
-    public ResponseEntity<ByteArrayResource> getDocx(@PathVariable Long resumeId) {
-        byte[] htmlAsArray = resumeExportService.extractDocx(
+    public void getDocx(@PathVariable Long resumeId, HttpServletResponse response) throws IOException {
+        byte[] docxAsArray = resumeExportService.extractDocx(
                 resumeId
         );
-        ByteArrayResource response = new ByteArrayResource(htmlAsArray);
-        return ResponseEntity.ok(response);
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + ".docx");
+        response.getOutputStream().write(docxAsArray);
     }
 }
