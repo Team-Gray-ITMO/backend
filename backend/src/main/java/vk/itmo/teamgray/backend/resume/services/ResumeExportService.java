@@ -2,6 +2,13 @@ package vk.itmo.teamgray.backend.resume.services;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
@@ -40,6 +47,37 @@ public class ResumeExportService {
 
     public byte[] extractDocx(Long resumeId) {
         Resume resume = resumeService.findById(resumeId);
-        return templateMergeService.mergeTemplateToHtml(resume);
+        byte[] htmlTemplate = templateMergeService.mergeTemplateToHtml(resume);
+
+        String htmlContent = new String(htmlTemplate, StandardCharsets.UTF_8);
+
+        XWPFDocument document = new XWPFDocument();
+
+        Document htmlDocument = Jsoup.parse(htmlContent);
+        Elements paragraphs = htmlDocument.body().select("p, h1, h2, h3, h4, h5, h6");
+
+        for (Element paragraph : paragraphs) {
+            XWPFParagraph docParagraph = document.createParagraph();
+            XWPFRun run = docParagraph.createRun();
+            run.setText(paragraph.text());
+
+            switch (paragraph.tagName()) {
+                case "h1" -> run.setBold(true);
+                case "h2" -> {
+                    run.setBold(true);
+                    run.setFontSize(18);
+                }
+                case "h3" -> run.setFontSize(16);
+            }
+        }
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            document.write(outputStream);
+            document.close();
+            return outputStream.toByteArray();
+        }
+        catch (IOException ex){
+            throw new ConvertionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
+        }
     }
 }
