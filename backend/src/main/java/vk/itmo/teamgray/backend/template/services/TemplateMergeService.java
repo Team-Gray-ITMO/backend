@@ -13,6 +13,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.springframework.stereotype.Service;
+import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.generator.ResumeSampleGenerator;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
@@ -35,8 +36,6 @@ public class TemplateMergeService {
     private final ResumeService resumeService;
 
     private final ResumeSampleGenerator resumeSampleGenerator;
-
-    private final ResumeMapper resumeMapper;
 
     public List<TemplateDto> getAllTemplatesAndFill() {
         //TODO Resolve user from auth context.
@@ -69,10 +68,10 @@ public class TemplateMergeService {
         return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
     }
 
-    public byte[] mergeTemplateToHtml(Resume resume) {
-        var template = templateService.getTemplateDto(resume.getTemplate());
+    public byte[] mergeTemplateToHtml(ResumeDto resume) {
+        var template = templateService.findById(resume.getTemplate().getId());
 
-        var resumeMap = resumeService.getResumeJsonForMerge(resumeMapper.toDto(resume));
+        var resumeMap = resumeService.getResumeJsonForMerge(resume);
 
         Map<String, byte[]> zipContents = extractZipContents(template.getFile());
 
