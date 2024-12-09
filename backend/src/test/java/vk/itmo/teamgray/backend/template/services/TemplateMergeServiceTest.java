@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileSystemUtils;
 import vk.itmo.teamgray.backend.TestBase;
-import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

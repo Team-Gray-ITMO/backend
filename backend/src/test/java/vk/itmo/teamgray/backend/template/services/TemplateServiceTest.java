@@ -1,7 +1,6 @@
 package vk.itmo.teamgray.backend.template.services;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import vk.itmo.teamgray.backend.TestBase;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
@@ -14,9 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TemplateServiceTest extends TestBase {
     public static final byte[] EMPTY_BYTE_ARRAY = {};
-
-    @Autowired
-    private TemplateService templateService;
 
     @Test
     void testTemplate() {

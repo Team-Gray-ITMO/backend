@@ -40,9 +40,11 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @GetMapping
-    @Operation(summary = "Get all Resumes", description = "Retrieve all resumes.", responses = {
-        @ApiResponse(description = "Resumes retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ResumeDto.class))))
-    })
+    @Operation(
+        summary = "Get all Resumes",
+        description = "Retrieve all resumes.",
+        responses = @ApiResponse(description = "Resumes retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ResumeDto.class))))
+    )
     public ResponseEntity<List<ResumeDto>> findAll() {
         return ResponseEntity.ok(resumeService.findAll());
     }

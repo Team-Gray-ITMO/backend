@@ -12,6 +12,10 @@ import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
 
 public class ZipUtils {
+    private ZipUtils() {
+        // No-op.
+    }
+
     public static Map<String, byte[]> extractZipContents(FileDto fileDto) {
         Map<String, byte[]> zipContents = new HashMap<>();
 

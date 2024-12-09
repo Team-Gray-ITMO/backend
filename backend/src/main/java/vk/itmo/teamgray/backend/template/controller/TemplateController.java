@@ -36,17 +36,21 @@ public class TemplateController {
     private final TemplateMergeService templateMergeService;
 
     @GetMapping
-    @Operation(summary = "Get all Templates", description = "Retrieve all templates.", responses = {
-        @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
-    })
+    @Operation(
+        summary = "Get all Templates",
+        description = "Retrieve all templates.",
+        responses = @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
+    )
     public ResponseEntity<List<TemplateDto>> getAllTemplates() {
         return ResponseEntity.ok(templateService.findAll());
     }
 
     @GetMapping("/filled")
-    @Operation(summary = "Get all Templates Filled With Default Data", description = "Retrieve all templates.", responses = {
-        @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
-    })
+    @Operation(
+        summary = "Get all Templates Filled With Default Data",
+        description = "Retrieve all templates.",
+        responses = @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
+    )
     public ResponseEntity<List<TemplateDto>> getAllTemplatesFilled() {
         return ResponseEntity.ok(templateMergeService.getAllTemplatesAndFill());
     }
