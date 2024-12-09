@@ -1465,6 +1465,16 @@ components:
           type: integer
           description: VK ID
           format: int64
+        phoneNumber:
+          type: string
+          description: Phone number
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date-time
+        cityName:
+          type: string
+          description: City name
       description: User Model
     ResumeUpdateDto:
       type: object
@@ -1689,6 +1699,16 @@ components:
           type: integer
           description: VK ID
           format: int64
+        phoneNumber:
+          type: string
+          description: Phone number
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date-time
+        cityName:
+          type: string
+          description: City name
       description: User Create Model
     TemplateCreateDto:
       type: object

@@ -26,9 +26,6 @@ class TemplateMergeServiceTest extends TestBase {
     @Autowired
     private TemplateMergeService templateMergeService;
 
-    @Autowired
-    private ResumeService resumeService;
-
     @Test
     void testMerge() throws IOException {
         var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();

@@ -1,5 +1,7 @@
 package vk.itmo.teamgray.backend.resume.generator;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,15 @@ public class ResumeTestGenerator {
     public List<ResumeDto> generateResumes(int amount, long templateId) {
         return IntStream.range(1, amount + 1)
             .mapToObj(i -> {
-                var user = userService.createUser(new UserCreateDto("email" + i + "@example.com", (long)i));
+                var user = userService.createUser(
+                    new UserCreateDto(
+                        "email" + i + "@example.com",
+                        (long)i,
+                        String.valueOf(i),
+                        Date.from(Instant.now()),
+                        "City" + i
+                    )
+                );
 
                 return resumeSampleGenerator.generateResume(templateId, user.getId(), String.valueOf(i), true);
             })

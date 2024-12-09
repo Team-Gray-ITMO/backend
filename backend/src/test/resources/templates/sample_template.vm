@@ -9,10 +9,17 @@
 <header>
     <h1>Резюме</h1>
 </header>
-
-    #if ($user.email || $user.vkId)
     <section>
         <h2>Личная информация</h2>
+        #if ($user.cityName)
+            <p><strong>Город:</strong> ${user.cityName}</p>
+        #end
+        #if ($user.phoneNumber)
+            <p><strong>Номер Телефона:</strong> ${user.phoneNumber}</p>
+        #end
+        #if ($user.dateOfBirth)
+            <p><strong>Дата Рождения:</strong> ${user.dateOfBirth}</p>
+        #end
         #if ($user.email)
             <p><strong>Email:</strong> ${user.email}</p>
         #end
@@ -20,7 +27,6 @@
             <p><strong>VK ID:</strong> ${user.vkId}</p>
         #end
     </section>
-    #end
 
     #if ($summary)
     <section>
