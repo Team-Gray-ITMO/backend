@@ -62,9 +62,8 @@ class TemplateMergeServiceTest extends TestBase {
     @Test
     void testToHtml() {
         var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
-        var resumeEntity = this.resumeRepository.getResume(resume.getId());
 
-        byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resumeEntity);
+        byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resume);
 
         String htmlContent = new String(mergedHtml, StandardCharsets.UTF_8);
         assertNotNull(htmlContent);

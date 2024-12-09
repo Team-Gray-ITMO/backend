@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
+import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
+import vk.itmo.teamgray.backend.cetification.mapper.CertificationMapper;
 import vk.itmo.teamgray.backend.cetification.repos.CertificationRepository;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
@@ -16,23 +18,38 @@ import vk.itmo.teamgray.backend.resume.services.ResumeService;
 public class CertificationService {
     private final CertificationRepository certificationRepository;
     private final ResumeService resumeService;
+    private final CertificationMapper certificationMapper;
 
-    public Certification findById(Long id) {
+    public Certification findEntityById(Long id) {
         return certificationRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
 
-    public Certification createCertification(CertificationCreateDto data) {
-        return certificationRepository.save(new Certification(
-            data,
-            resumeService.findById(data.resumeId())
-        ));
+    public CertificationDto findById(Long id) {
+        return certificationMapper.toDto(findEntityById(id));
     }
 
-    public Certification updateCertification(CertificationUpdateDto data) {
-        return certificationRepository.save(new Certification(
-            data,
-            resumeService.findById(data.resumeId())
-        ));
+    public CertificationDto createCertification(CertificationCreateDto data) {
+        return createCertification(data, true);
+    }
+
+    public CertificationDto createCertification(CertificationCreateDto data, boolean persist) {
+        var resume = resumeService.findEntityById(data.getResumeId());
+        var certification = new Certification(data, resume);
+
+        if (persist) {
+            certification = certificationRepository.save(certification);
+        }
+
+        return certificationMapper.toDto(certification);
+    }
+
+    public CertificationDto updateCertification(CertificationUpdateDto data) {
+        return certificationMapper.toDto(
+            certificationRepository.save(new Certification(
+                data,
+                resumeService.findEntityById(data.getResumeId())
+            ))
+        );
     }
 
     public void deleteById(Long id) {

@@ -29,7 +29,7 @@ public class Job extends BaseEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
@@ -49,22 +49,22 @@ public class Job extends BaseEntity {
         this.resume = resume;
         this.company = company;
 
-        title = data.title();
-        description = data.description();
-        location = data.location();
-        startDate = data.startDate();
-        endDate = data.endDate();
+        title = data.getTitle();
+        description = data.getDescription();
+        location = data.getLocation();
+        startDate = data.getStartDate();
+        endDate = data.getEndDate();
     }
 
     public Job(JobUpdateDto data, Resume resume, Company company) {
-        id = data.id();
+        id = data.getId();
         this.resume = resume;
         this.company = company;
 
-        title = data.title();
-        description = data.description();
-        location = data.location();
-        startDate = data.startDate();
-        endDate = data.endDate();
+        title = data.getTitle();
+        description = data.getDescription();
+        location = data.getLocation();
+        startDate = data.getStartDate();
+        endDate = data.getEndDate();
     }
 }

@@ -1,14 +1,20 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.resume.entities.Link}
- */
-public record LinkUpdateDto(
-        Long id,
-        Long resumeId,
-        String platformName,
-        String profileUrl
-) implements Serializable {
+@Data
+@Schema(description = "Link Update Model")
+public class LinkUpdateDto {
+    @Schema(description = "Unique identifier for the link")
+    private Long id;
+
+    @Schema(description = "Resume ID to associate the link with")
+    private Long resumeId;
+
+    @Schema(description = "Platform name")
+    private String platformName;
+
+    @Schema(description = "Profile URL on the platform")
+    private String profileUrl;
 }

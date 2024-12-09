@@ -1,7 +1,6 @@
 package vk.itmo.teamgray.backend.template.services;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import vk.itmo.teamgray.backend.TestBase;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
@@ -15,9 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class TemplateServiceTest extends TestBase {
     public static final byte[] EMPTY_BYTE_ARRAY = {};
 
-    @Autowired
-    private TemplateService templateService;
-
     @Test
     void testTemplate() {
         var fileDto = sampleTemplate.getFile();
@@ -30,7 +26,7 @@ class TemplateServiceTest extends TestBase {
             )
         );
 
-        template = templateService.getDtoById(template.getId());
+        template = templateService.findById(template.getId());
 
         assertEquals(name, template.getName());
         assertArrayEquals(fileDto.getContent(), template.getFile().getContent());
@@ -51,7 +47,7 @@ class TemplateServiceTest extends TestBase {
             )
         );
 
-        template = templateService.getDtoById(template.getId());
+        template = templateService.findById(template.getId());
 
         assertEquals(name, template.getName());
         assertArrayEquals(fileDto2.getContent(), template.getFile().getContent());
@@ -60,6 +56,6 @@ class TemplateServiceTest extends TestBase {
 
         var templateId = template.getId();
 
-        assertThrows(ModelNotFoundException.class, () -> templateService.getDtoById(templateId));
+        assertThrows(ModelNotFoundException.class, () -> templateService.findById(templateId));
     }
 }

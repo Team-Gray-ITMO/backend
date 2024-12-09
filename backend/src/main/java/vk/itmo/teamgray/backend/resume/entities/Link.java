@@ -30,16 +30,16 @@ public class Link extends BaseEntity {
     @Column(name = "profile_url", nullable = false)
     private String profileUrl;
 
-    public Link(LinkCreateDto data, Resume resume){
+    public Link(LinkCreateDto data, Resume resume) {
         this.resume = resume;
-        platformName = data.platformName();
-        profileUrl = data.profileUrl();
+        platformName = data.getPlatformName();
+        profileUrl = data.getProfileUrl();
     }
 
-    public Link(LinkUpdateDto data, Resume resume){
-        id = data.id();
+    public Link(LinkUpdateDto data, Resume resume) {
+        id = data.getId();
         this.resume = resume;
-        platformName = data.platformName();
-        profileUrl = data.profileUrl();
+        platformName = data.getPlatformName();
+        profileUrl = data.getProfileUrl();
     }
 }

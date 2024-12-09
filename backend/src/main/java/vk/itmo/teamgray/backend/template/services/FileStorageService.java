@@ -3,8 +3,6 @@ package vk.itmo.teamgray.backend.template.services;
 import jakarta.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

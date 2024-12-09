@@ -7,9 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import vk.itmo.teamgray.backend.TestBase;
-import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
-import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
-import vk.itmo.teamgray.backend.template.services.TemplateService;
 
 class ResumeServiceTest extends TestBase {
     private static final Logger log = LoggerFactory.getLogger(ResumeServiceTest.class);
@@ -22,12 +19,8 @@ class ResumeServiceTest extends TestBase {
 
     @Test
     void testJsonAggregation() throws JsonProcessingException {
-        var resumeIds = resumeGenerator.generateResumes(5, sampleTemplate.getId()).stream()
-            .map(ResumeDto::getId)
-            .toList();
-
-        var resumes = resumeIds.stream()
-            .map(id -> resumeService.getResumeJsonForMerge(id))
+        var resumes = resumeGenerator.generateResumes(5, sampleTemplate.getId()).stream()
+            .map(resume -> resumeService.getResumeJsonForMerge(resume))
             .toList();
 
         //TODO Replace with proper assertions

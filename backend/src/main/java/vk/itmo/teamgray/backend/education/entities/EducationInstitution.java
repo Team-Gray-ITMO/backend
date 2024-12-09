@@ -21,11 +21,11 @@ public class EducationInstitution extends BaseEntity {
     private String name;
 
     public EducationInstitution(EducationInstitutionCreateDto data) {
-        name = data.name();
+        name = data.getName();
     }
 
     public EducationInstitution(EducationInstitutionUpdateDto data) {
-        id = data.id();
-        name = data.name();
+        id = data.getId();
+        name = data.getName();
     }
 }

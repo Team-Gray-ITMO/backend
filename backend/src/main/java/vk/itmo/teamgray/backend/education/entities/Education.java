@@ -29,7 +29,7 @@ public class Education extends BaseEntity {
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
 
@@ -58,25 +58,25 @@ public class Education extends BaseEntity {
     public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
         this.resume = resume;
         this.institution = institution;
-        degreeType = data.degreeType();
-        degreeName = data.degreeName();
-        fieldOfStudy = data.fieldOfStudy();
-        specialization = data.specialization();
-        startDate = data.startDate();
-        endDate = data.endDate();
-        grade = data.grade();
+        degreeType = data.getDegreeType();
+        degreeName = data.getDegreeName();
+        fieldOfStudy = data.getFieldOfStudy();
+        specialization = data.getSpecialization();
+        startDate = data.getStartDate();
+        endDate = data.getEndDate();
+        grade = data.getGrade();
     }
 
     public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution) {
-        id = data.id();
+        id = data.getId();
         this.resume = resume;
         this.institution = institution;
-        degreeType = data.degreeType();
-        degreeName = data.degreeName();
-        fieldOfStudy = data.fieldOfStudy();
-        specialization = data.specialization();
-        startDate = data.startDate();
-        endDate = data.endDate();
-        grade = data.grade();
+        degreeType = data.getDegreeType();
+        degreeName = data.getDegreeName();
+        fieldOfStudy = data.getFieldOfStudy();
+        specialization = data.getSpecialization();
+        startDate = data.getStartDate();
+        endDate = data.getEndDate();
+        grade = data.getGrade();
     }
 }

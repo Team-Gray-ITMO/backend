@@ -61,12 +61,12 @@ public class Resume extends BaseEntity {
     public Resume(ResumeCreateDto data, User user, Template template) {
         this.user = user;
         this.template = template;
-        summary = data.summary();
+        summary = data.getSummary();
     }
 
     public Resume(ResumeUpdateDto data, Template template) {
-        id = data.id();
+        id = data.getId();
         this.template = template;
-        summary = data.summary();
+        summary = data.getSummary();
     }
 }

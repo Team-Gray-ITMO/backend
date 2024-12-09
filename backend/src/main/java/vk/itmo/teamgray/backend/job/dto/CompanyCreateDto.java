@@ -1,11 +1,15 @@
 package vk.itmo.teamgray.backend.job.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.job.entities.Company}
- */
-public record CompanyCreateDto(
-        String name
-) implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(description = "Company Create Model")
+@Data
+public class CompanyCreateDto {
+    @Schema(description = "Name of the company")
+    private String name;
 }

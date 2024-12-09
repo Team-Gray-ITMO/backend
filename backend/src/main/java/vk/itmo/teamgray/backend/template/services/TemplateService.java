@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.template.services;
 
 import java.time.Instant;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,28 +21,45 @@ public class TemplateService {
     private final TemplateRepository templateRepository;
 
     private final FileStorageService fileStorageService;
+
     private final TemplateMapper templateMapper;
 
-    public TemplateDto getDtoById(Long id) {
-        return getTemplateDto(getById(id));
+    public List<TemplateDto> findAll() {
+        return templateMapper.toDtoList(templateRepository.findAll());
+    }
+
+    public TemplateDto findById(Long id) {
+        return getTemplateDto(findEntityById(id));
+    }
+
+    private Template findEntityById(Long id) {
+        return templateRepository.findById(id)
+            .orElseThrow(ModelNotFoundException::new);
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
+        return createTemplate(dto, true);
+    }
+
+    public TemplateDto createTemplate(TemplateCreateDto dto, boolean persist) {
         var file = dto.getFile();
 
         var filePath = fileStorageService.uploadFile(file);
 
         var template = new Template();
-
         template.setName(dto.getName());
         template.setCreatedAt(Instant.now());
         template.setFilePath(filePath);
 
-        return getTemplateDto(templateRepository.save(template));
+        if (persist) {
+            template = templateRepository.save(template);
+        }
+
+        return getTemplateDto(template);
     }
 
     public TemplateDto updateTemplate(TemplateUpdateDto dto) {
-        var template = getById(dto.getId());
+        var template = findEntityById(dto.getId());
 
         if (dto.getFile() != null) {
             var file = dto.getFile();
@@ -60,11 +78,6 @@ public class TemplateService {
 
     public void deleteById(Long id) {
         templateRepository.deleteById(id);
-    }
-
-    private Template getById(Long id) {
-        return templateRepository.findById(id)
-            .orElseThrow(ModelNotFoundException::new);
     }
 
     public TemplateDto getTemplateDto(Template template) {
