@@ -21,10 +21,14 @@ configurations {
 }
 
 openApi {
-    outputDir.set(file("$buildDir/docs"))
-    apiDocsUrl.set 'http://localhost:8080/api/docs'
-    outputFileName.set 'swagger.json'
-    waitTimeInSeconds.set 10
+    outputDir.set(file("$rootDir/swagger"))
+    apiDocsUrl.set("http://localhost:8080/v3/api-docs.yaml")
+    outputFileName.set("swagger.yml")
+    waitTimeInSeconds.set(10)
+
+    //customBootRun {
+    //    it.args.set(["-Dserver.port=9090"])
+    //}
 }
 
 repositories {
