@@ -1,6 +1,10 @@
 package vk.itmo.teamgray.backend.resume.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -36,19 +40,27 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @GetMapping
-    @Operation(summary = "Get all Resumes", description = "Retrieve all resumes.")
+    @Operation(summary = "Get all Resumes", description = "Retrieve all resumes.", responses = {
+        @ApiResponse(description = "Resumes retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ResumeDto.class))))
+    })
     public ResponseEntity<List<ResumeDto>> findAll() {
         return ResponseEntity.ok(resumeService.findAll());
     }
 
     @GetMapping("/{resumeId}")
-    @Operation(summary = "Get Resume by ID", description = "Retrieve a resume by its ID.")
+    @Operation(summary = "Get Resume by ID", description = "Retrieve a resume by its ID.", responses = {
+        @ApiResponse(description = "Resume retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
+        @ApiResponse(description = "Resume not found", responseCode = "404")
+    })
     public ResponseEntity<ResumeDto> getById(@PathVariable Long resumeId) {
         return ResponseEntity.ok(resumeService.findById(resumeId));
     }
 
     @PostMapping
-    @Operation(summary = "Create a new Resume", description = "Create a new resume for a user.")
+    @Operation(summary = "Create a new Resume", description = "Create a new resume for a user.", responses = {
+        @ApiResponse(description = "Resume created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
+        @ApiResponse(description = "Invalid input data", responseCode = "400")
+    })
     public ResponseEntity<ResumeDto> create(@RequestBody @Valid ResumeCreateDto resumeCreateDto) {
         return ResponseEntity
             .status(201)
@@ -56,24 +68,32 @@ public class ResumeController {
     }
 
     @PutMapping
-    @Operation(summary = "Update an existing Resume", description = "Update the details of an existing resume.")
+    @Operation(summary = "Update an existing Resume", description = "Update the details of an existing resume.", responses = {
+        @ApiResponse(description = "Resume updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
+        @ApiResponse(description = "Resume not found", responseCode = "404"),
+        @ApiResponse(description = "Invalid input data", responseCode = "400")
+    })
     public ResponseEntity<ResumeDto> update(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
         return ResponseEntity.ok(resumeService.updateResume(resumeUpdateDto));
     }
 
     @DeleteMapping("/{resumeId}")
-    @Operation(summary = "Delete Resume by ID", description = "Delete a resume by its ID.")
+    @Operation(summary = "Delete Resume by ID", description = "Delete a resume by its ID.", responses = {
+        @ApiResponse(description = "Resume deleted successfully", responseCode = "204"),
+        @ApiResponse(description = "Resume not found", responseCode = "404")
+    })
     public ResponseEntity<Void> delete(@PathVariable Long resumeId) {
         resumeService.deleteById(resumeId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{resumeId}/html")
-    @Operation(summary = "Get Resume as HTML")
+    @Operation(summary = "Get Resume as HTML", responses = {
+        @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/octet-stream")),
+        @ApiResponse(description = "Resume not found", responseCode = "404")
+    })
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
-        byte[] htmlAsArray = resumeExportService.extractHtml(
-            resumeId
-        );
+        byte[] htmlAsArray = resumeExportService.extractHtml(resumeId);
 
         ByteArrayResource response = new ByteArrayResource(htmlAsArray);
 
@@ -81,11 +101,12 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}/pdf")
-    @Operation(summary = "Get Resume as PDF")
+    @Operation(summary = "Get Resume as PDF", responses = {
+        @ApiResponse(description = "PDF retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/pdf")),
+        @ApiResponse(description = "Resume not found", responseCode = "404")
+    })
     public ResponseEntity<ByteArrayResource> getPdf(@PathVariable Long resumeId) {
-        byte[] pdfAsArray = resumeExportService.extractPdf(
-            resumeId
-        );
+        byte[] pdfAsArray = resumeExportService.extractPdf(resumeId);
 
         ByteArrayResource resource = new ByteArrayResource(pdfAsArray);
         HttpHeaders headers = new HttpHeaders();
@@ -99,11 +120,12 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}/docx")
-    @Operation(summary = "Get Resume as DOCX")
+    @Operation(summary = "Get Resume as DOCX", responses = {
+        @ApiResponse(description = "DOCX retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        @ApiResponse(description = "Resume not found", responseCode = "404")
+    })
     public void getDocx(@PathVariable Long resumeId, HttpServletResponse response) throws IOException {
-        byte[] docxAsArray = resumeExportService.extractDocx(
-            resumeId
-        );
+        byte[] docxAsArray = resumeExportService.extractDocx(resumeId);
 
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + ".docx");

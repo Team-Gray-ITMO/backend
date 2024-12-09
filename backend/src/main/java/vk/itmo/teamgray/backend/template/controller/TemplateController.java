@@ -1,11 +1,13 @@
 package vk.itmo.teamgray.backend.template.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +31,14 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 @Tag(name = "Template Management", description = "Operations for managing templates")
 public class TemplateController {
     private final TemplateService templateService;
+
+    @GetMapping
+    @Operation(summary = "Get all Templates Merged With Default", description = "Retrieve all templates.", responses = {
+        @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
+    })
+    public ResponseEntity<List<TemplateDto>> findAll() {
+        return ResponseEntity.ok(templateService.findAll());
+    }
 
     @Operation(summary = "Get a template by ID", responses = {
         @ApiResponse(description = "Template retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = TemplateDto.class))),
