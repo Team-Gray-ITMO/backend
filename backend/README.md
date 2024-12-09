@@ -33,5 +33,17 @@ docker-compose -f docker-compose-test.yml up -d
 ./gradlew test
 ```
 
+### Generating Fresh Swagger
+1. Launch DB and Minio in Docker
+```
+cd docker/resume-builder-backend   
+
+docker-compose -f docker-compose-test.yml up -d 
+```
+2. Generate Swagger
+```
+./gradlew generateOpenApiDocs 
+```
+
 (by Team Gray)
 
