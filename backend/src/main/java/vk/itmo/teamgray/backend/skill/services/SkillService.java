@@ -29,12 +29,19 @@ public class SkillService {
     }
 
     public SkillDto createSkill(SkillCreateDto data) {
-        return skillMapper.toDto(
-            skillRepository.save(new Skill(
-                data,
-                resumeService.findEntityById(data.resumeId())
-            ))
-        );
+        return createSkill(data, true);
+    }
+
+    public SkillDto createSkill(SkillCreateDto data, boolean persist) {
+        var resume = resumeService.findEntityById(data.resumeId());
+
+        var skill = new Skill(data, resume);
+
+        if (persist) {
+            skill = skillRepository.save(skill);
+        }
+
+        return skillMapper.toDto(skill);
     }
 
     public SkillDto updateSkill(SkillUpdateDto data) {

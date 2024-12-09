@@ -48,21 +48,25 @@ public class ResumeService {
     }
 
     public ResumeDto createResume(ResumeCreateDto data) {
-        //TODO Maybe resolve user from auth context.
+        return createResume(data, true);
+    }
+
+    public ResumeDto createResume(ResumeCreateDto data, boolean persist) {
+        //TODO Resolve user from auth context.
         var user = userRepository.findById(data.userId())
             .orElseThrow(ModelNotFoundException::new);
-        var template = templateRepository.findById(data.templateId())
-            .orElseThrow(ModelNotFoundException::new);
 
-        return resumeMapper.toDto(
-            resumeRepository.save(
-                new Resume(
-                    data,
-                    user,
-                    template
-                )
-            )
-        );
+        var template = persist
+            ? templateRepository.findById(data.templateId()).orElseThrow(ModelNotFoundException::new)
+            : null;
+
+        var resume = new Resume(data, user, template);
+
+        if (persist) {
+            resume = resumeRepository.save(resume);
+        }
+
+        return resumeMapper.toDto(resume);
     }
 
     public ResumeDto updateResume(ResumeUpdateDto data) {
@@ -85,9 +89,7 @@ public class ResumeService {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<String, Object> getResumeJsonForMerge(long resumeId) {
-        var dto = resumeMapper.toDto(resumeRepository.getResume(resumeId));
-
+    public Map<String, Object> getResumeJsonForMerge(ResumeDto dto) {
         dto.getCertifications().sort(
             Comparator.comparing(CertificationDto::getIssueDate).reversed()
         );

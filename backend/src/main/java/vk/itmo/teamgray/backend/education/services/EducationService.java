@@ -30,13 +30,21 @@ public class EducationService {
     }
 
     public EducationDto createEducation(EducationCreateDto data) {
-        return educationMapper.toDto(
-            educationRepository.save(new Education(
-                data,
-                resumeService.findEntityById(data.resumeId()),
-                educationInstitutionService.findEntityById(data.educationInstitutionId())
-            ))
+        return createEducation(data, true);
+    }
+
+    public EducationDto createEducation(EducationCreateDto data, boolean persist) {
+        var education = new Education(
+            data,
+            resumeService.findEntityById(data.resumeId()),
+            educationInstitutionService.findEntityById(data.educationInstitutionId())
         );
+
+        if (persist) {
+            education = educationRepository.save(education);
+        }
+
+        return educationMapper.toDto(education);
     }
 
     public EducationDto updateEducation(EducationUpdateDto data) {

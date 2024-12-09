@@ -29,12 +29,18 @@ public class CertificationService {
     }
 
     public CertificationDto createCertification(CertificationCreateDto data) {
-        return certificationMapper.toDto(
-            certificationRepository.save(new Certification(
-                data,
-                resumeService.findEntityById(data.resumeId())
-            ))
-        );
+        return createCertification(data, true);
+    }
+
+    public CertificationDto createCertification(CertificationCreateDto data, boolean persist) {
+        var resume = resumeService.findEntityById(data.resumeId());
+        var certification = new Certification(data, resume);
+
+        if (persist) {
+            certification = certificationRepository.save(certification);
+        }
+
+        return certificationMapper.toDto(certification);
     }
 
     public CertificationDto updateCertification(CertificationUpdateDto data) {

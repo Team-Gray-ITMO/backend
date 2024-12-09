@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
+import vk.itmo.teamgray.backend.template.services.TemplateMergeService;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 
 import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
@@ -32,12 +33,22 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 public class TemplateController {
     private final TemplateService templateService;
 
+    private final TemplateMergeService templateMergeService;
+
     @GetMapping
-    @Operation(summary = "Get all Templates Merged With Default", description = "Retrieve all templates.", responses = {
+    @Operation(summary = "Get all Templates", description = "Retrieve all templates.", responses = {
         @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
     })
-    public ResponseEntity<List<TemplateDto>> findAll() {
+    public ResponseEntity<List<TemplateDto>> getAllTemplates() {
         return ResponseEntity.ok(templateService.findAll());
+    }
+
+    @GetMapping("/filled")
+    @Operation(summary = "Get all Templates Filled With Default Data", description = "Retrieve all templates.", responses = {
+        @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
+    })
+    public ResponseEntity<List<TemplateDto>> getAllTemplatesFilled() {
+        return ResponseEntity.ok(templateMergeService.getAllTemplatesAndFill());
     }
 
     @Operation(summary = "Get a template by ID", responses = {

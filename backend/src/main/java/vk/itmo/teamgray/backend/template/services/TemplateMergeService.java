@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.velocity.VelocityContext;
@@ -13,6 +14,8 @@ import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
+import vk.itmo.teamgray.backend.resume.generator.ResumeSampleGenerator;
+import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
@@ -31,11 +34,64 @@ public class TemplateMergeService {
 
     private final ResumeService resumeService;
 
-    private static byte[] processHtml(Map<String, Object> valuesMap, String templateContent) {
-        if (templateContent == null) {
-            throw new IllegalArgumentException(INDEX_HTML_FILENAME + "not found in the provided zip file.");
+    private final ResumeSampleGenerator resumeSampleGenerator;
+
+    private final ResumeMapper resumeMapper;
+
+    public List<TemplateDto> getAllTemplatesAndFill() {
+        //TODO Resolve user from auth context.
+        var sampleResume = resumeSampleGenerator.generateResume(1L);
+
+        return templateService.findAll().stream()
+            .peek(template -> template.setFile(mergeTemplate(template, resumeService.getResumeJsonForMerge(sampleResume))))
+            .toList();
+    }
+
+    public FileDto mergeTemplate(long resumeId, long templateId) {
+        var template = templateService.findById(templateId);
+
+        var resume = resumeService.getResumeJsonForMerge(resumeService.findById(resumeId));
+
+        return mergeTemplate(template, resume);
+    }
+
+    private FileDto mergeTemplate(TemplateDto templateDto, Map<String, Object> valuesMap) {
+        Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
+
+        String templateContent = getTemplateContent(zipContents);
+
+        byte[] processedHtmlBytes = processHtml(valuesMap, templateContent);
+
+        zipContents.put(INDEX_HTML_FILENAME, processedHtmlBytes);
+
+        byte[] newZipContent = repackZip(zipContents);
+
+        return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
+    }
+
+    public byte[] mergeTemplateToHtml(Resume resume) {
+        var template = templateService.getTemplateDto(resume.getTemplate());
+
+        var resumeMap = resumeService.getResumeJsonForMerge(resumeMapper.toDto(resume));
+
+        Map<String, byte[]> zipContents = extractZipContents(template.getFile());
+
+        String templateContent = getTemplateContent(zipContents);
+
+        return processHtml(resumeMap, templateContent);
+    }
+
+    private static String getTemplateContent(Map<String, byte[]> zipContents) {
+        byte[] templateBytes = zipContents.get(INDEX_HTML_FILENAME);
+
+        if (templateBytes == null) {
+            throw new IllegalArgumentException(INDEX_HTML_FILENAME + " not found in the provided zip file.");
         }
 
+        return new String(templateBytes, StandardCharsets.UTF_8);
+    }
+
+    private static byte[] processHtml(Map<String, Object> valuesMap, String templateContent) {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADERS, "string");
         Velocity.addProperty("resource.loader.string.class", StringResourceLoader.class.getName());
         Velocity.init();
@@ -60,57 +116,5 @@ public class TemplateMergeService {
         } catch (IOException e) {
             throw new TemplateMergeServiceException("Failed to merge template content.", e);
         }
-    }
-
-    public FileDto mergeTemplate(long resumeId, long templateId) {
-        var template = templateService.findById(templateId);
-
-        var resume = resumeService.getResumeJsonForMerge(resumeId);
-
-        return mergeTemplate(template, resume);
-    }
-
-    public byte[] mergeTemplateToHtml(Resume resume) {
-        var template = templateService.getTemplateDto(resume.getTemplate());
-
-        var resumeMap = resumeService.getResumeJsonForMerge(resume.getId());
-        return mergeTemplateToHtml(
-            template,
-            resumeMap
-        );
-    }
-
-    private byte[] mergeTemplateToHtml(TemplateDto templateDto, Map<String, Object> valuesMap) {
-        Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
-
-        byte[] templateBytes = zipContents.get(INDEX_HTML_FILENAME);
-
-        if (templateBytes == null) {
-            throw new IllegalArgumentException(INDEX_HTML_FILENAME + " not found in the provided zip file.");
-        }
-
-        String templateContent = new String(templateBytes, StandardCharsets.UTF_8);
-
-        return processHtml(valuesMap, templateContent);
-    }
-
-    private FileDto mergeTemplate(TemplateDto templateDto, Map<String, Object> valuesMap) {
-        Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
-
-        byte[] templateBytes = zipContents.get(INDEX_HTML_FILENAME);
-
-        if (templateBytes == null) {
-            throw new IllegalArgumentException(INDEX_HTML_FILENAME + " not found in the provided zip file.");
-        }
-
-        String templateContent = new String(templateBytes, StandardCharsets.UTF_8);
-
-        byte[] processedHtmlBytes = processHtml(valuesMap, templateContent);
-
-        zipContents.put(INDEX_HTML_FILENAME, processedHtmlBytes);
-
-        byte[] newZipContent = repackZip(zipContents);
-
-        return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
     }
 }

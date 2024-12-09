@@ -28,12 +28,19 @@ public class LinkService {
     }
 
     public LinkDto createLink(LinkCreateDto data) {
-        return linkMapper.toDto(
-            linkRepository.save(new Link(
-                data,
-                resumeService.findEntityById(data.resumeId())
-            ))
-        );
+        return createLink(data, true);
+    }
+
+    public LinkDto createLink(LinkCreateDto data, boolean persist) {
+        var resume = resumeService.findEntityById(data.resumeId());
+
+        var link = new Link(data, resume);
+
+        if (persist) {
+            link = linkRepository.save(link);
+        }
+
+        return linkMapper.toDto(link);
     }
 
     public LinkDto updateLink(LinkUpdateDto data) {

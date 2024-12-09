@@ -30,13 +30,20 @@ public class JobService {
     }
 
     public JobDto createJob(JobCreateDto data) {
-        return jobMapper.toDto(
-            jobRepository.save(new Job(
-                data,
-                resumeService.findEntityById(data.resumeId()),
-                companyService.findEntityById(data.companyId())
-            ))
-        );
+        return createJob(data, true);
+    }
+
+    public JobDto createJob(JobCreateDto data, boolean persist) {
+        var resume = resumeService.findEntityById(data.resumeId());
+        var company = companyService.findEntityById(data.companyId());
+
+        var job = new Job(data, resume, company);
+
+        if (persist) {
+            job = jobRepository.save(job);
+        }
+
+        return jobMapper.toDto(job);
     }
 
     public JobDto updateJob(JobUpdateDto data) {

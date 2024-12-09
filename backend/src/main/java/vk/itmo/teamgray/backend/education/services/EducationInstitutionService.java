@@ -28,11 +28,17 @@ public class EducationInstitutionService {
     }
 
     public EducationInstitutionDto createEducationInstitution(EducationInstitutionCreateDto data) {
-        return educationInstitutionMapper.toDto(
-            educationInstitutionRepository.save(new EducationInstitution(
-                data
-            ))
-        );
+        return createEducationInstitution(data, true);
+    }
+
+    public EducationInstitutionDto createEducationInstitution(EducationInstitutionCreateDto data, boolean persist) {
+        var educationInstitution = new EducationInstitution(data);
+
+        if (persist) {
+            educationInstitution = educationInstitutionRepository.save(educationInstitution);
+        }
+
+        return educationInstitutionMapper.toDto(educationInstitution);
     }
 
     public EducationInstitutionDto updateEducationInstitution(EducationInstitutionUpdateDto data) {

@@ -28,11 +28,17 @@ public class CompanyService {
     }
 
     public CompanyDto createCompany(CompanyCreateDto data) {
-        return companyMapper.toDto(
-            companyRepository.save(new Company(
-                data
-            ))
-        );
+        return createCompany(data, true);
+    }
+
+    public CompanyDto createCompany(CompanyCreateDto data, boolean persist) {
+        var company = new Company(data);
+
+        if (persist) {
+            company = companyRepository.save(company);
+        }
+
+        return companyMapper.toDto(company);
     }
 
     public CompanyDto updateCompany(CompanyUpdateDto data) {

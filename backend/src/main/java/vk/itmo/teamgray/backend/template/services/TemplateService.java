@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.template.services;
 
 import java.time.Instant;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,10 @@ public class TemplateService {
 
     private final TemplateMapper templateMapper;
 
+    public List<TemplateDto> findAll() {
+        return templateMapper.toDtoList(templateRepository.findAll());
+    }
+
     public TemplateDto findById(Long id) {
         return getTemplateDto(findEntityById(id));
     }
@@ -33,17 +38,24 @@ public class TemplateService {
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
+        return createTemplate(dto, true);
+    }
+
+    public TemplateDto createTemplate(TemplateCreateDto dto, boolean persist) {
         var file = dto.getFile();
 
         var filePath = fileStorageService.uploadFile(file);
 
         var template = new Template();
-
         template.setName(dto.getName());
         template.setCreatedAt(Instant.now());
         template.setFilePath(filePath);
 
-        return getTemplateDto(templateRepository.save(template));
+        if (persist) {
+            template = templateRepository.save(template);
+        }
+
+        return getTemplateDto(template);
     }
 
     public TemplateDto updateTemplate(TemplateUpdateDto dto) {
