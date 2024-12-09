@@ -33,7 +33,7 @@ public class LanguageService {
     }
 
     public LanguageDto createLanguage(LanguageCreateDto data, boolean persist) {
-        var resume = resumeService.findEntityById(data.resumeId());
+        var resume = resumeService.findEntityById(data.getResumeId());
 
         var language = new Language(data, resume);
 
@@ -48,7 +48,7 @@ public class LanguageService {
         return languageMapper.toDto(
             languageRepository.save(new Language(
                 data,
-                resumeService.findEntityById(data.resumeId())
+                resumeService.findEntityById(data.getResumeId())
             ))
         );
     }

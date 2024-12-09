@@ -32,7 +32,7 @@ public class LinkService {
     }
 
     public LinkDto createLink(LinkCreateDto data, boolean persist) {
-        var resume = resumeService.findEntityById(data.resumeId());
+        var resume = resumeService.findEntityById(data.getResumeId());
 
         var link = new Link(data, resume);
 
@@ -46,7 +46,7 @@ public class LinkService {
     public LinkDto updateLink(LinkUpdateDto data) {
         return linkMapper.toDto(linkRepository.save(new Link(
                 data,
-                resumeService.findEntityById(data.resumeId())
+                resumeService.findEntityById(data.getResumeId())
             ))
         );
     }

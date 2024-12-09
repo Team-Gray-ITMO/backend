@@ -1,12 +1,14 @@
 package vk.itmo.teamgray.backend.job.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.job.entities.Company}
- */
-public record CompanyUpdateDto(
-        Long id,
-        String name
-) implements Serializable {
+@Schema(description = "Company Update Model")
+@Data
+public class CompanyUpdateDto {
+    @Schema(description = "ID of the company")
+    private Long id;
+
+    @Schema(description = "Name of the company")
+    private String name;
 }

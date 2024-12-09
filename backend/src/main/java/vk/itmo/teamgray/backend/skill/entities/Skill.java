@@ -35,16 +35,16 @@ public class Skill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SkillProficiency proficiency;
 
-    public Skill(SkillCreateDto data, Resume resume){
+    public Skill(SkillCreateDto data, Resume resume) {
         this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
+        name = data.getName();
+        proficiency = data.getProficiency();
     }
 
-    public Skill(SkillUpdateDto data, Resume resume){
-        id = data.id();
+    public Skill(SkillUpdateDto data, Resume resume) {
+        id = data.getId();
         this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
+        name = data.getName();
+        proficiency = data.getProficiency();
     }
 }

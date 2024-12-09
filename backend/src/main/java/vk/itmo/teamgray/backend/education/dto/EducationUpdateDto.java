@@ -1,23 +1,40 @@
 package vk.itmo.teamgray.backend.education.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.Date;
+import lombok.Data;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 
-import java.io.Serializable;
-import java.util.Date;
+@Schema(description = "Education Record Update Model")
+@Data
+public class EducationUpdateDto {
+    @Schema(description = "ID of the education")
+    private Long id;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.education.entities.Education}
- */
-public record EducationUpdateDto(
-        Long id,
-        Long resumeId,
-        Long educationInstitutionId,
-        EducationDegreeType degreeType,
-        String degreeName,
-        String fieldOfStudy,
-        String specialization,
-        Date startDate,
-        Date endDate,
-        String grade
-) implements Serializable {
+    @Schema(description = "ID of the resume associated with this education")
+    private Long resumeId;
+
+    @Schema(description = "ID of the education institution")
+    private Long educationInstitutionId;
+
+    @Schema(description = "Degree type")
+    private EducationDegreeType degreeType;
+
+    @Schema(description = "Name of the degree")
+    private String degreeName;
+
+    @Schema(description = "Field of study")
+    private String fieldOfStudy;
+
+    @Schema(description = "Specialization within the field")
+    private String specialization;
+
+    @Schema(description = "Start date of the education")
+    private Date startDate;
+
+    @Schema(description = "End date of the education")
+    private Date endDate;
+
+    @Schema(description = "Grade")
+    private String grade;
 }

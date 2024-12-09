@@ -33,7 +33,7 @@ public class CertificationService {
     }
 
     public CertificationDto createCertification(CertificationCreateDto data, boolean persist) {
-        var resume = resumeService.findEntityById(data.resumeId());
+        var resume = resumeService.findEntityById(data.getResumeId());
         var certification = new Certification(data, resume);
 
         if (persist) {
@@ -47,7 +47,7 @@ public class CertificationService {
         return certificationMapper.toDto(
             certificationRepository.save(new Certification(
                 data,
-                resumeService.findEntityById(data.resumeId())
+                resumeService.findEntityById(data.getResumeId())
             ))
         );
     }

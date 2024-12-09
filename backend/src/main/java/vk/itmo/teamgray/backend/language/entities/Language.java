@@ -35,16 +35,16 @@ public class Language extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private LanguageProficiency proficiency;
 
-    public Language(LanguageCreateDto data, Resume resume){
+    public Language(LanguageCreateDto data, Resume resume) {
         this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
+        name = data.getName();
+        proficiency = data.getProficiency();
     }
 
-    public Language(LanguageUpdateDto data, Resume resume){
-        id = data.id();
+    public Language(LanguageUpdateDto data, Resume resume) {
+        id = data.getId();
         this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
+        name = data.getName();
+        proficiency = data.getProficiency();
     }
 }

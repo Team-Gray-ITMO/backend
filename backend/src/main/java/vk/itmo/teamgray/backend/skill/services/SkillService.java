@@ -33,7 +33,7 @@ public class SkillService {
     }
 
     public SkillDto createSkill(SkillCreateDto data, boolean persist) {
-        var resume = resumeService.findEntityById(data.resumeId());
+        var resume = resumeService.findEntityById(data.getResumeId());
 
         var skill = new Skill(data, resume);
 
@@ -48,7 +48,7 @@ public class SkillService {
         return skillMapper.toDto(
             skillRepository.save(new Skill(
                 data,
-                resumeService.findEntityById(data.resumeId())
+                resumeService.findEntityById(data.getResumeId())
             ))
         );
     }

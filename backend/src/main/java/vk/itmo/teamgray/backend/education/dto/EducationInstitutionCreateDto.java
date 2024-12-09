@@ -1,11 +1,15 @@
 package vk.itmo.teamgray.backend.education.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.education.entities.EducationInstitution}
- */
-public record EducationInstitutionCreateDto(
-        String name
-) implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(description = "Education Institution Create Model")
+@Data
+public class EducationInstitutionCreateDto {
+    @Schema(description = "Name of the education institution")
+    private String name;
 }

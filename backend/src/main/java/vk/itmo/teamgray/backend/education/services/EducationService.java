@@ -36,8 +36,8 @@ public class EducationService {
     public EducationDto createEducation(EducationCreateDto data, boolean persist) {
         var education = new Education(
             data,
-            resumeService.findEntityById(data.resumeId()),
-            educationInstitutionService.findEntityById(data.educationInstitutionId())
+            resumeService.findEntityById(data.getResumeId()),
+            educationInstitutionService.findEntityById(data.getEducationInstitutionId())
         );
 
         if (persist) {
@@ -51,8 +51,8 @@ public class EducationService {
         return educationMapper.toDto(
             educationRepository.save(new Education(
                 data,
-                resumeService.findEntityById(data.resumeId()),
-                educationInstitutionService.findEntityById(data.educationInstitutionId())
+                resumeService.findEntityById(data.getResumeId()),
+                educationInstitutionService.findEntityById(data.getEducationInstitutionId())
             ))
         );
     }

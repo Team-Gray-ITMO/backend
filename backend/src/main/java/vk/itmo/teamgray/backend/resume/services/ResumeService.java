@@ -53,11 +53,11 @@ public class ResumeService {
 
     public ResumeDto createResume(ResumeCreateDto data, boolean persist) {
         //TODO Resolve user from auth context.
-        var user = userRepository.findById(data.userId())
+        var user = userRepository.findById(data.getUserId())
             .orElseThrow(ModelNotFoundException::new);
 
         var template = persist
-            ? templateRepository.findById(data.templateId()).orElseThrow(ModelNotFoundException::new)
+            ? templateRepository.findById(data.getTemplateId()).orElseThrow(ModelNotFoundException::new)
             : null;
 
         var resume = new Resume(data, user, template);
@@ -71,7 +71,7 @@ public class ResumeService {
 
     public ResumeDto updateResume(ResumeUpdateDto data) {
         //TODO Maybe resolve user from auth context.
-        var template = templateRepository.findById(data.templateId())
+        var template = templateRepository.findById(data.getTemplateId())
             .orElseThrow(ModelNotFoundException::new);
 
         return resumeMapper.toDto(

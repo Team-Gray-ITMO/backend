@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     private Set<Resume> resumes = new LinkedHashSet<>();
 
     public User(UserCreateDto data) {
-        email = data.email();
-        vkId = data.vkId();
+        email = data.getEmail();
+        vkId = data.getVkId();
     }
 }

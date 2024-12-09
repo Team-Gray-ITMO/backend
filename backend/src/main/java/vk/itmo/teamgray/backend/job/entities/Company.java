@@ -21,11 +21,11 @@ public class Company extends BaseEntity {
     private String name;
 
     public Company(CompanyCreateDto data) {
-        name = data.name();
+        name = data.getName();
     }
 
     public Company(CompanyUpdateDto data) {
-        id = data.id();
-        name = data.name();
+        id = data.getId();
+        name = data.getName();
     }
 }

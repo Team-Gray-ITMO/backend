@@ -1,12 +1,14 @@
 package vk.itmo.teamgray.backend.education.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.education.entities.EducationInstitution}
- */
-public record EducationInstitutionUpdateDto(
-        Long id,
-        String name
-) implements Serializable {
+@Schema(description = "Education Institution Update Model")
+@Data
+public class EducationInstitutionUpdateDto {
+    @Schema(description = "ID of the education institution")
+    private Long id;
+
+    @Schema(description = "Name of the education institution")
+    private String name;
 }

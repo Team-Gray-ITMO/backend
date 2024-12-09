@@ -23,9 +23,8 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 @RestController
 @RequestMapping(API_VER + "/user")
 @RequiredArgsConstructor
-@Tag(name = "User Management", description = "Operations related to user management")
+@Tag(name = "User", description = "Operations related to user management")
 public class UserController {
-
     private final UserService userService;
 
     @Operation(summary = "Get user by ID", responses = {
