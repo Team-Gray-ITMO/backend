@@ -34,7 +34,7 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 @RestController
 @RequestMapping(API_VER + "/resume")
 @RequiredArgsConstructor
-@Tag(name = "Resume Controller", description = "Controller for managing resumes")
+@Tag(name = "Resume", description = "CRUD and other operations for resumes")
 public class ResumeController {
     private final ResumeExportService resumeExportService;
     private final ResumeService resumeService;

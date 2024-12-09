@@ -29,7 +29,7 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 @RestController
 @RequestMapping(API_VER + "/template")
 @RequiredArgsConstructor
-@Tag(name = "Template Management", description = "Operations for managing templates")
+@Tag(name = "Template", description = "CRUD and other operations for templates")
 public class TemplateController {
     private final TemplateService templateService;
 

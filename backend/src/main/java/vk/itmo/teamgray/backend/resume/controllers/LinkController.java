@@ -26,7 +26,7 @@ import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
 @RestController
 @RequestMapping(API_VER + "/link")
 @RequiredArgsConstructor
-@Tag(name = "Link Controller", description = "Controller for managing links")
+@Tag(name = "Link", description = "CRUD operations for links")
 public class LinkController {
 
     private final LinkService linkService;
