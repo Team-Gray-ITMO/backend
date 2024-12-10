@@ -26,7 +26,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:${POSTGRES_PORT}/${POSTGRES_DB}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
-      - S3_URL=http://minio:${MINIO_PORT}
+      - S3_ENDPOINT=http://minio:${MINIO_PORT}
       - S3_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - S3_SECRET_KEY=${MINIO_SECRET_KEY}
     ports:
