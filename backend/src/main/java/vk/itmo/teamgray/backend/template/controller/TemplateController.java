@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
-import vk.itmo.teamgray.backend.template.services.TemplateMergeService;
+import vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 
-import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
 @RestController
 @RequestMapping(API_VER + "/template")

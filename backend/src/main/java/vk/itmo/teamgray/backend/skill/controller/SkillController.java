@@ -21,7 +21,7 @@ import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.skill.dto.SkillUpdateDto;
 import vk.itmo.teamgray.backend.skill.services.SkillService;
 
-import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
 @RestController
 @RequestMapping(API_VER + "/skill")

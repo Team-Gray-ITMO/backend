@@ -29,7 +29,7 @@ import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.resume.services.ResumeExportService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 
-import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
 @RestController
 @RequestMapping(API_VER + "/resume")

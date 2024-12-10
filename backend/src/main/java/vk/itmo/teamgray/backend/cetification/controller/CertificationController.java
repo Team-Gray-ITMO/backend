@@ -21,7 +21,7 @@ import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.cetification.services.CertificationService;
 
-import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
 @RestController
 @RequestMapping(API_VER + "/certification")

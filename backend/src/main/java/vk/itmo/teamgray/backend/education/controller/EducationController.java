@@ -21,7 +21,7 @@ import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.services.EducationService;
 
-import static vk.itmo.teamgray.backend.config.ApplicationConfiguration.API_VER;
+import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
 @RestController
 @RequestMapping(API_VER + "/education")

@@ -15,8 +15,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.resume.exceptions.ConvertionException;
-import vk.itmo.teamgray.backend.template.services.TemplateMergeService;
+import vk.itmo.teamgray.backend.resume.exceptions.ConversionException;
+import vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class ResumeExportService {
             HtmlConverter.convertToPdf(new ByteArrayInputStream(htmlTemplate), pdfOutputStream);
             return pdfOutputStream.toByteArray();
         } catch (IOException e) {
-            throw new ConvertionException("ERROR.CONVERT_TO_PDF: " + e.getMessage());
+            throw new ConversionException("ERROR.CONVERT_TO_PDF: " + e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class ResumeExportService {
             document.close();
             return outputStream.toByteArray();
         } catch (IOException ex) {
-            throw new ConvertionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
+            throw new ConversionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
         }
     }
 }

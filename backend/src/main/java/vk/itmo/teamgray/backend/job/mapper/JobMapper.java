@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import vk.itmo.teamgray.backend.company.mapper.CompanyMapper;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.job.entities.Job;
 

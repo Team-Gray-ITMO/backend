@@ -7,6 +7,7 @@ import vk.itmo.teamgray.backend.cetification.mapper.CertificationMapper;
 import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.job.mapper.JobMapper;
 import vk.itmo.teamgray.backend.language.mapper.LanguageMapper;
+import vk.itmo.teamgray.backend.link.mapper.LinkMapper;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.skill.mapper.SkillMapper;

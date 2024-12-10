@@ -12,7 +12,7 @@ import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
-import vk.itmo.teamgray.backend.resume.dto.LinkDto;
+import vk.itmo.teamgray.backend.link.dto.LinkDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;

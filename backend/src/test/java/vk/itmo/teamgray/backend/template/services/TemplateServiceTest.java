@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.template.services;
 import org.junit.jupiter.api.Test;
 import vk.itmo.teamgray.backend.TestBase;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
-import vk.itmo.teamgray.backend.template.dto.FileDto;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
 

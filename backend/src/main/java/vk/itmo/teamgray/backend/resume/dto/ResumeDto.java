@@ -8,6 +8,7 @@ import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
+import vk.itmo.teamgray.backend.link.dto.LinkDto;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateBaseDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;

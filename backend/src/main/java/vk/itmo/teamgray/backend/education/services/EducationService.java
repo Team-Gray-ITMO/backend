@@ -8,6 +8,7 @@ import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.entities.Education;
+import vk.itmo.teamgray.backend.education.institution.services.EducationInstitutionService;
 import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.education.repos.EducationRepository;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;

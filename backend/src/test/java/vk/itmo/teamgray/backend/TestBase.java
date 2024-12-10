@@ -5,18 +5,18 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import vk.itmo.teamgray.backend.education.repos.EducationInstitutionRepository;
-import vk.itmo.teamgray.backend.job.repos.CompanyRepository;
+import vk.itmo.teamgray.backend.company.repos.CompanyRepository;
+import vk.itmo.teamgray.backend.education.institution.repos.EducationInstitutionRepository;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.resume.generator.ResumeTestGenerator;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
-import vk.itmo.teamgray.backend.template.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
-import static vk.itmo.teamgray.backend.template.services.TemplateMergeService.INDEX_HTML_FILENAME;
-import static vk.itmo.teamgray.backend.template.utils.ZipUtils.repackZip;
+import static vk.itmo.teamgray.backend.file.utils.ZipUtils.repackZip;
+import static vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService.INDEX_HTML_FILENAME;
 
 @SpringBootTest
 public abstract class TestBase {

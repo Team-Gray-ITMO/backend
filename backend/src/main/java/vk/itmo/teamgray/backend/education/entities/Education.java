@@ -17,6 +17,7 @@ import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.institution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter

@@ -17,6 +17,7 @@ import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.entities.Education;
 import vk.itmo.teamgray.backend.job.entities.Job;
 import vk.itmo.teamgray.backend.language.entities.Language;
+import vk.itmo.teamgray.backend.link.entities.Link;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
