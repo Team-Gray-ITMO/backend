@@ -2,6 +2,8 @@ package vk.itmo.teamgray.backend.resume.services;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -15,10 +17,14 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.exceptions.ConvertionException;
 import vk.itmo.teamgray.backend.template.services.TemplateMergeService;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -78,6 +84,38 @@ public class ResumeExportService {
         }
         catch (IOException ex){
             throw new ConvertionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
+        }
+    }
+
+    public byte[] extractImages(Long resumeId) {
+        byte[] pdfDoc = extractPdf(resumeId);
+        try {
+            PDDocument document = PDDocument.load(pdfDoc);
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try (ZipOutputStream zos = new ZipOutputStream(baos)) {
+                for (int page = 0; page < document.getNumberOfPages(); ++page) {
+                    BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300);
+                    String imageFileName = "page_" + (page + 1) + ".png";
+
+                    ZipEntry entry = new ZipEntry(imageFileName);
+                    zos.putNextEntry(entry);
+
+                    ImageIO.write(bim, "PNG", zos);
+                    zos.closeEntry();
+                }
+                return baos.toByteArray();
+            }
+            catch (IOException ex){
+                throw new ConvertionException("ERROR.CONVERT_TO_IMAGE: " + ex.getMessage());
+            }
+            finally {
+                document.close();
+            }
+        }
+        catch (IOException e) {
+            throw new ConvertionException("ERROR.CONVERT_TO_IMAGE: " + e.getMessage());
         }
     }
 }

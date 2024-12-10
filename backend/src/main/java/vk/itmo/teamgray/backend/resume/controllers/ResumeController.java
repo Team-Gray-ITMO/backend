@@ -54,4 +54,19 @@ public class ResumeController {
         response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + ".docx");
         response.getOutputStream().write(docxAsArray);
     }
+
+    @GetMapping("/{resumeId}/images")
+    public ResponseEntity<ByteArrayResource> getDocx(@PathVariable Long resumeId) {
+        byte[] imagesAsArray = resumeExportService.extractImages(
+                resumeId
+        );
+
+        ByteArrayResource resource = new ByteArrayResource(imagesAsArray);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=images.zip");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(headers)
+                .body(resource);
+    }
 }
