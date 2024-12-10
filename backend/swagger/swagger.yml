@@ -1746,10 +1746,6 @@ components:
         summary:
           type: string
           description: Summary or objective of the resume
-        templateId:
-          type: integer
-          description: Template ID used for the resume layout
-          format: int64
       description: Resume Create Model
     LinkCreateDto:
       required:

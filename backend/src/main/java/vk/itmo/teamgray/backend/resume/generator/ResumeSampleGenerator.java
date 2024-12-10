@@ -30,6 +30,7 @@ import vk.itmo.teamgray.backend.link.dto.LinkCreateDto;
 import vk.itmo.teamgray.backend.link.services.LinkService;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
+import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
@@ -64,9 +65,11 @@ public class ResumeSampleGenerator {
 
     ResumeDto generateResume(Long templateId, long userId, String suffix, boolean persist) {
         var resume = resumeService.createResume(
-            new ResumeCreateDto(userId, "Test Summary " + suffix, templateId),
+            new ResumeCreateDto(userId, "Test Summary " + suffix),
             persist
         );
+
+        resumeService.updateResume(ResumeUpdateDto.builder().templateId(templateId).build());
 
         var certification1 = certificationService.createCertification(
             new CertificationCreateDto(

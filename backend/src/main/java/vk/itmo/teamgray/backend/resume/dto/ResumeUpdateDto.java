@@ -1,8 +1,10 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 @Schema(description = "Resume Update Model")
 public class ResumeUpdateDto {

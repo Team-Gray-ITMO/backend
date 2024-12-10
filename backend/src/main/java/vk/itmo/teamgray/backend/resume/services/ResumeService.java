@@ -56,11 +56,7 @@ public class ResumeService {
         var user = userRepository.findById(data.getUserId())
             .orElseThrow(ModelNotFoundException::new);
 
-        var template = persist
-            ? templateRepository.findById(data.getTemplateId()).orElseThrow(ModelNotFoundException::new)
-            : null;
-
-        var resume = new Resume(data, user, template);
+        var resume = new Resume(data, user, null);
 
         if (persist) {
             resume = resumeRepository.save(resume);

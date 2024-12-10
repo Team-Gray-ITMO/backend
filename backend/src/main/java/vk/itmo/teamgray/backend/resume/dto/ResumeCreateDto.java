@@ -10,13 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Schema(description = "Resume Create Model")
 public class ResumeCreateDto {
-
     @Schema(description = "User ID associated with the resume")
     private long userId;
 
     @Schema(description = "Summary or objective of the resume")
     private String summary;
-
-    @Schema(description = "Template ID used for the resume layout")
-    private Long templateId;
 }
