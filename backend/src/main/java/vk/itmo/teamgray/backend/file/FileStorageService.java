@@ -49,6 +49,8 @@ public class FileStorageService {
         this.s3Client = S3Client.builder()
             .endpointOverride(URI.create(endpoint))
             .region(Region.of(region))
+            //Docker MiniO does not play well with Virtual-Hosted-Style
+            .forcePathStyle(true)
             .credentialsProvider(
                 StaticCredentialsProvider.create(
                     AwsBasicCredentials.create(accessKey, secretKey)
