@@ -1153,10 +1153,8 @@ components:
         contentType:
           type: string
           description: The content type of the file
-        content:
+        contentBase64:
           type: string
-          description: The binary content of the file
-          format: byte
       description: File Model
     TemplateDto:
       type: object
