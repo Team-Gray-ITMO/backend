@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.link.dto.LinkCreateDto;
-import vk.itmo.teamgray.backend.link.dto.LinkUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -32,13 +31,6 @@ public class Link extends BaseEntity {
     private String profileUrl;
 
     public Link(LinkCreateDto data, Resume resume) {
-        this.resume = resume;
-        platformName = data.getPlatformName();
-        profileUrl = data.getProfileUrl();
-    }
-
-    public Link(LinkUpdateDto data, Resume resume) {
-        id = data.getId();
         this.resume = resume;
         platformName = data.getPlatformName();
         profileUrl = data.getProfileUrl();

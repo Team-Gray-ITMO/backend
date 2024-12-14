@@ -3,7 +3,9 @@ package vk.itmo.teamgray.backend.job.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Schema(description = "Job Update Model")
 @Data
 public class JobUpdateDto {

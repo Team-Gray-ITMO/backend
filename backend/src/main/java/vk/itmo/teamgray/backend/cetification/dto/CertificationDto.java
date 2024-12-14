@@ -3,8 +3,10 @@ package vk.itmo.teamgray.backend.cetification.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 
+@NoArgsConstructor
 @Schema(description = "Certification Model")
 @Data
 public class CertificationDto {

@@ -15,7 +15,6 @@ import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
-import vk.itmo.teamgray.backend.skill.dto.SkillUpdateDto;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 
 @Getter
@@ -36,13 +35,6 @@ public class Skill extends BaseEntity {
     private SkillProficiency proficiency;
 
     public Skill(SkillCreateDto data, Resume resume) {
-        this.resume = resume;
-        name = data.getName();
-        proficiency = data.getProficiency();
-    }
-
-    public Skill(SkillUpdateDto data, Resume resume) {
-        id = data.getId();
         this.resume = resume;
         name = data.getName();
         proficiency = data.getProficiency();

@@ -3,7 +3,9 @@ package vk.itmo.teamgray.backend.template.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Schema(description = "Template Base Model")
 public class TemplateBaseDto {

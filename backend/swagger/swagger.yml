@@ -29,6 +29,61 @@ tags:
 - name: User
   description: Operations related to user management
 paths:
+  /api/v1/user:
+    put:
+      tags:
+      - User
+      summary: Update an existing user
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateDto"
+        required: true
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "400":
+          description: Invalid input data
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+    post:
+      tags:
+      - User
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateDto"
+        required: true
+      responses:
+        "201":
+          description: Successfully created user
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "400":
+          description: Invalid input
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
   /api/v1/template:
     get:
       tags:
@@ -571,31 +626,6 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/CertificationDto"
-  /api/v1/user:
-    post:
-      tags:
-      - User
-      summary: Create a new user
-      operationId: createUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserCreateDto"
-        required: true
-      responses:
-        "201":
-          description: Successfully created user
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UserDto"
-        "400":
-          description: Invalid input
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UserDto"
   /api/v1/user/{id}:
     get:
       tags:
@@ -1144,6 +1174,56 @@ paths:
           description: Certification not found
 components:
   schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User's ID
+          format: int64
+        email:
+          type: string
+          description: User's email address
+        vkId:
+          type: integer
+          description: VK ID
+          format: int64
+        phoneNumber:
+          type: string
+          description: Phone number
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date-time
+        cityName:
+          type: string
+          description: City name
+      description: User Model
+    UserUpdateDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier of the user
+          format: int64
+        email:
+          type: string
+          description: User's email address
+        vkId:
+          type: integer
+          description: VK ID
+          format: int64
+        phoneNumber:
+          type: string
+          description: Phone number
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date-time
+        cityName:
+          type: string
+          description: City name
+      description: User Update Model
     FileDto:
       type: object
       properties:
@@ -1449,31 +1529,6 @@ components:
           type: string
           description: The file path in S3 associated with the template
       description: Template Base Model
-    UserDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: User's ID
-          format: int64
-        email:
-          type: string
-          description: User's email address
-        vkId:
-          type: integer
-          description: VK ID
-          format: int64
-        phoneNumber:
-          type: string
-          description: Phone number
-        dateOfBirth:
-          type: string
-          description: Date of birth
-          format: date-time
-        cityName:
-          type: string
-          description: City name
-      description: User Model
     ResumeUpdateDto:
       type: object
       properties:

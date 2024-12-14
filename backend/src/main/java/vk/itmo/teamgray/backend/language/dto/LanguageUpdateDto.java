@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 
+@NoArgsConstructor
 @Schema(description = "Language Record Update Model")
 @Data
 public class LanguageUpdateDto implements Serializable {

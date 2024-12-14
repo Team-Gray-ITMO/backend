@@ -2,7 +2,9 @@ package vk.itmo.teamgray.backend.link.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Schema(description = "Link Model")
 public class LinkDto {

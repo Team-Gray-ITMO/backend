@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
@@ -13,6 +14,7 @@ import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateBaseDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
 
+@NoArgsConstructor
 @Data
 @Schema(description = "Resume Model")
 public class ResumeDto {

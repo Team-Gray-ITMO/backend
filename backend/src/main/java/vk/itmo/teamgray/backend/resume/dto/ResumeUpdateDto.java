@@ -1,10 +1,10 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Builder
+@NoArgsConstructor
 @Data
 @Schema(description = "Resume Update Model")
 public class ResumeUpdateDto {
@@ -15,5 +15,5 @@ public class ResumeUpdateDto {
     private String summary;
 
     @Schema(description = "Template ID to be associated with the resume")
-    private long templateId;
+    private Long templateId;
 }

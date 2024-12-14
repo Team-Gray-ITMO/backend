@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.language.dto.LanguageCreateDto;
-import vk.itmo.teamgray.backend.language.dto.LanguageUpdateDto;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
@@ -36,13 +35,6 @@ public class Language extends BaseEntity {
     private LanguageProficiency proficiency;
 
     public Language(LanguageCreateDto data, Resume resume) {
-        this.resume = resume;
-        name = data.getName();
-        proficiency = data.getProficiency();
-    }
-
-    public Language(LanguageUpdateDto data, Resume resume) {
-        id = data.getId();
         this.resume = resume;
         name = data.getName();
         proficiency = data.getProficiency();

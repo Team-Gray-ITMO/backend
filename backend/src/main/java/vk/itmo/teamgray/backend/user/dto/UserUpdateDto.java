@@ -18,9 +18,6 @@ public class UserUpdateDto implements Serializable {
     @Schema(description = "User's email address")
     private String email;
 
-    @Schema(description = "VK ID")
-    private Long vkId;
-
     @Schema(description = "Phone number")
     private String phoneNumber;
 

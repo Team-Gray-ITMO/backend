@@ -3,8 +3,10 @@ package vk.itmo.teamgray.backend.job.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.company.dto.CompanyDto;
 
+@NoArgsConstructor
 @Schema(description = "Job Model")
 @Data
 public class JobDto {

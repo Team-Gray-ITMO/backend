@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
-import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 import vk.itmo.teamgray.backend.education.institution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
@@ -57,19 +56,6 @@ public class Education extends BaseEntity {
     private String grade;
 
     public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
-        this.resume = resume;
-        this.institution = institution;
-        degreeType = data.getDegreeType();
-        degreeName = data.getDegreeName();
-        fieldOfStudy = data.getFieldOfStudy();
-        specialization = data.getSpecialization();
-        startDate = data.getStartDate();
-        endDate = data.getEndDate();
-        grade = data.getGrade();
-    }
-
-    public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution) {
-        id = data.getId();
         this.resume = resume;
         this.institution = institution;
         degreeType = data.getDegreeType();

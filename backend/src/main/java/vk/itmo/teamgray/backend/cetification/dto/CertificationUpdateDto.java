@@ -5,8 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 
+@NoArgsConstructor
 @Schema(description = "Certification Update Model")
 @Data
 public class CertificationUpdateDto {

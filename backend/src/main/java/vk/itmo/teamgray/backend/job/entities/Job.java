@@ -14,7 +14,6 @@ import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.company.entities.Company;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
-import vk.itmo.teamgray.backend.job.dto.JobUpdateDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -47,18 +46,6 @@ public class Job extends BaseEntity {
     private String description;
 
     public Job(JobCreateDto data, Resume resume, Company company) {
-        this.resume = resume;
-        this.company = company;
-
-        title = data.getTitle();
-        description = data.getDescription();
-        location = data.getLocation();
-        startDate = data.getStartDate();
-        endDate = data.getEndDate();
-    }
-
-    public Job(JobUpdateDto data, Resume resume, Company company) {
-        id = data.getId();
         this.resume = resume;
         this.company = company;
 

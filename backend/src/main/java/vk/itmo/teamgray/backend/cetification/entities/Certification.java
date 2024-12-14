@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
-import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
@@ -49,17 +48,6 @@ public class Certification extends BaseEntity {
     private LanguageProficiency languageProficiency;
 
     public Certification(CertificationCreateDto data, Resume resume) {
-        name = data.getName();
-        issuingOrganization = data.getIssuingOrganization();
-        issueDate = data.getIssueDate();
-        expirationDate = data.getExpirationDate();
-        credentialUrl = data.getCredentialUrl();
-        languageProficiency = data.getLanguageProficiency();
-        this.resume = resume;
-    }
-
-    public Certification(CertificationUpdateDto data, Resume resume) {
-        this.id = data.getId();
         name = data.getName();
         issuingOrganization = data.getIssuingOrganization();
         issueDate = data.getIssueDate();
