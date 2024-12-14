@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionCreateDto;
 import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionDto;
 import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionUpdateDto;
@@ -14,11 +15,12 @@ import vk.itmo.teamgray.backend.education.institution.repos.EducationInstitution
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class EducationInstitutionService {
+public class EducationInstitutionService extends BaseService<EducationInstitution> {
     private final EducationInstitutionRepository educationInstitutionRepository;
 
     private final EducationInstitutionMapper educationInstitutionMapper;
 
+    @Override
     public EducationInstitution findEntityById(Long id) {
         return educationInstitutionRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }

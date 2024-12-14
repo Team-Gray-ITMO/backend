@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.company.service.CompanyService;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
@@ -16,12 +17,13 @@ import vk.itmo.teamgray.backend.resume.services.ResumeService;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class JobService {
+public class JobService extends BaseService {
     private final JobRepository jobRepository;
     private final ResumeService resumeService;
     private final CompanyService companyService;
     private final JobMapper jobMapper;
 
+    @Override
     public Job findEntityById(Long id) {
         return jobRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
@@ -47,14 +49,25 @@ public class JobService {
         return jobMapper.toDto(job);
     }
 
-    public JobDto updateJob(JobUpdateDto data) {
-        return jobMapper.toDto(
-            jobRepository.save(new Job(
-                data,
-                resumeService.findEntityById(data.getResumeId()),
-                companyService.findEntityById(data.getCompanyId())
-            ))
-        );
+    public JobDto updateJob(JobUpdateDto updateDto) {
+        var job = findEntityById(updateDto.getId());
+
+        boolean updated = false;
+
+        updated |= updateIfPresent(updateDto.getTitle(), job::setTitle);
+        updated |= updateIfPresent(updateDto.getLocation(), job::setLocation);
+        updated |= updateIfPresent(updateDto.getStartDate(), job::setStartDate);
+        updated |= updateIfPresent(updateDto.getEndDate(), job::setEndDate);
+        updated |= updateIfPresent(updateDto.getDescription(), job::setDescription);
+
+        updated |= resumeService.updateLinkToEntityIfPresent(updateDto.getResumeId(), job::setResume);
+        updated |= companyService.updateLinkToEntityIfPresent(updateDto.getCompanyId(), job::setCompany);
+
+        if (updated) {
+            job = jobRepository.save(job);
+        }
+
+        return jobMapper.toDto(job);
     }
 
     public void deleteById(Long id) {

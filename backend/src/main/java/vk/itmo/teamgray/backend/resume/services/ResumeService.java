@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
@@ -20,16 +21,16 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
-import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
+import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ResumeService {
+public class ResumeService extends BaseService<Resume> {
     private final ResumeRepository resumeRepository;
     private final UserRepository userRepository;
-    private final TemplateRepository templateRepository;
+    private final TemplateService templateService;
 
     public List<ResumeDto> findAll() {
         return resumeMapper.toDtoList(resumeRepository.findAllAndFetch());
@@ -39,6 +40,7 @@ public class ResumeService {
 
     private final ObjectMapper objectMapper;
 
+    @Override
     public Resume findEntityById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
@@ -65,19 +67,16 @@ public class ResumeService {
         return resumeMapper.toDto(resume);
     }
 
-    public ResumeDto updateResume(ResumeUpdateDto data) {
-        //TODO Maybe resolve user from auth context.
-        var template = templateRepository.findById(data.getTemplateId())
-            .orElseThrow(ModelNotFoundException::new);
+    public ResumeDto updateResume(ResumeUpdateDto updateDto) {
+        var resume = findEntityById(updateDto.getId());
 
-        return resumeMapper.toDto(
-            resumeRepository.save(
-                new Resume(
-                    data,
-                    template
-                )
-            )
-        );
+        boolean updated = templateService.updateLinkToEntityIfPresent(updateDto.getTemplateId(), resume::setTemplate);
+
+        if (updated) {
+            resume = resumeRepository.save(resume);
+        }
+
+        return resumeMapper.toDto(resume);
     }
 
     public void deleteById(Long id) {

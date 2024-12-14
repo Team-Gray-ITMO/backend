@@ -1,32 +1,42 @@
 package vk.itmo.teamgray.backend.template.mapper;
 
 import java.util.List;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import vk.itmo.teamgray.backend.file.FileStorageService;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateBaseDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.entities.Template;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
-public interface TemplateMapper {
-    TemplateMapper INSTANCE = Mappers.getMapper(TemplateMapper.class);
+@AllArgsConstructor
+@Component
+public class TemplateMapper {
+    private final FileStorageService fileStorageService;
 
-    TemplateBaseDto toBaseDto(Template entity);
+    private static final TemplateMapperInternal INTERNAL_MAPPER = TemplateMapperInternal.INSTANCE;
 
-    List<TemplateBaseDto> toBaseDtoList(List<Template> entities);
+    public TemplateBaseDto toBaseDto(Template entity) {
+        return INTERNAL_MAPPER.toBaseDto(entity);
+    }
 
-    TemplateDto toDtoEmptyFile(Template template);
+    public List<TemplateBaseDto> toBaseDtoList(List<Template> entities) {
+        return INTERNAL_MAPPER.toBaseDtoList(entities);
+    }
 
-    default TemplateDto toDto(Template entity, FileDto file) {
-        var dto = toDtoEmptyFile(entity);
+    public TemplateDto toDto(Template entity) {
+        var dto = INTERNAL_MAPPER.toDto(entity);
+
+        FileDto file = fileStorageService.getFile(entity.getFilePath());
 
         dto.setFile(file);
 
         return dto;
     }
 
-    List<TemplateDto> toDtoList(List<Template> entities);
+    public List<TemplateDto> toDtoList(List<Template> entities) {
+        return entities.stream()
+            .map(this::toDto)
+            .toList();
+    }
 }

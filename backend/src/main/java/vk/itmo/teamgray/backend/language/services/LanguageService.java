@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.language.dto.LanguageCreateDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageUpdateDto;
@@ -15,11 +16,12 @@ import vk.itmo.teamgray.backend.resume.services.ResumeService;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class LanguageService {
+public class LanguageService extends BaseService<Language> {
     private final LanguageRepository languageRepository;
     private final ResumeService resumeService;
     private final LanguageMapper languageMapper;
 
+    @Override
     public Language findEntityById(Long id) {
         return languageRepository.findById(id).orElseThrow(ModelNotFoundException::new);
     }
@@ -44,13 +46,21 @@ public class LanguageService {
         return languageMapper.toDto(language);
     }
 
-    public LanguageDto updateLanguage(LanguageUpdateDto data) {
-        return languageMapper.toDto(
-            languageRepository.save(new Language(
-                data,
-                resumeService.findEntityById(data.getResumeId())
-            ))
-        );
+    public LanguageDto updateLanguage(LanguageUpdateDto updateDto) {
+        var language = findEntityById(updateDto.getId());
+
+        boolean updated = false;
+
+        updated |= updateIfPresent(updateDto.getName(), language::setName);
+        updated |= updateIfPresent(updateDto.getProficiency(), language::setProficiency);
+
+        updated |= resumeService.updateLinkToEntityIfPresent(updateDto.getResumeId(), language::setResume);
+
+        if (updated) {
+            language = languageRepository.save(language);
+        }
+
+        return languageMapper.toDto(language);
     }
 
     public void deleteById(Long id) {

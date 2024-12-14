@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
+import vk.itmo.teamgray.backend.user.dto.UserUpdateDto;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
@@ -45,5 +47,15 @@ public class UserController {
         return ResponseEntity
             .status(201)
             .body(userService.createUser(userCreateDto));
+    }
+
+    @Operation(summary = "Update an existing user", responses = {
+        @ApiResponse(description = "User updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class))),
+        @ApiResponse(description = "User not found", responseCode = "404"),
+        @ApiResponse(description = "Invalid input data", responseCode = "400")
+    })
+    @PutMapping
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserUpdateDto dto) {
+        return ResponseEntity.ok(userService.updateUser(dto));
     }
 }
