@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.link.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.link.dto.LinkCreateDto;
 import vk.itmo.teamgray.backend.link.dto.LinkDto;
@@ -23,7 +23,8 @@ public class LinkService extends BaseService<Link> {
 
     @Override
     public Link findEntityById(Long id) {
-        return linkRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return linkRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Link.class, id));
     }
 
     public LinkDto findById(Long id) {

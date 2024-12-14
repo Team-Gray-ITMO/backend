@@ -33,10 +33,7 @@ public class CertificationController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get certification by ID",
-        responses = {
-            @ApiResponse(description = "Certification found", responseCode = "200", content = @Content(schema = @Schema(implementation = CertificationDto.class))),
-            @ApiResponse(description = "Certification not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Certification found", responseCode = "200", content = @Content(schema = @Schema(implementation = CertificationDto.class)))
     )
     public ResponseEntity<CertificationDto> getCertificationById(@PathVariable Long id) {
         return ResponseEntity.ok(certificationService.findById(id));
@@ -45,10 +42,7 @@ public class CertificationController {
     @PostMapping
     @Operation(
         summary = "Create a new certification",
-        responses = {
-            @ApiResponse(description = "Certification created", responseCode = "201", content = @Content(schema = @Schema(implementation = CertificationDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Certification created", responseCode = "201", content = @Content(schema = @Schema(implementation = CertificationDto.class)))
     )
     public ResponseEntity<CertificationDto> createCertification(@RequestBody @Valid CertificationCreateDto data) {
         return ResponseEntity
@@ -59,10 +53,7 @@ public class CertificationController {
     @PutMapping
     @Operation(
         summary = "Update an existing certification",
-        responses = {
-            @ApiResponse(description = "Certification updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CertificationDto.class))),
-            @ApiResponse(description = "Invalid input or certification not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Certification updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CertificationDto.class)))
     )
     public ResponseEntity<CertificationDto> updateCertification(@RequestBody @Valid CertificationUpdateDto data) {
         return ResponseEntity.ok(certificationService.updateCertification(data));
@@ -71,10 +62,7 @@ public class CertificationController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete a certification by ID",
-        responses = {
-            @ApiResponse(description = "Certification deleted", responseCode = "204"),
-            @ApiResponse(description = "Certification not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Certification deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteCertification(@PathVariable Long id) {
         certificationService.deleteById(id);

@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
@@ -23,7 +23,8 @@ public class UserService extends BaseService<User> {
 
     @Override
     public User findEntityById(Long id) {
-        return userRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return userRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(User.class, id));
     }
 
     public UserDto findById(Long id) {

@@ -29,19 +29,19 @@ import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.AP
 public class UserController {
     private final UserService userService;
 
-    @Operation(summary = "Get user by ID", responses = {
-        @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class))),
-        @ApiResponse(description = "User not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get user by ID",
+        responses = @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
+    )
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @Operation(summary = "Create a new user", responses = {
-        @ApiResponse(description = "Successfully created user", responseCode = "201", content = @Content(schema = @Schema(implementation = UserDto.class))),
-        @ApiResponse(description = "Invalid input", responseCode = "400")
-    })
+    @Operation(
+        summary = "Create a new user",
+        responses = @ApiResponse(description = "Successfully created user", responseCode = "201", content = @Content(schema = @Schema(implementation = UserDto.class)))
+    )
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity
@@ -49,11 +49,10 @@ public class UserController {
             .body(userService.createUser(userCreateDto));
     }
 
-    @Operation(summary = "Update an existing user", responses = {
-        @ApiResponse(description = "User updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class))),
-        @ApiResponse(description = "User not found", responseCode = "404"),
-        @ApiResponse(description = "Invalid input data", responseCode = "400")
-    })
+    @Operation(
+        summary = "Update an existing user",
+        responses = @ApiResponse(description = "User updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
+    )
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserUpdateDto dto) {
         return ResponseEntity.ok(userService.updateUser(dto));

@@ -34,10 +34,7 @@ public class LanguageController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get a language record by ID",
-        responses = {
-            @ApiResponse(description = "Language record found", responseCode = "200", content = @Content(schema = @Schema(implementation = LanguageDto.class))),
-            @ApiResponse(description = "Language record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Language record found", responseCode = "200", content = @Content(schema = @Schema(implementation = LanguageDto.class)))
     )
     public ResponseEntity<LanguageDto> getLanguageById(@PathVariable Long id) {
         return ResponseEntity.ok(languageService.findById(id));
@@ -46,10 +43,7 @@ public class LanguageController {
     @PostMapping
     @Operation(
         summary = "Create a new language record",
-        responses = {
-            @ApiResponse(description = "Language record created", responseCode = "201", content = @Content(schema = @Schema(implementation = LanguageDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Language record created", responseCode = "201", content = @Content(schema = @Schema(implementation = LanguageDto.class)))
     )
     public ResponseEntity<LanguageDto> createLanguage(@RequestBody @Valid LanguageCreateDto data) {
         return ResponseEntity
@@ -60,10 +54,7 @@ public class LanguageController {
     @PutMapping
     @Operation(
         summary = "Update an existing language record",
-        responses = {
-            @ApiResponse(description = "Language record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = LanguageDto.class))),
-            @ApiResponse(description = "Invalid input or record not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Language record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = LanguageDto.class)))
     )
     public ResponseEntity<LanguageDto> updateLanguage(@RequestBody @Valid LanguageUpdateDto data) {
         return ResponseEntity.ok(languageService.updateLanguage(data));
@@ -72,10 +63,7 @@ public class LanguageController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete a language record by ID",
-        responses = {
-            @ApiResponse(description = "Language record deleted", responseCode = "204"),
-            @ApiResponse(description = "Language record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Language record deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteLanguage(@PathVariable Long id) {
         languageService.deleteById(id);

@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.language.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.language.dto.LanguageCreateDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
@@ -23,7 +23,8 @@ public class LanguageService extends BaseService<Language> {
 
     @Override
     public Language findEntityById(Long id) {
-        return languageRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return languageRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Language.class, id));
     }
 
     public LanguageDto findById(Long id) {

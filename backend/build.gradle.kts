@@ -24,7 +24,7 @@ openApi {
     outputDir.set(file("$rootDir/swagger"))
     apiDocsUrl.set("http://localhost:9090/v3/api-docs.yaml")
     outputFileName.set("swagger.yml")
-    waitTimeInSeconds.set(10)
+    waitTimeInSeconds.set(15)
 
     //Launching on test environment.
     customBootRun {

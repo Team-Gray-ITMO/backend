@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
@@ -23,6 +23,7 @@ import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class ResumeService extends BaseService<Resume> {
     private final ResumeRepository resumeRepository;
     private final UserRepository userRepository;
     private final TemplateService templateService;
+    private final UserService userService;
 
     public List<ResumeDto> findAll() {
         return resumeMapper.toDtoList(resumeRepository.findAllAndFetch());
@@ -42,11 +44,12 @@ public class ResumeService extends BaseService<Resume> {
 
     @Override
     public Resume findEntityById(Long id) {
-        return resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return resumeRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Resume.class, id));
     }
 
     public ResumeDto findById(Long id) {
-        return resumeMapper.toDto(resumeRepository.findById(id).orElseThrow(ModelNotFoundException::new));
+        return resumeMapper.toDto(findEntityById(id));
     }
 
     public ResumeDto createResume(ResumeCreateDto data) {
@@ -55,8 +58,7 @@ public class ResumeService extends BaseService<Resume> {
 
     public ResumeDto createResume(ResumeCreateDto data, boolean persist) {
         //TODO Resolve user from auth context.
-        var user = userRepository.findById(data.getUserId())
-            .orElseThrow(ModelNotFoundException::new);
+        var user = userService.findEntityById(data.getUserId());
 
         var resume = new Resume(data, user, null);
 

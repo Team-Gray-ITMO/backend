@@ -33,10 +33,7 @@ public class JobController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get a job record by ID",
-        responses = {
-            @ApiResponse(description = "Job record found", responseCode = "200", content = @Content(schema = @Schema(implementation = JobDto.class))),
-            @ApiResponse(description = "Job record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Job record found", responseCode = "200", content = @Content(schema = @Schema(implementation = JobDto.class)))
     )
     public ResponseEntity<JobDto> getJobById(@PathVariable Long id) {
         return ResponseEntity.ok(jobService.findById(id));
@@ -45,10 +42,7 @@ public class JobController {
     @PostMapping
     @Operation(
         summary = "Create a new job record",
-        responses = {
-            @ApiResponse(description = "Job record created", responseCode = "201", content = @Content(schema = @Schema(implementation = JobDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Job record created", responseCode = "201", content = @Content(schema = @Schema(implementation = JobDto.class)))
     )
     public ResponseEntity<JobDto> createJob(@RequestBody @Valid JobCreateDto data) {
         return ResponseEntity
@@ -59,10 +53,7 @@ public class JobController {
     @PutMapping
     @Operation(
         summary = "Update an existing job record",
-        responses = {
-            @ApiResponse(description = "Job record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = JobDto.class))),
-            @ApiResponse(description = "Invalid input or record not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Job record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = JobDto.class)))
     )
     public ResponseEntity<JobDto> updateJob(@RequestBody @Valid JobUpdateDto data) {
         return ResponseEntity.ok(jobService.updateJob(data));
@@ -71,10 +62,7 @@ public class JobController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete a job record by ID",
-        responses = {
-            @ApiResponse(description = "Job record deleted", responseCode = "204"),
-            @ApiResponse(description = "Job record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Job record deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
         jobService.deleteById(id);

@@ -33,10 +33,7 @@ public class CompanyController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get company record by ID",
-        responses = {
-            @ApiResponse(description = "Company record found", responseCode = "200", content = @Content(schema = @Schema(implementation = CompanyDto.class))),
-            @ApiResponse(description = "Company record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Company record found", responseCode = "200", content = @Content(schema = @Schema(implementation = CompanyDto.class)))
     )
     public ResponseEntity<CompanyDto> getCompanyById(@PathVariable Long id) {
         return ResponseEntity.ok(companyService.findById(id));
@@ -45,10 +42,7 @@ public class CompanyController {
     @PostMapping
     @Operation(
         summary = "Create a new company record",
-        responses = {
-            @ApiResponse(description = "Company record created", responseCode = "201", content = @Content(schema = @Schema(implementation = CompanyDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Company record created", responseCode = "201", content = @Content(schema = @Schema(implementation = CompanyDto.class)))
     )
     public ResponseEntity<CompanyDto> createCompany(@RequestBody @Valid CompanyCreateDto data) {
         return ResponseEntity
@@ -59,10 +53,7 @@ public class CompanyController {
     @PutMapping
     @Operation(
         summary = "Update an existing company record",
-        responses = {
-            @ApiResponse(description = "Company record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CompanyDto.class))),
-            @ApiResponse(description = "Invalid input or record not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Company record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CompanyDto.class)))
     )
     public ResponseEntity<CompanyDto> updateCompany(@RequestBody @Valid CompanyUpdateDto data) {
         return ResponseEntity.ok(companyService.updateCompany(data));
@@ -71,10 +62,7 @@ public class CompanyController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete a company record by ID",
-        responses = {
-            @ApiResponse(description = "Company record deleted", responseCode = "204"),
-            @ApiResponse(description = "Company record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Company record deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
         companyService.deleteById(id);

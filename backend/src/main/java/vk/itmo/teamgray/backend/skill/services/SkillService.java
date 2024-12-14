@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.skill.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
@@ -23,7 +23,8 @@ public class SkillService extends BaseService<Skill> {
 
     @Override
     public Skill findEntityById(Long id) {
-        return skillRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return skillRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Skill.class, id));
     }
 
     public SkillDto findById(Long id) {

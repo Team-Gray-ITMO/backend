@@ -34,10 +34,7 @@ public class EducationInstitutionController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get education institution by ID",
-        responses = {
-            @ApiResponse(description = "Institution found", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class))),
-            @ApiResponse(description = "Institution not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Institution found", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class)))
     )
     public ResponseEntity<EducationInstitutionDto> getInstitutionById(@PathVariable Long id) {
         return ResponseEntity.ok(educationInstitutionService.findById(id));
@@ -46,10 +43,7 @@ public class EducationInstitutionController {
     @PostMapping
     @Operation(
         summary = "Create a new education institution",
-        responses = {
-            @ApiResponse(description = "Institution created", responseCode = "201", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Institution created", responseCode = "201", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class)))
     )
     public ResponseEntity<EducationInstitutionDto> createInstitution(@RequestBody @Valid EducationInstitutionCreateDto data) {
         return ResponseEntity
@@ -60,10 +54,7 @@ public class EducationInstitutionController {
     @PutMapping
     @Operation(
         summary = "Update an existing education institution",
-        responses = {
-            @ApiResponse(description = "Institution updated", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class))),
-            @ApiResponse(description = "Invalid input or institution not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Institution updated", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class)))
     )
     public ResponseEntity<EducationInstitutionDto> updateInstitution(@RequestBody @Valid EducationInstitutionUpdateDto data) {
         return ResponseEntity.ok(educationInstitutionService.updateEducationInstitution(data));
@@ -72,10 +63,7 @@ public class EducationInstitutionController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete an education institution by ID",
-        responses = {
-            @ApiResponse(description = "Institution deleted", responseCode = "204"),
-            @ApiResponse(description = "Institution not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Institution deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteInstitution(@PathVariable Long id) {
         educationInstitutionService.deleteById(id);

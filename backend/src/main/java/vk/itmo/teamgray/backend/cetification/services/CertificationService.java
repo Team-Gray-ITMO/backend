@@ -9,7 +9,7 @@ import vk.itmo.teamgray.backend.cetification.dto.CertificationUpdateDto;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
 import vk.itmo.teamgray.backend.cetification.mapper.CertificationMapper;
 import vk.itmo.teamgray.backend.cetification.repos.CertificationRepository;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 
@@ -23,7 +23,8 @@ public class CertificationService extends BaseService<Certification> {
 
     @Override
     public Certification findEntityById(Long id) {
-        return certificationRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return certificationRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Certification.class, id));
     }
 
     public CertificationDto findById(Long id) {

@@ -32,19 +32,19 @@ public class LinkController {
     private final LinkService linkService;
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get Link by ID", description = "Retrieve a link by its ID.", responses = {
-        @ApiResponse(description = "Link retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = LinkDto.class))),
-        @ApiResponse(description = "Link not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get Link by ID", description = "Retrieve a link by its ID.",
+        responses = @ApiResponse(description = "Link retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = LinkDto.class)))
+    )
     public ResponseEntity<LinkDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(linkService.findById(id));
     }
 
     @PostMapping
-    @Operation(summary = "Create a new Link", description = "Create a new link for a resume.", responses = {
-        @ApiResponse(description = "Link created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = LinkDto.class))),
-        @ApiResponse(description = "Invalid input data", responseCode = "400")
-    })
+    @Operation(
+        summary = "Create a new Link", description = "Create a new link for a resume.",
+        responses = @ApiResponse(description = "Link created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = LinkDto.class)))
+    )
     public ResponseEntity<LinkDto> create(@RequestBody @Valid LinkCreateDto linkCreateDto) {
         return ResponseEntity
             .status(201)
@@ -52,20 +52,19 @@ public class LinkController {
     }
 
     @PutMapping
-    @Operation(summary = "Update an existing Link", description = "Update the details of an existing link.", responses = {
-        @ApiResponse(description = "Link updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = LinkDto.class))),
-        @ApiResponse(description = "Link not found", responseCode = "404"),
-        @ApiResponse(description = "Invalid input data", responseCode = "400")
-    })
+    @Operation(
+        summary = "Update an existing Link", description = "Update the details of an existing link.",
+        responses = @ApiResponse(description = "Link updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = LinkDto.class)))
+    )
     public ResponseEntity<LinkDto> update(@RequestBody @Valid LinkUpdateDto linkUpdateDto) {
         return ResponseEntity.ok(linkService.updateLink(linkUpdateDto));
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete Link by ID", description = "Delete a link by its ID.", responses = {
-        @ApiResponse(description = "Link deleted successfully", responseCode = "204"),
-        @ApiResponse(description = "Link not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Delete Link by ID", description = "Delete a link by its ID.",
+        responses = @ApiResponse(description = "Link deleted successfully", responseCode = "204")
+    )
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         linkService.deleteById(id);
         return ResponseEntity.noContent().build();

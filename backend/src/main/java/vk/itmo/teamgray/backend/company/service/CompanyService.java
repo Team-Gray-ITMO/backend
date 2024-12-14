@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.company.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.company.dto.CompanyCreateDto;
 import vk.itmo.teamgray.backend.company.dto.CompanyDto;
@@ -22,7 +22,8 @@ public class CompanyService extends BaseService<Company> {
 
     @Override
     public Company findEntityById(Long id) {
-        return companyRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return companyRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Company.class, id));
     }
 
     public CompanyDto findById(Long id) {

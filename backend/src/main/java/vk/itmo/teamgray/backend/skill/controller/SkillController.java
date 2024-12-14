@@ -34,10 +34,7 @@ public class SkillController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get a skill by ID",
-        responses = {
-            @ApiResponse(description = "Skill found", responseCode = "200", content = @Content(schema = @Schema(implementation = SkillDto.class))),
-            @ApiResponse(description = "Skill not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Skill found", responseCode = "200", content = @Content(schema = @Schema(implementation = SkillDto.class)))
     )
     public ResponseEntity<SkillDto> getSkillById(@PathVariable Long id) {
         return ResponseEntity.ok(skillService.findById(id));
@@ -46,10 +43,7 @@ public class SkillController {
     @PostMapping
     @Operation(
         summary = "Create a new skill",
-        responses = {
-            @ApiResponse(description = "Skill created", responseCode = "201", content = @Content(schema = @Schema(implementation = SkillDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Skill created", responseCode = "201", content = @Content(schema = @Schema(implementation = SkillDto.class)))
     )
     public ResponseEntity<SkillDto> createSkill(@RequestBody @Valid SkillCreateDto data) {
         return ResponseEntity

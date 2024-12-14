@@ -33,10 +33,7 @@ public class EducationController {
     @GetMapping("/{id}")
     @Operation(
         summary = "Get education record by ID",
-        responses = {
-            @ApiResponse(description = "Education record found", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationDto.class))),
-            @ApiResponse(description = "Education record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Education record found", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationDto.class)))
     )
     public ResponseEntity<EducationDto> getEducationById(@PathVariable Long id) {
         return ResponseEntity.ok(educationService.findById(id));
@@ -45,10 +42,7 @@ public class EducationController {
     @PostMapping
     @Operation(
         summary = "Create a new education record",
-        responses = {
-            @ApiResponse(description = "Education record created", responseCode = "201", content = @Content(schema = @Schema(implementation = EducationDto.class))),
-            @ApiResponse(description = "Invalid input", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Education record created", responseCode = "201", content = @Content(schema = @Schema(implementation = EducationDto.class)))
     )
     public ResponseEntity<EducationDto> createEducation(@RequestBody @Valid EducationCreateDto data) {
         return ResponseEntity
@@ -59,10 +53,7 @@ public class EducationController {
     @PutMapping
     @Operation(
         summary = "Update an existing education record",
-        responses = {
-            @ApiResponse(description = "Education record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationDto.class))),
-            @ApiResponse(description = "Invalid input or record not found", responseCode = "400")
-        }
+        responses = @ApiResponse(description = "Education record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationDto.class)))
     )
     public ResponseEntity<EducationDto> updateEducation(@RequestBody @Valid EducationUpdateDto data) {
         return ResponseEntity.ok(educationService.updateEducation(data));
@@ -71,10 +62,7 @@ public class EducationController {
     @DeleteMapping("/{id}")
     @Operation(
         summary = "Delete an education record by ID",
-        responses = {
-            @ApiResponse(description = "Education record deleted", responseCode = "204"),
-            @ApiResponse(description = "Education record not found", responseCode = "404")
-        }
+        responses = @ApiResponse(description = "Education record deleted", responseCode = "204")
     )
     public ResponseEntity<Void> deleteEducation(@PathVariable Long id) {
         educationService.deleteById(id);

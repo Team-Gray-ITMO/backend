@@ -50,19 +50,19 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}")
-    @Operation(summary = "Get Resume by ID", description = "Retrieve a resume by its ID.", responses = {
-        @ApiResponse(description = "Resume retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
-        @ApiResponse(description = "Resume not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get Resume by ID", description = "Retrieve a resume by its ID.",
+        responses = @ApiResponse(description = "Resume retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class)))
+    )
     public ResponseEntity<ResumeDto> getById(@PathVariable Long resumeId) {
         return ResponseEntity.ok(resumeService.findById(resumeId));
     }
 
     @PostMapping
-    @Operation(summary = "Create a new Resume", description = "Create a new resume for a user.", responses = {
-        @ApiResponse(description = "Resume created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
-        @ApiResponse(description = "Invalid input data", responseCode = "400")
-    })
+    @Operation(
+        summary = "Create a new Resume", description = "Create a new resume for a user.",
+        responses = @ApiResponse(description = "Resume created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = ResumeDto.class)))
+    )
     public ResponseEntity<ResumeDto> create(@RequestBody @Valid ResumeCreateDto resumeCreateDto) {
         return ResponseEntity
             .status(201)
@@ -70,30 +70,29 @@ public class ResumeController {
     }
 
     @PutMapping
-    @Operation(summary = "Update an existing Resume", description = "Update the details of an existing resume.", responses = {
-        @ApiResponse(description = "Resume updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class))),
-        @ApiResponse(description = "Resume not found", responseCode = "404"),
-        @ApiResponse(description = "Invalid input data", responseCode = "400")
-    })
+    @Operation(
+        summary = "Update an existing Resume", description = "Update the details of an existing resume.",
+        responses = @ApiResponse(description = "Resume updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class)))
+    )
     public ResponseEntity<ResumeDto> update(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
         return ResponseEntity.ok(resumeService.updateResume(resumeUpdateDto));
     }
 
     @DeleteMapping("/{resumeId}")
-    @Operation(summary = "Delete Resume by ID", description = "Delete a resume by its ID.", responses = {
-        @ApiResponse(description = "Resume deleted successfully", responseCode = "204"),
-        @ApiResponse(description = "Resume not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Delete Resume by ID", description = "Delete a resume by its ID.",
+        responses = @ApiResponse(description = "Resume deleted successfully", responseCode = "204")
+    )
     public ResponseEntity<Void> delete(@PathVariable Long resumeId) {
         resumeService.deleteById(resumeId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{resumeId}/html")
-    @Operation(summary = "Get Resume as HTML", responses = {
-        @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/octet-stream")),
-        @ApiResponse(description = "Resume not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get Resume as HTML",
+        responses = @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/octet-stream"))
+    )
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
         byte[] htmlAsArray = resumeExportService.extractHtml(resumeId);
 
@@ -103,10 +102,10 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}/pdf")
-    @Operation(summary = "Get Resume as PDF", responses = {
-        @ApiResponse(description = "PDF retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/pdf")),
-        @ApiResponse(description = "Resume not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get Resume as PDF",
+        responses = @ApiResponse(description = "PDF retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/pdf"))
+    )
     public ResponseEntity<ByteArrayResource> getPdf(@PathVariable Long resumeId) {
         byte[] pdfAsArray = resumeExportService.extractPdf(resumeId);
 
@@ -122,10 +121,10 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}/docx")
-    @Operation(summary = "Get Resume as DOCX", responses = {
-        @ApiResponse(description = "DOCX retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
-        @ApiResponse(description = "Resume not found", responseCode = "404")
-    })
+    @Operation(
+        summary = "Get Resume as DOCX",
+        responses = @ApiResponse(description = "DOCX retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+    )
     public void getDocx(@PathVariable Long resumeId, HttpServletResponse response) throws IOException {
         byte[] docxAsArray = resumeExportService.extractDocx(resumeId);
 

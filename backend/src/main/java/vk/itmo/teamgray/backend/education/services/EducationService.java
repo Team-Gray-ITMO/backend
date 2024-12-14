@@ -3,7 +3,7 @@ package vk.itmo.teamgray.backend.education.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
@@ -25,7 +25,8 @@ public class EducationService extends BaseService<Education> {
 
     @Override
     public Education findEntityById(Long id) {
-        return educationRepository.findById(id).orElseThrow(ModelNotFoundException::new);
+        return educationRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Education.class, id));
     }
 
     public EducationDto findById(Long id) {
