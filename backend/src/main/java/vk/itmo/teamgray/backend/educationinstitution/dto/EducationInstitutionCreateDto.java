@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.education.institution.dto;
+package vk.itmo.teamgray.backend.educationinstitution.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

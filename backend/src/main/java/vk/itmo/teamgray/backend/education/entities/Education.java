@@ -16,7 +16,7 @@ import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
-import vk.itmo.teamgray.backend.education.institution.entities.EducationInstitution;
+import vk.itmo.teamgray.backend.educationinstitution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -25,11 +25,11 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 @Table(name = "education")
 @NoArgsConstructor
 public class Education extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
 

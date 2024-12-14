@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import vk.itmo.teamgray.backend.company.repos.CompanyRepository;
-import vk.itmo.teamgray.backend.education.institution.repos.EducationInstitutionRepository;
+import vk.itmo.teamgray.backend.educationinstitution.repos.EducationInstitutionRepository;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.resume.generator.ResumeTestGenerator;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;

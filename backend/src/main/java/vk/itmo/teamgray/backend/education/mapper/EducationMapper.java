@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.entities.Education;
-import vk.itmo.teamgray.backend.education.institution.mapper.EducationInstitutionMapper;
+import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
 
 @Mapper(
     componentModel = "spring",

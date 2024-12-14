@@ -1,16 +1,16 @@
-package vk.itmo.teamgray.backend.education.institution.services;
+package vk.itmo.teamgray.backend.educationinstitution.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionCreateDto;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionDto;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionUpdateDto;
-import vk.itmo.teamgray.backend.education.institution.entities.EducationInstitution;
-import vk.itmo.teamgray.backend.education.institution.mapper.EducationInstitutionMapper;
-import vk.itmo.teamgray.backend.education.institution.repos.EducationInstitutionRepository;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCreateDto;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionUpdateDto;
+import vk.itmo.teamgray.backend.educationinstitution.entities.EducationInstitution;
+import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
+import vk.itmo.teamgray.backend.educationinstitution.repos.EducationInstitutionRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -43,12 +43,16 @@ public class EducationInstitutionService extends BaseService<EducationInstitutio
         return educationInstitutionMapper.toDto(educationInstitution);
     }
 
-    public EducationInstitutionDto updateEducationInstitution(EducationInstitutionUpdateDto data) {
-        return educationInstitutionMapper.toDto(
-            educationInstitutionRepository.save(new EducationInstitution(
-                data
-            ))
-        );
+    public EducationInstitutionDto updateEducationInstitution(EducationInstitutionUpdateDto updateDto) {
+        var educationInstitution = findEntityById(updateDto.getId());
+
+        boolean updated = updateIfPresent(updateDto.getName(), educationInstitution::setName);
+
+        if (updated) {
+            educationInstitution = educationInstitutionRepository.save(educationInstitution);
+        }
+
+        return educationInstitutionMapper.toDto(educationInstitution);
     }
 
     public void deleteById(Long id) {

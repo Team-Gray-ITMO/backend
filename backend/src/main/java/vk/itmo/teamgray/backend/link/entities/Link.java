@@ -20,7 +20,7 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 @Table(name = "link")
 @NoArgsConstructor
 public class Link extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 

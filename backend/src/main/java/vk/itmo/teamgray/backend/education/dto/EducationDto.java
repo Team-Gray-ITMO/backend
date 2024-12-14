@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionDto;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
 
 @NoArgsConstructor
 @Schema(description = "Education Record Model")

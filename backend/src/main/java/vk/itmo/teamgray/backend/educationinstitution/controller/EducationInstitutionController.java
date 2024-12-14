@@ -1,4 +1,4 @@
-package vk.itmo.teamgray.backend.education.institution.controller;
+package vk.itmo.teamgray.backend.educationinstitution.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionCreateDto;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionDto;
-import vk.itmo.teamgray.backend.education.institution.dto.EducationInstitutionUpdateDto;
-import vk.itmo.teamgray.backend.education.institution.services.EducationInstitutionService;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCreateDto;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
+import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionUpdateDto;
+import vk.itmo.teamgray.backend.educationinstitution.services.EducationInstitutionService;
 
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
