@@ -69,7 +69,12 @@ public class ResumeSampleGenerator {
             persist
         );
 
-        resumeService.updateResume(ResumeUpdateDto.builder().templateId(templateId).build());
+        resumeService.updateResume(
+            ResumeUpdateDto.builder()
+                .id(resume.getId())
+                .templateId(templateId)
+                .build()
+        );
 
         var certification1 = certificationService.createCertification(
             new CertificationCreateDto(

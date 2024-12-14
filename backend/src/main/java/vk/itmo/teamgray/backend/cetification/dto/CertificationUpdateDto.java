@@ -10,7 +10,6 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 @Schema(description = "Certification Update Model")
 @Data
 public class CertificationUpdateDto {
-
     @NotNull
     @Schema(description = "Certification ID")
     private long id;

@@ -9,7 +9,7 @@ import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 @Data
 public class EducationUpdateDto {
     @Schema(description = "ID of the education")
-    private Long id;
+    private long id;
 
     @Schema(description = "ID of the resume associated with this education")
     private Long resumeId;

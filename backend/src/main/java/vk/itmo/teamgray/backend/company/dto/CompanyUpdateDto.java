@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class CompanyUpdateDto {
     @Schema(description = "ID of the company")
-    private Long id;
+    private long id;
 
     @Schema(description = "Name of the company")
     private String name;

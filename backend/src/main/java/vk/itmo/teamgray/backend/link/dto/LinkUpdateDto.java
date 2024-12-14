@@ -7,7 +7,7 @@ import lombok.Data;
 @Schema(description = "Link Update Model")
 public class LinkUpdateDto {
     @Schema(description = "Unique identifier for the link")
-    private Long id;
+    private long id;
 
     @Schema(description = "Resume ID to associate the link with")
     private Long resumeId;

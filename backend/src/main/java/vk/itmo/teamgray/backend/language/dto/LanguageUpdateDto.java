@@ -11,7 +11,7 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 public class LanguageUpdateDto implements Serializable {
     @NotNull
     @Schema(description = "Language ID")
-    private Long id;
+    private long id;
 
     @NotNull
     @Schema(description = "Resume ID")

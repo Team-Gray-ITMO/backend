@@ -7,9 +7,8 @@ import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 @Data
 @Schema(description = "Skill Update Model")
 public class SkillUpdateDto {
-
     @Schema(description = "Unique identifier for the skill")
-    private Long id;
+    private long id;
 
     @Schema(description = "Resume ID associated with the skill")
     private Long resumeId;

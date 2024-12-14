@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class JobUpdateDto {
     @Schema(description = "Job ID")
-    private Long id;
+    private long id;
 
     @Schema(description = "Resume ID")
     private Long resumeId;
