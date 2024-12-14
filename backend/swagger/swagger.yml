@@ -1209,10 +1209,6 @@ components:
         email:
           type: string
           description: User's email address
-        vkId:
-          type: integer
-          description: VK ID
-          format: int64
         phoneNumber:
           type: string
           description: Phone number

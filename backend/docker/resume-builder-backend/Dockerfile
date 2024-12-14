@@ -2,9 +2,9 @@ FROM gradle:8.11-jdk21 AS build
 WORKDIR /app
 
 COPY ../../build.gradle.kts ../../settings.gradle.kts ./
-COPY ../../src ./src
+COPY ../../src/main ./src/main
 
-RUN gradle build --no-daemon -x test
+RUN gradle build --parallel --no-daemon -x test
 
 FROM openjdk:21-jdk-slim
 WORKDIR /app
