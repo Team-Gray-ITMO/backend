@@ -1,9 +1,18 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.resume.entities.Resume}
- */
-public record ResumeCreateDto(long userId, String summary, long templateId) implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Schema(description = "Resume Create Model")
+public class ResumeCreateDto {
+    @Schema(description = "User ID associated with the resume")
+    private long userId;
+
+    @Schema(description = "Summary or objective of the resume")
+    private String summary;
 }

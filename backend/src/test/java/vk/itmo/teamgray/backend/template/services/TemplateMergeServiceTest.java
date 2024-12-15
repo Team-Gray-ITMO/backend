@@ -14,12 +14,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileSystemUtils;
 import vk.itmo.teamgray.backend.TestBase;
-import vk.itmo.teamgray.backend.template.dto.FileDto;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
+import vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static vk.itmo.teamgray.backend.template.services.TemplateMergeService.INDEX_HTML_FILENAME;
+import static vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService.INDEX_HTML_FILENAME;
 
 class TemplateMergeServiceTest extends TestBase {
     @Autowired
@@ -62,9 +63,8 @@ class TemplateMergeServiceTest extends TestBase {
     @Test
     void testToHtml() {
         var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
-        var resumeEntity = this.resumeRepository.getResume(resume.getId());
 
-        byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resumeEntity);
+        byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resume);
 
         String htmlContent = new String(mergedHtml, StandardCharsets.UTF_8);
         assertNotNull(htmlContent);

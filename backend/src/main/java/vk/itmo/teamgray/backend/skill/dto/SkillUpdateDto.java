@@ -1,16 +1,23 @@
 package vk.itmo.teamgray.backend.skill.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 
-import java.io.Serializable;
+@NoArgsConstructor
+@Data
+@Schema(description = "Skill Update Model")
+public class SkillUpdateDto {
+    @Schema(description = "Unique identifier for the skill")
+    private long id;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.skill.entities.Skill}
- */
-public record SkillUpdateDto(
-        Long id,
-        Long resumeId,
-        String name,
-        SkillProficiency proficiency
-) implements Serializable {
+    @Schema(description = "Resume ID associated with the skill")
+    private Long resumeId;
+
+    @Schema(description = "Name of the skill")
+    private String name;
+
+    @Schema(description = "Proficiency level of the skill")
+    private SkillProficiency proficiency;
 }

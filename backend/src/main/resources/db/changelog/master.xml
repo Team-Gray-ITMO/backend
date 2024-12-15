@@ -6,9 +6,6 @@
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
     <include file="classpath:/db/changelog/init-changelog.xml"/>
-    <include file="classpath:/db/changelog/2024-11-19-changelog.xml"/>
-    <include file="classpath:/db/changelog/2024-12-01-changelog.xml"/>
-    <include file="classpath:/db/changelog/2024-12-02-changelog.xml"/>
 
 </databaseChangeLog>
 

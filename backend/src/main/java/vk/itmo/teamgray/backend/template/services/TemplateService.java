@@ -1,11 +1,13 @@
 package vk.itmo.teamgray.backend.template.services;
 
 import java.time.Instant;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vk.itmo.teamgray.backend.common.exceptions.ModelNotFoundException;
-import vk.itmo.teamgray.backend.template.dto.FileDto;
+import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
+import vk.itmo.teamgray.backend.common.service.BaseService;
+import vk.itmo.teamgray.backend.file.FileStorageService;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
@@ -16,32 +18,54 @@ import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TemplateService {
+public class TemplateService extends BaseService<Template> {
     private final TemplateRepository templateRepository;
 
     private final FileStorageService fileStorageService;
+
     private final TemplateMapper templateMapper;
 
-    public TemplateDto getDtoById(Long id) {
-        return getTemplateDto(getById(id));
+    public List<TemplateDto> findAll() {
+        return templateMapper.toDtoList(templateRepository.findAll());
+    }
+
+    public TemplateDto findById(Long id) {
+        return templateMapper.toDto(findEntityById(id));
+    }
+
+    @Override
+    public Template findEntityById(Long id) {
+        return templateRepository.findById(id)
+            .orElseThrow(() -> DataNotFoundException.entity(Template.class, id));
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
+        return createTemplate(dto, true);
+    }
+
+    public TemplateDto createTemplate(TemplateCreateDto dto, boolean persist) {
         var file = dto.getFile();
 
         var filePath = fileStorageService.uploadFile(file);
 
         var template = new Template();
-
         template.setName(dto.getName());
         template.setCreatedAt(Instant.now());
         template.setFilePath(filePath);
 
-        return getTemplateDto(templateRepository.save(template));
+        if (persist) {
+            template = templateRepository.save(template);
+        }
+
+        return templateMapper.toDto(template);
     }
 
     public TemplateDto updateTemplate(TemplateUpdateDto dto) {
-        var template = getById(dto.getId());
+        var template = findEntityById(dto.getId());
+
+        boolean updated = false;
+
+        updated |= updateIfPresent(dto.getName(), template::setName);
 
         if (dto.getFile() != null) {
             var file = dto.getFile();
@@ -49,27 +73,18 @@ public class TemplateService {
             var filePath = fileStorageService.uploadFile(file);
 
             template.setFilePath(filePath);
+
+            updated = true;
         }
 
-        if (dto.getName() != null) {
-            template.setName(dto.getName());
+        if (updated) {
+            template = templateRepository.save(template);
         }
 
-        return getTemplateDto(templateRepository.save(template));
+        return templateMapper.toDto(template);
     }
 
     public void deleteById(Long id) {
         templateRepository.deleteById(id);
-    }
-
-    private Template getById(Long id) {
-        return templateRepository.findById(id)
-            .orElseThrow(ModelNotFoundException::new);
-    }
-
-    public TemplateDto getTemplateDto(Template template) {
-        FileDto file = fileStorageService.getFile(template.getFilePath());
-
-        return templateMapper.toDto(template, file);
     }
 }

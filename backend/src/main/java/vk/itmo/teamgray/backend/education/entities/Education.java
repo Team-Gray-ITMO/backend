@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
-import vk.itmo.teamgray.backend.education.dto.EducationUpdateDto;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.educationinstitution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -25,11 +25,11 @@ import vk.itmo.teamgray.backend.resume.entities.Resume;
 @Table(name = "education")
 @NoArgsConstructor
 public class Education extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
 
@@ -58,25 +58,12 @@ public class Education extends BaseEntity {
     public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
         this.resume = resume;
         this.institution = institution;
-        degreeType = data.degreeType();
-        degreeName = data.degreeName();
-        fieldOfStudy = data.fieldOfStudy();
-        specialization = data.specialization();
-        startDate = data.startDate();
-        endDate = data.endDate();
-        grade = data.grade();
-    }
-
-    public Education(EducationUpdateDto data, Resume resume, EducationInstitution institution) {
-        id = data.id();
-        this.resume = resume;
-        this.institution = institution;
-        degreeType = data.degreeType();
-        degreeName = data.degreeName();
-        fieldOfStudy = data.fieldOfStudy();
-        specialization = data.specialization();
-        startDate = data.startDate();
-        endDate = data.endDate();
-        grade = data.grade();
+        degreeType = data.getDegreeType();
+        degreeName = data.getDegreeName();
+        fieldOfStudy = data.getFieldOfStudy();
+        specialization = data.getSpecialization();
+        startDate = data.getStartDate();
+        endDate = data.getEndDate();
+        grade = data.getGrade();
     }
 }

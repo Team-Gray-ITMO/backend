@@ -129,6 +129,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="summary" type="VARCHAR(2000)"/>
+            <column name="template_id" type="BIGINT"/>
         </createTable>
 
         <createTable tableName="skill">
@@ -152,23 +153,31 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
             </column>
             <column name="created_at" type="DATETIME"/>
-            <column name="username" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
             <column name="email" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="password" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="vk_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="phone_number" type="VARCHAR(20)"/>
+            <column name="date_of_birth" type="DATE"/>
+            <column name="city_name" type="VARCHAR(64)"/>
+        </createTable>
+
+        <createTable tableName="template">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_template"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_path" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
-
-        <addUniqueConstraint columnNames="username" constraintName="uc_users_username" tableName="users"/>
 
         <addUniqueConstraint columnNames="vk_id" constraintName="uc_users_vk" tableName="users"/>
 
@@ -176,55 +185,71 @@
                                  baseTableName="certification"
                                  constraintName="FK_CERTIFICATION_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="education_institution_id"
                                  baseTableName="education"
                                  constraintName="FK_EDUCATION_ON_EDUCATION_INSTITUTION"
                                  referencedColumnNames="id"
-                                 referencedTableName="education_institution"/>
+                                 referencedTableName="education_institution"
+                                 onDelete="SET NULL"/>
 
         <addForeignKeyConstraint baseColumnNames="resume_id"
                                  baseTableName="education"
                                  constraintName="FK_EDUCATION_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="company_id"
                                  baseTableName="job"
                                  constraintName="FK_JOB_ON_COMPANY"
                                  referencedColumnNames="id"
-                                 referencedTableName="company"/>
+                                 referencedTableName="company"
+                                 onDelete="SET NULL"/>
 
         <addForeignKeyConstraint baseColumnNames="resume_id"
                                  baseTableName="job"
                                  constraintName="FK_JOB_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="resume_id"
                                  baseTableName="languages"
                                  constraintName="FK_LANGUAGE_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="resume_id"
                                  baseTableName="link"
                                  constraintName="FK_LINK_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="resume"
                                  constraintName="FK_RESUME_ON_USER"
                                  referencedColumnNames="id"
-                                 referencedTableName="users"/>
+                                 referencedTableName="users"
+                                 onDelete="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="resume_id"
                                  baseTableName="skill"
                                  constraintName="FK_SKILL_ON_RESUME"
                                  referencedColumnNames="id"
-                                 referencedTableName="resume"/>
+                                 referencedTableName="resume"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseColumnNames="template_id"
+                                 baseTableName="resume"
+                                 constraintName="FK_RESUME_ON_TEMPLATE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="template"
+                                 onDelete="SET NULL"/>
     </changeSet>
 
 </databaseChangeLog>

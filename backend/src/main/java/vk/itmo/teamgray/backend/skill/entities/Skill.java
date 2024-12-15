@@ -15,7 +15,6 @@ import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
-import vk.itmo.teamgray.backend.skill.dto.SkillUpdateDto;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 
 @Getter
@@ -24,7 +23,7 @@ import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 @Table(name = "skill")
 @NoArgsConstructor
 public class Skill extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
@@ -35,16 +34,9 @@ public class Skill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SkillProficiency proficiency;
 
-    public Skill(SkillCreateDto data, Resume resume){
+    public Skill(SkillCreateDto data, Resume resume) {
         this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
-    }
-
-    public Skill(SkillUpdateDto data, Resume resume){
-        id = data.id();
-        this.resume = resume;
-        name = data.name();
-        proficiency = data.proficiency();
+        name = data.getName();
+        proficiency = data.getProficiency();
     }
 }

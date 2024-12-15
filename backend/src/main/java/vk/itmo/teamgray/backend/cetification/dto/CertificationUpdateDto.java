@@ -1,21 +1,45 @@
 package vk.itmo.teamgray.backend.cetification.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 
-import java.io.Serializable;
-import java.util.Date;
+@NoArgsConstructor
+@Schema(description = "Certification Update Model")
+@Data
+public class CertificationUpdateDto {
+    @NotNull
+    @Schema(description = "Certification ID")
+    private long id;
 
-/**
- * DTO for {@link vk.itmo.teamgray.backend.cetification.entities.Certification}
- */
-public record CertificationUpdateDto(
-        long id,
-        Long resumeId,
-        String name,
-        String issuingOrganization,
-        Date issueDate,
-        Date expirationDate,
-        String credentialUrl,
-        LanguageProficiency languageProficiency
-) implements Serializable {
+    @NotNull
+    @Schema(description = "Resume ID")
+    private Long resumeId;
+
+    @NotNull
+    @Size(max = 255)
+    @Schema(description = "Certification name")
+    private String name;
+
+    @NotNull
+    @Size(max = 255)
+    @Schema(description = "Issuer of the certification")
+    private String issuingOrganization;
+
+    @Schema(description = "Issue date of the certification")
+    private Date issueDate;
+
+    @Schema(description = "Expiration date of the certification")
+    private Date expirationDate;
+
+    @Size(max = 255)
+    @Schema(description = "URL providing details about the credential")
+    private String credentialUrl;
+
+    @Schema(description = "Proficiency level in the associated language")
+    private LanguageProficiency languageProficiency;
 }
