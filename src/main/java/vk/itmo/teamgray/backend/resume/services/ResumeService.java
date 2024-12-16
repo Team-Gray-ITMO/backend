@@ -1,9 +1,11 @@
 package vk.itmo.teamgray.backend.resume.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
+import vk.itmo.teamgray.backend.user.entities.User;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
@@ -30,12 +33,16 @@ import vk.itmo.teamgray.backend.user.service.UserService;
 @Transactional
 public class ResumeService extends BaseService<Resume> {
     private final ResumeRepository resumeRepository;
-    private final UserRepository userRepository;
     private final TemplateService templateService;
     private final UserService userService;
 
     public List<ResumeDto> findAll() {
-        return resumeMapper.toDtoList(resumeRepository.findAllAndFetch());
+        return resumeMapper.toDtoList(
+                resumeRepository.findAllAndFetch()
+                        .stream()
+                        .filter(resume -> resume.getUser().getId() == userService.getAuthUser().getId())
+                        .toList()
+        );
     }
 
     private final ResumeMapper resumeMapper;
@@ -44,8 +51,15 @@ public class ResumeService extends BaseService<Resume> {
 
     @Override
     public Resume findEntityById(Long id) {
-        return resumeRepository.findById(id)
-            .orElseThrow(() -> DataNotFoundException.entity(Resume.class, id));
+        var resume = resumeRepository.findById(id)
+                .orElseThrow(() -> DataNotFoundException.entity(Resume.class, id));
+        var authUser = userService.getAuthUser();
+
+        if (resume.getUser().getId() != authUser.getId()) {
+            throw DataNotFoundException.entity(User.class, id);
+        }
+
+        return resume;
     }
 
     public ResumeDto findById(Long id) {
@@ -82,36 +96,37 @@ public class ResumeService extends BaseService<Resume> {
     }
 
     public void deleteById(Long id) {
-        resumeRepository.deleteById(id);
+        var resume = findEntityById(id);
+        resumeRepository.delete(resume);
     }
 
     @SuppressWarnings("unchecked")
     public Map<String, Object> getResumeJsonForMerge(ResumeDto dto) {
         dto.getCertifications().sort(
-            Comparator.comparing(CertificationDto::getIssueDate).reversed()
+                Comparator.comparing(CertificationDto::getIssueDate).reversed()
         );
 
         dto.getEducations().sort(
-            Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
-                .thenComparing(EducationDto::getStartDate).reversed()
+                Comparator.comparing((EducationDto it) -> it.getDegreeType().ordinal()).reversed()
+                        .thenComparing(EducationDto::getStartDate).reversed()
         );
 
         dto.getJobs().sort(
-            Comparator.comparing(JobDto::getStartDate).reversed()
+                Comparator.comparing(JobDto::getStartDate).reversed()
         );
 
         dto.getLinks().sort(
-            Comparator.comparing(LinkDto::getPlatformName)
+                Comparator.comparing(LinkDto::getPlatformName)
         );
 
         dto.getSkills().sort(
-            Comparator.comparing((SkillDto it) -> it.getProficiency().ordinal()).reversed()
+                Comparator.comparing((SkillDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
         dto.getLanguages().sort(
-            Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
+                Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
+        return (Map<String, Object>) objectMapper.convertValue(dto, Map.class);
     }
 }
