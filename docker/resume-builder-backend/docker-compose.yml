@@ -20,8 +20,8 @@ services:
 
   app:
     build:
-      context: ../..
-      dockerfile: docker/resume-builder-backend/Dockerfile
+      context: ../../backend
+      dockerfile: Dockerfile
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:${POSTGRES_PORT}/${POSTGRES_DB}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
