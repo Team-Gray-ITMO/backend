@@ -5,12 +5,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+
+import java.util.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
@@ -20,7 +22,7 @@ import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
@@ -42,5 +44,45 @@ public class User extends BaseEntity {
     public User(UserCreateDto data) {
         email = data.getEmail();
         vkId = data.getVkId();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "USER";
+            }
+        });
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

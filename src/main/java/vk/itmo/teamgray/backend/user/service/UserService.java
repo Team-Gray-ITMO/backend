@@ -27,6 +27,10 @@ public class UserService extends BaseService<User> {
             .orElseThrow(() -> DataNotFoundException.entity(User.class, id));
     }
 
+    public User findByVkId(Long vkId) {
+        return userRepository.findByVkId(vkId).orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
+    }
+
     public UserDto findById(Long id) {
         return userMapper.toDto(findEntityById(id));
     }
