@@ -55,6 +55,9 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.3.0")
     implementation("org.jsoup:jsoup:1.18.3")
 
+    implementation("org.xhtmlrenderer:flying-saucer-core:9.11.2")
+    implementation("org.xhtmlrenderer:flying-saucer-pdf-itext5:9.7.2")
+
     implementation("io.swagger.core.v3:swagger-annotations:2.2.26")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 

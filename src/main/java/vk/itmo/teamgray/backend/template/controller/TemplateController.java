@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vk.itmo.teamgray.backend.resume.services.ResumeExportService;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
@@ -34,6 +35,7 @@ public class TemplateController {
     private final TemplateService templateService;
 
     private final TemplateMergeService templateMergeService;
+    private final ResumeExportService resumeExportService;
 
     @GetMapping
     @Operation(
@@ -62,6 +64,11 @@ public class TemplateController {
     @GetMapping("/{id}")
     public ResponseEntity<TemplateDto> getTemplateById(@PathVariable Long id) {
         return ResponseEntity.ok(templateService.findById(id));
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> zalupa(@PathVariable Long id) {
+        return ResponseEntity.ok(resumeExportService.extractTemplateImage(id));
     }
 
     @Operation(summary = "Create a new template", responses = {
