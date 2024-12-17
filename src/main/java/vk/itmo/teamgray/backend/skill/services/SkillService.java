@@ -32,17 +32,11 @@ public class SkillService extends BaseService<Skill> {
     }
 
     public SkillDto createSkill(SkillCreateDto data) {
-        return createSkill(data, true);
-    }
-
-    public SkillDto createSkill(SkillCreateDto data, boolean persist) {
         var resume = resumeService.findEntityById(data.getResumeId());
 
         var skill = new Skill(data, resume);
 
-        if (persist) {
-            skill = skillRepository.save(skill);
-        }
+        skill = skillRepository.save(skill);
 
         return skillMapper.toDto(skill);
     }

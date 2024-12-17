@@ -34,18 +34,12 @@ public class JobService extends BaseService {
     }
 
     public JobDto createJob(JobCreateDto data) {
-        return createJob(data, true);
-    }
-
-    public JobDto createJob(JobCreateDto data, boolean persist) {
         var resume = resumeService.findEntityById(data.getResumeId());
         var company = companyService.findEntityById(data.getCompanyId());
 
         var job = new Job(data, resume, company);
 
-        if (persist) {
-            job = jobRepository.save(job);
-        }
+        job = jobRepository.save(job);
 
         return jobMapper.toDto(job);
     }

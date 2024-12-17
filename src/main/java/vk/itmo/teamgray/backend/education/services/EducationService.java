@@ -34,19 +34,13 @@ public class EducationService extends BaseService<Education> {
     }
 
     public EducationDto createEducation(EducationCreateDto data) {
-        return createEducation(data, true);
-    }
-
-    public EducationDto createEducation(EducationCreateDto data, boolean persist) {
         var education = new Education(
             data,
             resumeService.findEntityById(data.getResumeId()),
             educationInstitutionService.findEntityById(data.getEducationInstitutionId())
         );
 
-        if (persist) {
-            education = educationRepository.save(education);
-        }
+        education = educationRepository.save(education);
 
         return educationMapper.toDto(education);
     }

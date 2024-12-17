@@ -1,7 +1,6 @@
 package vk.itmo.teamgray.backend.resume.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,6 @@ class ResumeServiceTest extends TestBase {
 
     @Autowired
     private ResumeService resumeService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void testJsonAggregation() throws JsonProcessingException {

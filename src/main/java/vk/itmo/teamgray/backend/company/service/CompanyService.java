@@ -31,15 +31,9 @@ public class CompanyService extends BaseService<Company> {
     }
 
     public CompanyDto createCompany(CompanyCreateDto data) {
-        return createCompany(data, true);
-    }
-
-    public CompanyDto createCompany(CompanyCreateDto data, boolean persist) {
         var company = new Company(data);
 
-        if (persist) {
-            company = companyRepository.save(company);
-        }
+        company = companyRepository.save(company);
 
         return companyMapper.toDto(company);
     }

@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
@@ -10,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.ActiveProfiles;
 import vk.itmo.teamgray.backend.company.repos.CompanyRepository;
 import vk.itmo.teamgray.backend.educationinstitution.repos.EducationInstitutionRepository;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
@@ -49,6 +49,9 @@ public abstract class TestBase {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     protected UserDto testUser;
 

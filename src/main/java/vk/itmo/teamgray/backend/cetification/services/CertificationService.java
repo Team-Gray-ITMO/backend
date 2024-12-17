@@ -32,16 +32,11 @@ public class CertificationService extends BaseService<Certification> {
     }
 
     public CertificationDto createCertification(CertificationCreateDto data) {
-        return createCertification(data, true);
-    }
-
-    public CertificationDto createCertification(CertificationCreateDto data, boolean persist) {
         var resume = resumeService.findEntityById(data.getResumeId());
+
         var certification = new Certification(data, resume);
 
-        if (persist) {
-            certification = certificationRepository.save(certification);
-        }
+        certification = certificationRepository.save(certification);
 
         return certificationMapper.toDto(certification);
     }
