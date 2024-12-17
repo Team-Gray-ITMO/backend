@@ -34,6 +34,10 @@ public class UserService extends BaseService<User> {
         return userRepository.findByVkId(vkId).orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
     }
 
+    public UserDto getByVkId(Long vkId) {
+        return userMapper.toDto(findByVkId(vkId));
+    }
+
     public User getAuthUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null){

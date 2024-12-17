@@ -39,6 +39,15 @@ public class UserController {
     }
 
     @Operation(
+            summary = "Get user by VK ID",
+            responses = @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
+    )
+    @GetMapping("/vk/{vkId}")
+    public ResponseEntity<UserDto> getUserByVkId(@PathVariable Long vkId) {
+        return ResponseEntity.ok(userService.getByVkId(vkId));
+    }
+
+    @Operation(
         summary = "Create a new user",
         responses = @ApiResponse(description = "Successfully created user", responseCode = "201", content = @Content(schema = @Schema(implementation = UserDto.class)))
     )
