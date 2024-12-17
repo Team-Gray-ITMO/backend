@@ -68,8 +68,8 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/v3/api-docs.yaml",
                         API_VER + "/user/vk/**"
-                    ).anonymous()
-                    .requestMatchers(HttpMethod.POST, API_VER + "/user").anonymous()
+                    ).permitAll() // TODO Переделать на anonymous
+                    .requestMatchers(HttpMethod.POST, API_VER + "/user").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManagement ->
