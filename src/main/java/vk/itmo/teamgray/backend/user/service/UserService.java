@@ -3,7 +3,6 @@ package vk.itmo.teamgray.backend.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +18,6 @@ import vk.itmo.teamgray.backend.user.repos.UserRepository;
 @Service
 @RequiredArgsConstructor
 @Transactional
-//TODO Integrate with Auth
 public class UserService extends BaseService<User> {
     private final UserRepository userRepository;
 
@@ -35,14 +33,17 @@ public class UserService extends BaseService<User> {
         return userRepository.findByVkId(vkId).orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
     }
 
-    public User getAuthUser(){
+    public User getAuthUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null){
+
+        if (auth == null) {
             throw new AuthenticationServiceException("Authentication required");
         }
+
         String email = auth.getName();
+
         return userRepository.findByEmail(email)
-                .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(IllegalArgumentException::new);
     }
 
     public UserDto findById(Long id) {

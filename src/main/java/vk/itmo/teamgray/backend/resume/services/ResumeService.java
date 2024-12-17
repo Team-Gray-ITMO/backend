@@ -53,6 +53,7 @@ public class ResumeService extends BaseService<Resume> {
     public Resume findEntityById(Long id) {
         var resume = resumeRepository.findById(id)
                 .orElseThrow(() -> DataNotFoundException.entity(Resume.class, id));
+
         var authUser = userService.getAuthUser();
 
         if (resume.getUser().getId() != authUser.getId()) {
@@ -71,10 +72,9 @@ public class ResumeService extends BaseService<Resume> {
     }
 
     public ResumeDto createResume(ResumeCreateDto data, boolean persist) {
-        //TODO Resolve user from auth context.
-        var user = userService.findEntityById(data.getUserId());
+        var authUser = userService.getAuthUser();
 
-        var resume = new Resume(data, user, null);
+        var resume = new Resume(data, authUser, null);
 
         if (persist) {
             resume = resumeRepository.save(resume);

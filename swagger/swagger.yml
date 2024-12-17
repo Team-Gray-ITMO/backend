@@ -3,36 +3,36 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-  - url: http://localhost:9090
-    description: Generated server url
+- url: http://localhost:9090
+  description: Generated server url
 tags:
-  - name: Link
-    description: CRUD operations for links
-  - name: Resume
-    description: CRUD and other operations for resumes
-  - name: Language
-    description: CRUD operations for language records
-  - name: Job
-    description: CRUD operations for job records
-  - name: Skill
-    description: CRUD operations for skills
-  - name: Template
-    description: CRUD and other operations for templates
-  - name: Certification
-    description: CRUD operations for certifications
-  - name: Education
-    description: CRUD operations for education records
-  - name: Education Institution
-    description: CRUD operations for education institutions
-  - name: Company
-    description: CRUD operations for company records
-  - name: User
-    description: Operations related to user management
+- name: Link
+  description: CRUD operations for links
+- name: Resume
+  description: CRUD and other operations for resumes
+- name: Language
+  description: CRUD operations for language records
+- name: Job
+  description: CRUD operations for job records
+- name: Skill
+  description: CRUD operations for skills
+- name: Template
+  description: CRUD and other operations for templates
+- name: Certification
+  description: CRUD operations for certifications
+- name: Education
+  description: CRUD operations for education records
+- name: Education Institution
+  description: CRUD operations for education institutions
+- name: Company
+  description: CRUD operations for company records
+- name: User
+  description: Operations related to user management
 paths:
   /api/v1/user:
     put:
       tags:
-        - User
+      - User
       summary: Update an existing user
       operationId: updateUser
       requestBody:
@@ -54,18 +54,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: User updated successfully
           content:
@@ -74,7 +74,7 @@ paths:
                 $ref: "#/components/schemas/UserDto"
     post:
       tags:
-        - User
+      - User
       summary: Create a new user
       operationId: createUser
       requestBody:
@@ -96,18 +96,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Successfully created user
           content:
@@ -117,7 +117,7 @@ paths:
   /api/v1/template:
     get:
       tags:
-        - Template
+      - Template
       summary: Get all Templates
       description: Retrieve all templates.
       operationId: getAllTemplates
@@ -134,18 +134,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -156,7 +156,7 @@ paths:
                   $ref: "#/components/schemas/TemplateDto"
     put:
       tags:
-        - Template
+      - Template
       summary: Update an existing template
       operationId: updateTemplate
       requestBody:
@@ -174,14 +174,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
         "200":
           description: Template updated successfully
           content:
@@ -190,7 +190,7 @@ paths:
                 $ref: "#/components/schemas/TemplateDto"
     post:
       tags:
-        - Template
+      - Template
       summary: Create a new template
       operationId: createTemplate
       requestBody:
@@ -208,18 +208,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Template created successfully
           content:
@@ -229,7 +229,7 @@ paths:
   /api/v1/skill:
     put:
       tags:
-        - Skill
+      - Skill
       summary: Update an existing skill
       operationId: updateSkill
       requestBody:
@@ -247,18 +247,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Skill updated
           content:
@@ -267,7 +267,7 @@ paths:
                 $ref: "#/components/schemas/SkillDto"
     post:
       tags:
-        - Skill
+      - Skill
       summary: Create a new skill
       operationId: createSkill
       requestBody:
@@ -289,18 +289,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Skill created
           content:
@@ -310,7 +310,7 @@ paths:
   /api/v1/resume:
     get:
       tags:
-        - Resume
+      - Resume
       summary: Get all Resumes
       description: Retrieve all resumes.
       operationId: findAll
@@ -327,18 +327,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Resumes retrieved successfully
           content:
@@ -349,7 +349,7 @@ paths:
                   $ref: "#/components/schemas/ResumeDto"
     put:
       tags:
-        - Resume
+      - Resume
       summary: Update an existing Resume
       description: Update the details of an existing resume.
       operationId: update
@@ -372,18 +372,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Resume updated successfully
           content:
@@ -392,7 +392,7 @@ paths:
                 $ref: "#/components/schemas/ResumeDto"
     post:
       tags:
-        - Resume
+      - Resume
       summary: Create a new Resume
       description: Create a new resume for a user.
       operationId: create
@@ -415,18 +415,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Resume created successfully
           content:
@@ -436,7 +436,7 @@ paths:
   /api/v1/link:
     put:
       tags:
-        - Link
+      - Link
       summary: Update an existing Link
       description: Update the details of an existing link.
       operationId: update_1
@@ -459,18 +459,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Link updated successfully
           content:
@@ -479,7 +479,7 @@ paths:
                 $ref: "#/components/schemas/LinkDto"
     post:
       tags:
-        - Link
+      - Link
       summary: Create a new Link
       description: Create a new link for a resume.
       operationId: create_1
@@ -502,18 +502,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Link created successfully
           content:
@@ -523,7 +523,7 @@ paths:
   /api/v1/language:
     put:
       tags:
-        - Language
+      - Language
       summary: Update an existing language record
       operationId: updateLanguage
       requestBody:
@@ -545,18 +545,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Language record updated
           content:
@@ -565,7 +565,7 @@ paths:
                 $ref: "#/components/schemas/LanguageDto"
     post:
       tags:
-        - Language
+      - Language
       summary: Create a new language record
       operationId: createLanguage
       requestBody:
@@ -587,18 +587,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Language record created
           content:
@@ -608,7 +608,7 @@ paths:
   /api/v1/job:
     put:
       tags:
-        - Job
+      - Job
       summary: Update an existing job record
       operationId: updateJob
       requestBody:
@@ -630,18 +630,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Job record updated
           content:
@@ -650,7 +650,7 @@ paths:
                 $ref: "#/components/schemas/JobDto"
     post:
       tags:
-        - Job
+      - Job
       summary: Create a new job record
       operationId: createJob
       requestBody:
@@ -672,18 +672,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Job record created
           content:
@@ -693,7 +693,7 @@ paths:
   /api/v1/education:
     put:
       tags:
-        - Education
+      - Education
       summary: Update an existing education record
       operationId: updateEducation
       requestBody:
@@ -715,18 +715,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Education record updated
           content:
@@ -735,7 +735,7 @@ paths:
                 $ref: "#/components/schemas/EducationDto"
     post:
       tags:
-        - Education
+      - Education
       summary: Create a new education record
       operationId: createEducation
       requestBody:
@@ -757,18 +757,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Education record created
           content:
@@ -778,7 +778,7 @@ paths:
   /api/v1/education-institution:
     put:
       tags:
-        - Education Institution
+      - Education Institution
       summary: Update an existing education institution
       operationId: updateInstitution
       requestBody:
@@ -800,18 +800,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Institution updated
           content:
@@ -820,7 +820,7 @@ paths:
                 $ref: "#/components/schemas/EducationInstitutionDto"
     post:
       tags:
-        - Education Institution
+      - Education Institution
       summary: Create a new education institution
       operationId: createInstitution
       requestBody:
@@ -842,18 +842,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Institution created
           content:
@@ -863,7 +863,7 @@ paths:
   /api/v1/company:
     put:
       tags:
-        - Company
+      - Company
       summary: Update an existing company record
       operationId: updateCompany
       requestBody:
@@ -885,18 +885,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Company record updated
           content:
@@ -905,7 +905,7 @@ paths:
                 $ref: "#/components/schemas/CompanyDto"
     post:
       tags:
-        - Company
+      - Company
       summary: Create a new company record
       operationId: createCompany
       requestBody:
@@ -927,18 +927,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Company record created
           content:
@@ -948,7 +948,7 @@ paths:
   /api/v1/certification:
     put:
       tags:
-        - Certification
+      - Certification
       summary: Update an existing certification
       operationId: updateCertification
       requestBody:
@@ -970,18 +970,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Certification updated
           content:
@@ -990,7 +990,7 @@ paths:
                 $ref: "#/components/schemas/CertificationDto"
     post:
       tags:
-        - Certification
+      - Certification
       summary: Create a new certification
       operationId: createCertification
       requestBody:
@@ -1012,18 +1012,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "201":
           description: Certification created
           content:
@@ -1033,16 +1033,16 @@ paths:
   /api/v1/user/{id}:
     get:
       tags:
-        - User
+      - User
       summary: Get user by ID
       operationId: getUserById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1056,18 +1056,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Successfully retrieved user
           content:
@@ -1077,16 +1077,16 @@ paths:
   /api/v1/template/{id}:
     get:
       tags:
-        - Template
+      - Template
       summary: Get a template by ID
       operationId: getTemplateById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1100,14 +1100,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
         "200":
           description: Template retrieved successfully
           content:
@@ -1116,16 +1116,16 @@ paths:
                 $ref: "#/components/schemas/TemplateDto"
     delete:
       tags:
-        - Template
+      - Template
       summary: Delete a template by ID
       operationId: deleteTemplate
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1139,23 +1139,23 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Template not found
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Template deleted successfully
-  /api/v1/template/filled:
+  /api/v1/template/image:
     get:
       tags:
-        - Template
-      summary: Get all Templates Filled With Default Data
-      description: Retrieve all templates.
-      operationId: getAllTemplatesFilled
+      - Template
+      summary: Get all Templates With Images of Filled Templates
+      description: Retrieve all templates with images.
+      operationId: getAllTemplatesWithImages
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1169,18 +1169,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -1188,20 +1188,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/TemplateDto"
-  /api/v1/skill/{id}:
+                  $ref: "#/components/schemas/TemplateImageDto"
+  /api/v1/template/image/{id}:
     get:
       tags:
-        - Skill
-      summary: Get a skill by ID
-      operationId: getSkillById
+      - Template
+      summary: Get a template with image of Filled Template by ID
+      operationId: getTemplateWithImage
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1215,18 +1215,58 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "200":
+          description: Template retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TemplateImageDto"
+  /api/v1/skill/{id}:
+    get:
+      tags:
+      - Skill
+      summary: Get a skill by ID
+      operationId: getSkillById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Skill found
           content:
@@ -1235,16 +1275,16 @@ paths:
                 $ref: "#/components/schemas/SkillDto"
     delete:
       tags:
-        - Skill
+      - Skill
       summary: Delete a skill by ID
       operationId: deleteSkill
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1258,30 +1298,30 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Skill not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Skill not found
         "204":
           description: Skill deleted
   /api/v1/resume/{resumeId}:
     get:
       tags:
-        - Resume
+      - Resume
       summary: Get Resume by ID
       description: Retrieve a resume by its ID.
       operationId: getById
       parameters:
-        - name: resumeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1295,18 +1335,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Resume retrieved successfully
           content:
@@ -1315,17 +1355,17 @@ paths:
                 $ref: "#/components/schemas/ResumeDto"
     delete:
       tags:
-        - Resume
+      - Resume
       summary: Delete Resume by ID
       description: Delete a resume by its ID.
       operationId: delete
       parameters:
-        - name: resumeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1339,117 +1379,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Resume deleted successfully
-  /api/v1/resume/{resumeId}/pdf:
+  /api/v1/resume/{resumeId}/png:
     get:
       tags:
-        - Resume
-      summary: Get Resume as PDF
-      operationId: getPdf
+      - Resume
+      summary: Get Resume as PNG
+      operationId: getPng
       parameters:
-        - name: resumeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
-        "200":
-          description: PDF retrieved successfully
-          content:
-            application/pdf: { }
-  /api/v1/resume/{resumeId}/html:
-    get:
-      tags:
-        - Resume
-      summary: Get Resume as HTML
-      operationId: getHtml
-      parameters:
-        - name: resumeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
-        "200":
-          description: HTML retrieved successfully
-          content:
-            application/octet-stream: { }
-  /api/v1/resume/{resumeId}/docx:
-    get:
-      tags:
-        - Resume
-      summary: Get Resume as DOCX
-      operationId: getDocx
-      parameters:
-        - name: resumeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "401":
           description: Unauthorized - Access Denied
@@ -1469,36 +1425,35 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
-        "200":
-          description: DOCX retrieved successfully
+        "500":
+          description: Internal Server Error - Unknown error occurred
           content:
-            application/vnd.openxmlformats-officedocument.wordprocessingml.document: { }
-  /api/v1/link/{id}:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "200":
+          description: PNG retrieved successfully
+          content:
+            image/png: {}
+  /api/v1/resume/{resumeId}/pdf:
     get:
       tags:
-        - Link
-      summary: Get Link by ID
-      description: Retrieve a link by its ID.
-      operationId: getById_1
+      - Resume
+      summary: Get Resume as PDF
+      operationId: getPdf
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1512,18 +1467,151 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "200":
+          description: PDF retrieved successfully
+          content:
+            application/pdf: {}
+  /api/v1/resume/{resumeId}/html:
+    get:
+      tags:
+      - Resume
+      summary: Get Resume as HTML
+      operationId: getHtml
+      parameters:
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "200":
+          description: HTML retrieved successfully
+          content:
+            application/octet-stream: {}
+  /api/v1/resume/{resumeId}/docx:
+    get:
+      tags:
+      - Resume
+      summary: Get Resume as DOCX
+      operationId: getDocx
+      parameters:
+      - name: resumeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "401":
+          description: Unauthorized - Access Denied
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "200":
+          description: DOCX retrieved successfully
+          content:
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document: {}
+  /api/v1/link/{id}:
+    get:
+      tags:
+      - Link
+      summary: Get Link by ID
+      description: Retrieve a link by its ID.
+      operationId: getById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Link retrieved successfully
           content:
@@ -1532,17 +1620,17 @@ paths:
                 $ref: "#/components/schemas/LinkDto"
     delete:
       tags:
-        - Link
+      - Link
       summary: Delete Link by ID
       description: Delete a link by its ID.
       operationId: delete_1
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1556,33 +1644,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Link deleted successfully
   /api/v1/language/{id}:
     get:
       tags:
-        - Language
+      - Language
       summary: Get a language record by ID
       operationId: getLanguageById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1596,18 +1684,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Language record found
           content:
@@ -1616,16 +1704,16 @@ paths:
                 $ref: "#/components/schemas/LanguageDto"
     delete:
       tags:
-        - Language
+      - Language
       summary: Delete a language record by ID
       operationId: deleteLanguage
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1639,33 +1727,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Language record deleted
   /api/v1/job/{id}:
     get:
       tags:
-        - Job
+      - Job
       summary: Get a job record by ID
       operationId: getJobById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1679,18 +1767,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Job record found
           content:
@@ -1699,16 +1787,16 @@ paths:
                 $ref: "#/components/schemas/JobDto"
     delete:
       tags:
-        - Job
+      - Job
       summary: Delete a job record by ID
       operationId: deleteJob
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1722,33 +1810,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Job record deleted
   /api/v1/education/{id}:
     get:
       tags:
-        - Education
+      - Education
       summary: Get education record by ID
       operationId: getEducationById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1762,18 +1850,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Education record found
           content:
@@ -1782,16 +1870,16 @@ paths:
                 $ref: "#/components/schemas/EducationDto"
     delete:
       tags:
-        - Education
+      - Education
       summary: Delete an education record by ID
       operationId: deleteEducation
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1805,33 +1893,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Education record deleted
   /api/v1/education-institution/{id}:
     get:
       tags:
-        - Education Institution
+      - Education Institution
       summary: Get education institution by ID
       operationId: getInstitutionById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1845,18 +1933,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Institution found
           content:
@@ -1865,16 +1953,16 @@ paths:
                 $ref: "#/components/schemas/EducationInstitutionDto"
     delete:
       tags:
-        - Education Institution
+      - Education Institution
       summary: Delete an education institution by ID
       operationId: deleteInstitution
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1888,33 +1976,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Institution deleted
   /api/v1/company/{id}:
     get:
       tags:
-        - Company
+      - Company
       summary: Get company record by ID
       operationId: getCompanyById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1928,18 +2016,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Company record found
           content:
@@ -1948,16 +2036,16 @@ paths:
                 $ref: "#/components/schemas/CompanyDto"
     delete:
       tags:
-        - Company
+      - Company
       summary: Delete a company record by ID
       operationId: deleteCompany
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -1971,33 +2059,33 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Company record deleted
   /api/v1/certification/{id}:
     get:
       tags:
-        - Certification
+      - Certification
       summary: Get certification by ID
       operationId: getCertificationById
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -2011,18 +2099,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "200":
           description: Certification found
           content:
@@ -2031,16 +2119,16 @@ paths:
                 $ref: "#/components/schemas/CertificationDto"
     delete:
       tags:
-        - Certification
+      - Certification
       summary: Delete a certification by ID
       operationId: deleteCertification
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "400":
           description: Bad Request - Invalid argument
@@ -2054,18 +2142,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "204":
           description: Certification deleted
 components:
@@ -2106,18 +2194,6 @@ components:
           description: HTTP status code of the error
           example: "409"
       description: Conflict Error Response
-    InternalServerErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Description of the error
-          example: Internal Server Error
-        code:
-          type: string
-          description: HTTP status code of the error
-          example: "500"
-      description: Internal Server Error Response
     NotFoundErrorResponse:
       type: object
       properties:
@@ -2130,6 +2206,18 @@ components:
           description: HTTP status code of the error
           example: "404"
       description: Not Found Error Response
+    InternalServerErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of the error
+          example: Internal Server Error
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "500"
+      description: Internal Server Error Response
     UserDto:
       type: object
       properties:
@@ -2228,10 +2316,10 @@ components:
           type: string
           description: Proficiency level of the skill
           enum:
-            - BEGINNER
-            - INTERMEDIATE
-            - ADVANCED
-            - EXPERT
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
       description: Skill Model
     SkillUpdateDto:
       type: object
@@ -2251,10 +2339,10 @@ components:
           type: string
           description: Proficiency level of the skill
           enum:
-            - BEGINNER
-            - INTERMEDIATE
-            - ADVANCED
-            - EXPERT
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
       description: Skill Update Model
     CertificationDto:
       type: object
@@ -2284,12 +2372,12 @@ components:
           type: string
           description: Proficiency level of the associated language
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Certification Model
     CompanyDto:
       type: object
@@ -2313,11 +2401,11 @@ components:
           type: string
           description: Degree type
           enum:
-            - UNIVERSITY
-            - COLLEGE
-            - HIGH_SCHOOL
-            - ELEMENTARY_SCHOOL
-            - OTHER
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
         degreeName:
           type: string
           description: Degree name
@@ -2393,12 +2481,12 @@ components:
           type: string
           description: Language proficiency level
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Language Record Model
     LinkDto:
       type: object
@@ -2516,10 +2604,10 @@ components:
       description: Link Update Model
     LanguageUpdateDto:
       required:
-        - id
-        - name
-        - proficiency
-        - resumeId
+      - id
+      - name
+      - proficiency
+      - resumeId
       type: object
       properties:
         id:
@@ -2537,12 +2625,12 @@ components:
           type: string
           description: Language proficiency level
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Language Record Update Model
     JobUpdateDto:
       type: object
@@ -2596,11 +2684,11 @@ components:
           type: string
           description: Degree type
           enum:
-            - UNIVERSITY
-            - COLLEGE
-            - HIGH_SCHOOL
-            - ELEMENTARY_SCHOOL
-            - OTHER
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
         degreeName:
           type: string
           description: Name of the degree
@@ -2646,10 +2734,10 @@ components:
       description: Company Update Model
     CertificationUpdateDto:
       required:
-        - id
-        - issuingOrganization
-        - name
-        - resumeId
+      - id
+      - issuingOrganization
+      - name
+      - resumeId
       type: object
       properties:
         id:
@@ -2687,12 +2775,12 @@ components:
           type: string
           description: Proficiency level in the associated language
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Certification Update Model
     UserCreateDto:
       type: object
@@ -2738,10 +2826,10 @@ components:
           type: string
           description: Proficiency level of the skill
           enum:
-            - BEGINNER
-            - INTERMEDIATE
-            - ADVANCED
-            - EXPERT
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
       description: Skill Create Model
     ResumeCreateDto:
       type: object
@@ -2756,9 +2844,9 @@ components:
       description: Resume Create Model
     LinkCreateDto:
       required:
-        - platformName
-        - profileUrl
-        - resumeId
+      - platformName
+      - profileUrl
+      - resumeId
       type: object
       properties:
         resumeId:
@@ -2790,12 +2878,12 @@ components:
           type: string
           description: Language proficiency level
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Language Record Create Model
     JobCreateDto:
       type: object
@@ -2828,10 +2916,10 @@ components:
       description: Job Create Model
     EducationCreateDto:
       required:
-        - degreeName
-        - degreeType
-        - educationInstitutionId
-        - resumeId
+      - degreeName
+      - degreeType
+      - educationInstitutionId
+      - resumeId
       type: object
       properties:
         resumeId:
@@ -2846,11 +2934,11 @@ components:
           type: string
           description: Degree type
           enum:
-            - UNIVERSITY
-            - COLLEGE
-            - HIGH_SCHOOL
-            - ELEMENTARY_SCHOOL
-            - OTHER
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
         degreeName:
           maxLength: 255
           minLength: 0
@@ -2896,9 +2984,9 @@ components:
       description: Company Create Model
     CertificationCreateDto:
       required:
-        - issuingOrganization
-        - name
-        - resumeId
+      - issuingOrganization
+      - name
+      - resumeId
       type: object
       properties:
         resumeId:
@@ -2932,10 +3020,23 @@ components:
           type: string
           description: Proficiency level in the associated language
           enum:
-            - A1
-            - A2
-            - B1
-            - B2
-            - C1
-            - C2
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
       description: Certification Create Model
+    TemplateImageDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier of the template
+          format: int64
+        name:
+          type: string
+          description: The name of the template
+        image:
+          $ref: "#/components/schemas/FileDto"
+      description: Template with Image Model

@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vk.itmo.teamgray.backend.file.format.DocxFormat;
+import vk.itmo.teamgray.backend.file.format.HtmlFormat;
+import vk.itmo.teamgray.backend.file.format.PdfFormat;
+import vk.itmo.teamgray.backend.file.format.PngFormat;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
@@ -91,10 +95,10 @@ public class ResumeController {
     @GetMapping("/{resumeId}/html")
     @Operation(
         summary = "Get Resume as HTML",
-        responses = @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/octet-stream"))
+        responses = @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = HtmlFormat.MIME_TYPE))
     )
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
-        byte[] htmlAsArray = resumeExportService.extractHtml(resumeId);
+        byte[] htmlAsArray = resumeExportService.getResumeAsHtml(resumeId);
 
         ByteArrayResource response = new ByteArrayResource(htmlAsArray);
 
@@ -104,15 +108,15 @@ public class ResumeController {
     @GetMapping("/{resumeId}/pdf")
     @Operation(
         summary = "Get Resume as PDF",
-        responses = @ApiResponse(description = "PDF retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/pdf"))
+        responses = @ApiResponse(description = "PDF retrieved successfully", responseCode = "200", content = @Content(mediaType = PdfFormat.MIME_TYPE))
     )
     public ResponseEntity<ByteArrayResource> getPdf(@PathVariable Long resumeId) {
-        byte[] pdfAsArray = resumeExportService.extractPdf(resumeId);
+        byte[] pdfAsArray = resumeExportService.getResumeAsPdf(resumeId);
 
         ByteArrayResource resource = new ByteArrayResource(pdfAsArray);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=resume_" + resumeId + ".pdf");
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=resume_" + resumeId + PdfFormat.EXTENSION);
+        headers.add(HttpHeaders.CONTENT_TYPE, PdfFormat.MIME_TYPE);
 
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -123,13 +127,26 @@ public class ResumeController {
     @GetMapping("/{resumeId}/docx")
     @Operation(
         summary = "Get Resume as DOCX",
-        responses = @ApiResponse(description = "DOCX retrieved successfully", responseCode = "200", content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+        responses = @ApiResponse(description = "DOCX retrieved successfully", responseCode = "200", content = @Content(mediaType = DocxFormat.MIME_TYPE))
     )
     public void getDocx(@PathVariable Long resumeId, HttpServletResponse response) throws IOException {
-        byte[] docxAsArray = resumeExportService.extractDocx(resumeId);
+        byte[] docxAsArray = resumeExportService.getResumeAsDocx(resumeId);
 
-        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + ".docx");
+        response.setContentType(DocxFormat.MIME_TYPE);
+        response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + DocxFormat.EXTENSION);
         response.getOutputStream().write(docxAsArray);
+    }
+
+    @GetMapping("/{resumeId}/png")
+    @Operation(
+        summary = "Get Resume as PNG",
+        responses = @ApiResponse(description = "PNG retrieved successfully", responseCode = "200", content = @Content(mediaType = PngFormat.MIME_TYPE))
+    )
+    public void getPng(@PathVariable Long resumeId, HttpServletResponse response) throws IOException {
+        byte[] pngByteArray = resumeExportService.getResumeAsPng(resumeId);
+
+        response.setContentType(PngFormat.MIME_TYPE);
+        response.setHeader("Content-Disposition", "attachment; filename=resume_" + resumeId + PngFormat.EXTENSION);
+        response.getOutputStream().write(pngByteArray);
     }
 }

@@ -31,6 +31,7 @@ openApi {
         systemProperties.put("server.port", "9090")
         systemProperties.put("spring.datasource.url", "jdbc:postgresql://localhost:5433/resumebuilder")
         systemProperties.put("s3.endpoint", "http://127.0.0.1:9001/")
+        systemProperties.put("spring.profiles.active", "test")
     }
 }
 
@@ -50,13 +51,12 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.17.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
+    implementation("org.apache.pdfbox:pdfbox:3.0.3")
+
     implementation("com.itextpdf:html2pdf:6.0.0")
 
     implementation("org.apache.poi:poi-ooxml:5.3.0")
     implementation("org.jsoup:jsoup:1.18.3")
-
-    implementation("org.xhtmlrenderer:flying-saucer-core:9.11.2")
-    implementation("org.xhtmlrenderer:flying-saucer-pdf-itext5:9.7.2")
 
     implementation("io.swagger.core.v3:swagger-annotations:2.2.26")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")

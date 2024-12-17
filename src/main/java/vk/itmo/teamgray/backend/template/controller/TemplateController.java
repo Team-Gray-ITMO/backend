@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vk.itmo.teamgray.backend.resume.services.ResumeExportService;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
+import vk.itmo.teamgray.backend.template.dto.TemplateImageDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateUpdateDto;
-import vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService;
+import vk.itmo.teamgray.backend.template.services.TemplateImageService;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
@@ -34,8 +34,7 @@ import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.AP
 public class TemplateController {
     private final TemplateService templateService;
 
-    private final TemplateMergeService templateMergeService;
-    private final ResumeExportService resumeExportService;
+    private final TemplateImageService templateImageService;
 
     @GetMapping
     @Operation(
@@ -47,14 +46,23 @@ public class TemplateController {
         return ResponseEntity.ok(templateService.findAll());
     }
 
-    @GetMapping("/filled")
+    @GetMapping("/image")
     @Operation(
-        summary = "Get all Templates Filled With Default Data",
-        description = "Retrieve all templates.",
-        responses = @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateDto.class))))
+        summary = "Get all Templates With Images of Filled Templates",
+        description = "Retrieve all templates with images.",
+        responses = @ApiResponse(description = "Templates retrieved successfully", responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = TemplateImageDto.class))))
     )
-    public ResponseEntity<List<TemplateDto>> getAllTemplatesFilled() {
-        return ResponseEntity.ok(templateMergeService.getAllTemplatesAndFill());
+    public ResponseEntity<List<TemplateImageDto>> getAllTemplatesWithImages() {
+        return ResponseEntity.ok(templateImageService.generateImagesForAllTemplates());
+    }
+
+    @Operation(summary = "Get a template with image of Filled Template by ID", responses = {
+        @ApiResponse(description = "Template retrieved successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = TemplateImageDto.class))),
+        @ApiResponse(description = "Template not found", responseCode = "404")
+    })
+    @GetMapping("/image/{id}")
+    public ResponseEntity<TemplateImageDto> getTemplateWithImage(@PathVariable Long id) {
+        return ResponseEntity.ok(templateImageService.generateImageForTemplate(id));
     }
 
     @Operation(summary = "Get a template by ID", responses = {
@@ -64,11 +72,6 @@ public class TemplateController {
     @GetMapping("/{id}")
     public ResponseEntity<TemplateDto> getTemplateById(@PathVariable Long id) {
         return ResponseEntity.ok(templateService.findById(id));
-    }
-
-    @GetMapping("/{id}/image")
-    public ResponseEntity<byte[]> zalupa(@PathVariable Long id) {
-        return ResponseEntity.ok(resumeExportService.extractTemplateImage(id));
     }
 
     @Operation(summary = "Create a new template", responses = {

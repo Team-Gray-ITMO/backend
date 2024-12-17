@@ -35,6 +35,7 @@ import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 import vk.itmo.teamgray.backend.skill.services.SkillService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @AllArgsConstructor
 @Component
@@ -57,15 +58,19 @@ public class ResumeSampleGenerator {
 
     private ResumeService resumeService;
 
+    private UserService userService;
+
     private final Random random = new Random();
 
-    public ResumeDto generateResume(long userId) {
-        return generateResume(null, userId, "", false);
+    public ResumeDto generateResume() {
+        return generateResume(null, "", false);
     }
 
-    ResumeDto generateResume(Long templateId, long userId, String suffix, boolean persist) {
+    ResumeDto generateResume(Long templateId, String suffix, boolean persist) {
+        var user = userService.getAuthUser();
+
         var resume = resumeService.createResume(
-            new ResumeCreateDto(userId, "Test Summary " + suffix),
+            new ResumeCreateDto(user.getId(), "Test Summary " + suffix),
             persist
         );
 
