@@ -42,6 +42,10 @@ public class ZipUtils {
         ) {
             for (Map.Entry<String, byte[]> entry : zipContents.entrySet()) {
                 ZipEntry zipEntry = new ZipEntry(entry.getKey());
+
+                // Honest timestamps will kill hashing
+                zipEntry.setTime(0);
+
                 zos.putNextEntry(zipEntry);
                 zos.write(entry.getValue());
                 zos.closeEntry();

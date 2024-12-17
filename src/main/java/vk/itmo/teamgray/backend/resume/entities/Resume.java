@@ -18,7 +18,6 @@ import vk.itmo.teamgray.backend.education.entities.Education;
 import vk.itmo.teamgray.backend.job.entities.Job;
 import vk.itmo.teamgray.backend.language.entities.Language;
 import vk.itmo.teamgray.backend.link.entities.Link;
-import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
 import vk.itmo.teamgray.backend.template.entities.Template;
 import vk.itmo.teamgray.backend.user.entities.User;
@@ -57,10 +56,4 @@ public class Resume extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "template_id")
     private Template template;
-
-    public Resume(ResumeCreateDto data, User user, Template template) {
-        this.user = user;
-        this.template = template;
-        summary = template.getName();
-    }
 }

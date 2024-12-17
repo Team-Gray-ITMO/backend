@@ -1413,18 +1413,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/BadRequestErrorResponse"
-        "401":
-          description: Unauthorized - Access Denied
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "409":
           description: Conflict - Data conflict
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "401":
+          description: Unauthorized - Access Denied
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
@@ -1545,18 +1545,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/BadRequestErrorResponse"
-        "401":
-          description: Unauthorized - Access Denied
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "409":
           description: Conflict - Data conflict
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
+        "401":
+          description: Unauthorized - Access Denied
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
@@ -2170,18 +2170,6 @@ components:
           description: HTTP status code of the error
           example: "400"
       description: Bad Request Error Response
-    UnauthorizedErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Description of the error
-          example: Unauthorized
-        code:
-          type: string
-          description: HTTP status code of the error
-          example: "401"
-      description: Error response object
     ConflictErrorResponse:
       type: object
       properties:
@@ -2194,6 +2182,18 @@ components:
           description: HTTP status code of the error
           example: "409"
       description: Conflict Error Response
+    UnauthorizedErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of the error
+          example: Unauthorized
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "401"
+      description: Error response object
     InternalServerErrorResponse:
       type: object
       properties:
@@ -2284,6 +2284,10 @@ components:
           description: The name of the template
         file:
           $ref: "#/components/schemas/FileDto"
+        createdAt:
+          type: string
+          description: Created At Timestamp
+          format: date-time
       description: Template Model
     TemplateUpdateDto:
       type: object

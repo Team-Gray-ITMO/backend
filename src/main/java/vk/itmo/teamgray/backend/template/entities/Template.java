@@ -19,4 +19,7 @@ public class Template extends BaseEntity {
 
     @Column(name = "file_path")
     private String filePath;
+
+    @Column(name = "file_hash")
+    private String fileHash;
 }

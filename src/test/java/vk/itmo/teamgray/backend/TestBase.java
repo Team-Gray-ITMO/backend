@@ -1,10 +1,9 @@
 package vk.itmo.teamgray.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,19 +12,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import vk.itmo.teamgray.backend.company.repos.CompanyRepository;
 import vk.itmo.teamgray.backend.educationinstitution.repos.EducationInstitutionRepository;
-import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.resume.generator.ResumeTestGenerator;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
-import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
+import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
+import vk.itmo.teamgray.backend.template.services.TemplateImportService;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
 import vk.itmo.teamgray.backend.user.repos.UserRepository;
 import vk.itmo.teamgray.backend.user.service.UserService;
-
-import static vk.itmo.teamgray.backend.file.utils.ZipUtils.repackZip;
-import static vk.itmo.teamgray.backend.template.merge.services.TemplateMergeService.INDEX_HTML_FILENAME;
 
 @SpringBootTest
 public abstract class TestBase {
@@ -37,6 +33,9 @@ public abstract class TestBase {
 
     @Autowired
     protected CompanyRepository companyRepository;
+
+    @Autowired
+    protected TemplateRepository templateRepository;
 
     @Autowired
     protected EducationInstitutionRepository educationInstitutionRepository;
@@ -53,6 +52,9 @@ public abstract class TestBase {
     @Autowired
     protected ObjectMapper objectMapper;
 
+    @Autowired
+    protected TemplateImportService templateImportService;
+
     protected UserDto testUser;
 
     protected TemplateDto sampleTemplate;
@@ -63,8 +65,13 @@ public abstract class TestBase {
         resumeRepository.deleteAll();
         companyRepository.deleteAll();
         educationInstitutionRepository.deleteAll();
+        templateRepository.deleteAll();
 
-        sampleTemplate = createSampleTemplate();
+        templateImportService.init();
+
+        sampleTemplate = templateService.findAll().stream()
+            .max(Comparator.comparing(TemplateDto::getCreatedAt))
+            .orElseThrow();
 
         testUser = userService.createUser(
             new UserCreateDto(
@@ -81,39 +88,5 @@ public abstract class TestBase {
         //TODO Implement better test auth
         Authentication authentication = new UsernamePasswordAuthenticationToken(userEntity, null, userEntity.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    protected TemplateDto createSampleTemplate() {
-        var fileDto = new FileDto();
-
-        var filename = "sample_template";
-
-        var filepath = "/templates/" + filename + ".vm";
-
-        var zipFileName = filename + ".zip";
-
-        fileDto.setFilename(zipFileName);
-        fileDto.setContentType("application/zip");
-
-        try (var stream = TestBase.class.getResourceAsStream(filepath)) {
-            if (stream == null) {
-                throw new AssertionError("Null stream for file " + filepath);
-            }
-
-            var zipFile = repackZip(Map.of(INDEX_HTML_FILENAME, stream.readAllBytes()));
-
-            fileDto.setContent(zipFile);
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-
-        var name = "Test_Template";
-
-        return templateService.createTemplate(
-            new TemplateCreateDto(
-                name,
-                fileDto
-            )
-        );
     }
 }
