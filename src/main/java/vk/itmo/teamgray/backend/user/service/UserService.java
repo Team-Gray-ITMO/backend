@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exception.DataConflictException;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
+import vk.itmo.teamgray.backend.user.dto.UserBaseDto;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
 import vk.itmo.teamgray.backend.user.dto.UserUpdateDto;
@@ -31,11 +32,12 @@ public class UserService extends BaseService<User> {
     }
 
     public User findByVkId(Long vkId) {
-        return userRepository.findByVkId(vkId).orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
+        return userRepository.findByVkId(vkId)
+            .orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
     }
 
-    public UserDto getByVkId(Long vkId) {
-        return userMapper.toDto(findByVkId(vkId));
+    public UserBaseDto getByVkId(Long vkId) {
+        return userMapper.toBaseDto(findByVkId(vkId));
     }
 
     public User getAuthUser() {
@@ -49,10 +51,6 @@ public class UserService extends BaseService<User> {
 
         return userRepository.findByEmail(email)
             .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public UserDto findById(Long id) {
-        return userMapper.toDto(findEntityById(id));
     }
 
     public UserDto createUser(UserCreateDto createDto) {
@@ -80,7 +78,7 @@ public class UserService extends BaseService<User> {
     }
 
     public UserDto updateUser(UserUpdateDto updateDto) {
-        var user = findEntityById(updateDto.getId());
+        var user = getAuthUser();
 
         boolean updated = false;
 

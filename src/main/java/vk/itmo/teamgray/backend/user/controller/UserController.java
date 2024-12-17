@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vk.itmo.teamgray.backend.user.dto.UserBaseDto;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
 import vk.itmo.teamgray.backend.user.dto.UserDto;
 import vk.itmo.teamgray.backend.user.dto.UserUpdateDto;
@@ -30,20 +31,11 @@ public class UserController {
     private final UserService userService;
 
     @Operation(
-        summary = "Get user by ID",
-        responses = @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
-    )
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
-    }
-
-    @Operation(
         summary = "Get user by VK ID",
-        responses = @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
+        responses = @ApiResponse(description = "Successfully retrieved user", responseCode = "200", content = @Content(schema = @Schema(implementation = UserBaseDto.class)))
     )
     @GetMapping("/vk/{vkId}")
-    public ResponseEntity<UserDto> getUserByVkId(@PathVariable Long vkId) {
+    public ResponseEntity<UserBaseDto> getUserByVkId(@PathVariable Long vkId) {
         return ResponseEntity.ok(userService.getByVkId(vkId));
     }
 

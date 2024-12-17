@@ -12,6 +12,7 @@ import vk.itmo.teamgray.backend.language.entities.Language;
 import vk.itmo.teamgray.backend.language.mapper.LanguageMapper;
 import vk.itmo.teamgray.backend.language.repos.LanguageRepository;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +21,11 @@ public class LanguageService extends BaseService<Language> {
     private final LanguageRepository languageRepository;
     private final ResumeService resumeService;
     private final LanguageMapper languageMapper;
+    private final UserService userService;
 
     @Override
     public Language findEntityById(Long id) {
-        return languageRepository.findById(id)
+        return languageRepository.findByIdSecure(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Language.class, id));
     }
 

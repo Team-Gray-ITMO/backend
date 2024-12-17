@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.resume.repos;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,8 +20,12 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
         LEFT JOIN FETCH r.links
         LEFT JOIN FETCH r.skills
         WHERE r.id = :resumeId
+        AND r.user.id = :userId
         """)
-    Resume getResume(@Param("resumeId") long resumeId);
+    Optional<Resume> findByIdAndFetch(
+        @Param("resumeId") long resumeId,
+        @Param("userId") long userId
+    );
 
     @Query("""
         SELECT r
@@ -33,6 +38,7 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
         LEFT JOIN FETCH j.company
         LEFT JOIN FETCH r.links
         LEFT JOIN FETCH r.skills
+        WHERE r.user.id = :userId
         """)
-    List<Resume> findAllAndFetch();
+    List<Resume> findAllAndFetch(@Param("userId") long userId);
 }

@@ -3,21 +3,16 @@ package vk.itmo.teamgray.backend.user.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 @Schema(description = "User Model")
-public class UserDto {
-
-    @Schema(description = "User's ID")
-    private long id;
-
+public class UserDto extends UserBaseDto {
     @Schema(description = "User's email address")
     private String email;
-
-    @Schema(description = "VK ID")
-    private Long vkId;
 
     @Schema(description = "Phone number")
     private String phoneNumber;

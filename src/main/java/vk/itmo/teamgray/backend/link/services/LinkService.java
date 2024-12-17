@@ -12,6 +12,7 @@ import vk.itmo.teamgray.backend.link.entities.Link;
 import vk.itmo.teamgray.backend.link.mapper.LinkMapper;
 import vk.itmo.teamgray.backend.link.repos.LinkRepository;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +21,11 @@ public class LinkService extends BaseService<Link> {
     private final LinkRepository linkRepository;
     private final ResumeService resumeService;
     private final LinkMapper linkMapper;
+    private final UserService userService;
 
     @Override
     public Link findEntityById(Long id) {
-        return linkRepository.findById(id)
+        return linkRepository.findByIdSecure(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Link.class, id));
     }
 
