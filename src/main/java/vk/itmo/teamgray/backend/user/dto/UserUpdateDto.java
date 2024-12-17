@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Schema(description = "User Update Model")
 public class UserUpdateDto implements Serializable {
-    @Schema(description = "The unique identifier of the user")
-    private long id;
-
     @Schema(description = "User's email address")
     private String email;
 

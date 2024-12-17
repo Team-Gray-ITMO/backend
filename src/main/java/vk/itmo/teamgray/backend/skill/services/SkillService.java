@@ -12,6 +12,7 @@ import vk.itmo.teamgray.backend.skill.dto.SkillUpdateDto;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
 import vk.itmo.teamgray.backend.skill.mapper.SkillMapper;
 import vk.itmo.teamgray.backend.skill.repos.SkillRepository;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +21,11 @@ public class SkillService extends BaseService<Skill> {
     private final SkillRepository skillRepository;
     private final ResumeService resumeService;
     private final SkillMapper skillMapper;
+    private final UserService userService;
 
     @Override
     public Skill findEntityById(Long id) {
-        return skillRepository.findById(id)
+        return skillRepository.findByIdSecure(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Skill.class, id));
     }
 

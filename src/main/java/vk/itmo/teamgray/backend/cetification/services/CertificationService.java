@@ -12,6 +12,7 @@ import vk.itmo.teamgray.backend.cetification.repos.CertificationRepository;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +21,11 @@ public class CertificationService extends BaseService<Certification> {
     private final CertificationRepository certificationRepository;
     private final ResumeService resumeService;
     private final CertificationMapper certificationMapper;
+    private final UserService userService;
 
     @Override
     public Certification findEntityById(Long id) {
-        return certificationRepository.findById(id)
+        return certificationRepository.findByIdSecure(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Certification.class, id));
     }
 

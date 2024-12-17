@@ -13,6 +13,7 @@ import vk.itmo.teamgray.backend.job.entities.Job;
 import vk.itmo.teamgray.backend.job.mapper.JobMapper;
 import vk.itmo.teamgray.backend.job.repos.JobRepository;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +23,11 @@ public class JobService extends BaseService {
     private final ResumeService resumeService;
     private final CompanyService companyService;
     private final JobMapper jobMapper;
+    private final UserService userService;
 
     @Override
     public Job findEntityById(Long id) {
-        return jobRepository.findById(id)
+        return jobRepository.findByIdSecure(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Job.class, id));
     }
 

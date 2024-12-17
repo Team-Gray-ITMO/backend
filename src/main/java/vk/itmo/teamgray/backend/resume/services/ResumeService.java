@@ -22,7 +22,6 @@ import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.repos.ResumeRepository;
 import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
-import vk.itmo.teamgray.backend.user.entities.User;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
 @Service
@@ -30,34 +29,25 @@ import vk.itmo.teamgray.backend.user.service.UserService;
 @Transactional
 public class ResumeService extends BaseService<Resume> {
     private final ResumeRepository resumeRepository;
-    private final TemplateService templateService;
-    private final UserService userService;
 
-    public List<ResumeDto> findAll() {
-        return resumeMapper.toDtoList(
-            resumeRepository.findAllAndFetch()
-                .stream()
-                .filter(resume -> resume.getUser().getId() == userService.getAuthUser().getId())
-                .toList()
-        );
-    }
+    private final TemplateService templateService;
+
+    private final UserService userService;
 
     private final ResumeMapper resumeMapper;
 
     private final ObjectMapper objectMapper;
 
+    public List<ResumeDto> findAll() {
+        return resumeMapper.toDtoList(
+            resumeRepository.findAllAndFetch(userService.getAuthUser().getId())
+        );
+    }
+
     @Override
     public Resume findEntityById(Long id) {
-        var resume = resumeRepository.findById(id)
+        return resumeRepository.findByIdAndFetch(id, userService.getAuthUser().getId())
             .orElseThrow(() -> DataNotFoundException.entity(Resume.class, id));
-
-        var authUser = userService.getAuthUser();
-
-        if (resume.getUser().getId() != authUser.getId()) {
-            throw DataNotFoundException.entity(User.class, id);
-        }
-
-        return resume;
     }
 
     public ResumeDto findById(Long id) {
