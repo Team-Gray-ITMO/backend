@@ -21,6 +21,7 @@ import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.template.utils.TemplateUtils;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 import static vk.itmo.teamgray.backend.file.utils.ZipUtils.extractZipContents;
 import static vk.itmo.teamgray.backend.file.utils.ZipUtils.repackZip;
@@ -33,12 +34,12 @@ public class TemplateMergeService {
     private final TemplateService templateService;
 
     private final ResumeService resumeService;
+    private final UserService userService;
 
     private final ResumeSampleGenerator resumeSampleGenerator;
 
     public List<TemplateDto> getAllTemplatesAndFill() {
-        //TODO Resolve user from auth context.
-        var sampleResume = resumeSampleGenerator.generateResume(1L);
+        var sampleResume = resumeSampleGenerator.generateResume(userService.getAuthUser().getId());
 
         return templateService.findAll().stream()
             .peek(template -> template.setFile(mergeTemplate(template, resumeService.getResumeJsonForMerge(sampleResume))))
