@@ -1,6 +1,10 @@
 package vk.itmo.teamgray.backend.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
@@ -25,6 +29,20 @@ public class UserService extends BaseService<User> {
     public User findEntityById(Long id) {
         return userRepository.findById(id)
             .orElseThrow(() -> DataNotFoundException.entity(User.class, id));
+    }
+
+    public User findByVkId(Long vkId) {
+        return userRepository.findByVkId(vkId).orElseThrow(() -> DataNotFoundException.entity(User.class, vkId));
+    }
+
+    public User getAuthUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null){
+            throw new AuthenticationServiceException("Authentication required");
+        }
+        String email = auth.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public UserDto findById(Long id) {
