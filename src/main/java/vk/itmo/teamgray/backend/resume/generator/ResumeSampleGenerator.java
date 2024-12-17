@@ -101,9 +101,7 @@ public class ResumeSampleGenerator {
     }
 
     ResumeDto generateResume(Long templateId, String suffix, boolean persist) {
-        var user = userService.getAuthUser();
-
-        var resume = createResume(new ResumeCreateDto(user.getId(), "Test Summary " + suffix), persist);
+        var resume = createResume(new ResumeCreateDto("Test Summary " + suffix), persist);
 
         var updateDto = new ResumeUpdateDto();
 

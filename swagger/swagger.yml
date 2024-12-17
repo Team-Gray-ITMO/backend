@@ -42,30 +42,30 @@ paths:
               $ref: "#/components/schemas/UserUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: User updated successfully
           content:
@@ -84,30 +84,30 @@ paths:
               $ref: "#/components/schemas/UserCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Successfully created user
           content:
@@ -122,30 +122,30 @@ paths:
       description: Retrieve all templates.
       operationId: getAllTemplates
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -166,22 +166,22 @@ paths:
               $ref: "#/components/schemas/TemplateUpdateDto"
         required: true
       responses:
-        "400":
-          description: Invalid input data
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Invalid input data
         "200":
           description: Template updated successfully
           content:
@@ -200,26 +200,26 @@ paths:
               $ref: "#/components/schemas/TemplateCreateDto"
         required: true
       responses:
-        "400":
-          description: Invalid input data
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Invalid input data
         "201":
           description: Template created successfully
           content:
@@ -239,26 +239,26 @@ paths:
               $ref: "#/components/schemas/SkillUpdateDto"
         required: true
       responses:
-        "400":
-          description: Invalid input or skill not found
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Invalid input or skill not found
         "200":
           description: Skill updated
           content:
@@ -277,30 +277,30 @@ paths:
               $ref: "#/components/schemas/SkillCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Skill created
           content:
@@ -315,30 +315,30 @@ paths:
       description: Retrieve all resumes.
       operationId: findAll
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Resumes retrieved successfully
           content:
@@ -360,30 +360,30 @@ paths:
               $ref: "#/components/schemas/ResumeUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Resume updated successfully
           content:
@@ -403,30 +403,30 @@ paths:
               $ref: "#/components/schemas/ResumeCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Resume created successfully
           content:
@@ -447,30 +447,30 @@ paths:
               $ref: "#/components/schemas/LinkUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Link updated successfully
           content:
@@ -490,30 +490,30 @@ paths:
               $ref: "#/components/schemas/LinkCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Link created successfully
           content:
@@ -533,30 +533,30 @@ paths:
               $ref: "#/components/schemas/LanguageUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Language record updated
           content:
@@ -575,30 +575,30 @@ paths:
               $ref: "#/components/schemas/LanguageCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Language record created
           content:
@@ -618,30 +618,30 @@ paths:
               $ref: "#/components/schemas/JobUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Job record updated
           content:
@@ -660,30 +660,30 @@ paths:
               $ref: "#/components/schemas/JobCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Job record created
           content:
@@ -703,30 +703,30 @@ paths:
               $ref: "#/components/schemas/EducationUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Education record updated
           content:
@@ -745,30 +745,30 @@ paths:
               $ref: "#/components/schemas/EducationCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Education record created
           content:
@@ -788,30 +788,30 @@ paths:
               $ref: "#/components/schemas/EducationInstitutionUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Institution updated
           content:
@@ -830,30 +830,30 @@ paths:
               $ref: "#/components/schemas/EducationInstitutionCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Institution created
           content:
@@ -873,30 +873,30 @@ paths:
               $ref: "#/components/schemas/CompanyUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Company record updated
           content:
@@ -915,30 +915,30 @@ paths:
               $ref: "#/components/schemas/CompanyCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Company record created
           content:
@@ -958,30 +958,30 @@ paths:
               $ref: "#/components/schemas/CertificationUpdateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Certification updated
           content:
@@ -1000,30 +1000,30 @@ paths:
               $ref: "#/components/schemas/CertificationCreateDto"
         required: true
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "201":
           description: Certification created
           content:
@@ -1044,30 +1044,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Successfully retrieved user
           content:
@@ -1088,26 +1088,26 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Template retrieved successfully
           content:
@@ -1127,26 +1127,26 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Template deleted successfully
   /api/v1/template/image:
@@ -1157,30 +1157,30 @@ paths:
       description: Retrieve all templates with images.
       operationId: getAllTemplatesWithImages
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -1203,26 +1203,26 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Template not found
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Template retrieved successfully
           content:
@@ -1243,30 +1243,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Skill found
           content:
@@ -1286,26 +1286,26 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
+        "404":
+          description: Skill not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Skill not found
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Skill deleted
   /api/v1/resume/{resumeId}:
@@ -1323,30 +1323,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Resume retrieved successfully
           content:
@@ -1367,30 +1367,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Resume deleted successfully
   /api/v1/resume/{resumeId}/png:
@@ -1407,12 +1407,18 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
+        "404":
+          description: Not Found - Data not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "409":
           description: Conflict - Data conflict
           content:
@@ -1425,18 +1431,12 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/UnauthorizedErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
+        "400":
+          description: Bad Request - Invalid argument
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: PNG retrieved successfully
           content:
@@ -1455,30 +1455,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: PDF retrieved successfully
           content:
@@ -1497,30 +1497,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: HTML retrieved successfully
           content:
@@ -1539,12 +1539,18 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
+        "404":
+          description: Not Found - Data not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
         "409":
           description: Conflict - Data conflict
           content:
@@ -1557,18 +1563,12 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/UnauthorizedErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
+        "400":
+          description: Bad Request - Invalid argument
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: DOCX retrieved successfully
           content:
@@ -1588,30 +1588,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Link retrieved successfully
           content:
@@ -1632,30 +1632,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Link deleted successfully
   /api/v1/language/{id}:
@@ -1672,30 +1672,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Language record found
           content:
@@ -1715,30 +1715,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Language record deleted
   /api/v1/job/{id}:
@@ -1755,30 +1755,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Job record found
           content:
@@ -1798,30 +1798,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Job record deleted
   /api/v1/education/{id}:
@@ -1838,30 +1838,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Education record found
           content:
@@ -1881,30 +1881,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Education record deleted
   /api/v1/education-institution/{id}:
@@ -1921,30 +1921,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Institution found
           content:
@@ -1964,30 +1964,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Institution deleted
   /api/v1/company/{id}:
@@ -2004,30 +2004,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Company record found
           content:
@@ -2047,30 +2047,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Company record deleted
   /api/v1/certification/{id}:
@@ -2087,30 +2087,30 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "200":
           description: Certification found
           content:
@@ -2130,46 +2130,58 @@ paths:
           type: integer
           format: int64
       responses:
-        "400":
-          description: Bad Request - Invalid argument
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/BadRequestErrorResponse"
-        "409":
-          description: Conflict - Data conflict
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ConflictErrorResponse"
-        "500":
-          description: Internal Server Error - Unknown error occurred
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponse"
         "404":
           description: Not Found - Data not found
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "500":
+          description: Internal Server Error - Unknown error occurred
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+        "409":
+          description: Conflict - Data conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+        "400":
+          description: Bad Request - Invalid argument
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
         "204":
           description: Certification deleted
 components:
   schemas:
-    BadRequestErrorResponse:
+    NotFoundErrorResponse:
       type: object
       properties:
         message:
           type: string
           description: Description of the error
-          example: Invalid input provided
+          example: Not Found
         code:
           type: string
           description: HTTP status code of the error
-          example: "400"
-      description: Bad Request Error Response
+          example: "404"
+      description: Not Found Error Response
+    InternalServerErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of the error
+          example: Internal Server Error
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "500"
+      description: Internal Server Error Response
     ConflictErrorResponse:
       type: object
       properties:
@@ -2194,30 +2206,18 @@ components:
           description: HTTP status code of the error
           example: "401"
       description: Error response object
-    InternalServerErrorResponse:
+    BadRequestErrorResponse:
       type: object
       properties:
         message:
           type: string
           description: Description of the error
-          example: Internal Server Error
+          example: Invalid input provided
         code:
           type: string
           description: HTTP status code of the error
-          example: "500"
-      description: Internal Server Error Response
-    NotFoundErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Description of the error
-          example: Not Found
-        code:
-          type: string
-          description: HTTP status code of the error
-          example: "404"
-      description: Not Found Error Response
+          example: "400"
+      description: Bad Request Error Response
     UserDto:
       type: object
       properties:
@@ -2834,10 +2834,6 @@ components:
     ResumeCreateDto:
       type: object
       properties:
-        userId:
-          type: integer
-          description: User ID associated with the resume
-          format: int64
         summary:
           type: string
           description: Summary or objective of the resume
