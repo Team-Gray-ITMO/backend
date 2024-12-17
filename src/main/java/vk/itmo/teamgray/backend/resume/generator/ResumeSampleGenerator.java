@@ -2,9 +2,9 @@ package vk.itmo.teamgray.backend.resume.generator;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -12,29 +12,46 @@ import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationCreateDto;
+import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
+import vk.itmo.teamgray.backend.cetification.mapper.CertificationMapper;
 import vk.itmo.teamgray.backend.cetification.services.CertificationService;
 import vk.itmo.teamgray.backend.company.dto.CompanyCreateDto;
+import vk.itmo.teamgray.backend.company.dto.CompanyDto;
+import vk.itmo.teamgray.backend.company.mapper.CompanyMapper;
 import vk.itmo.teamgray.backend.company.service.CompanyService;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
+import vk.itmo.teamgray.backend.education.dto.EducationDto;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.education.services.EducationService;
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCreateDto;
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
+import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
 import vk.itmo.teamgray.backend.educationinstitution.services.EducationInstitutionService;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
+import vk.itmo.teamgray.backend.job.dto.JobDto;
+import vk.itmo.teamgray.backend.job.mapper.JobMapper;
 import vk.itmo.teamgray.backend.job.service.JobService;
 import vk.itmo.teamgray.backend.language.dto.LanguageCreateDto;
+import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
+import vk.itmo.teamgray.backend.language.mapper.LanguageMapper;
 import vk.itmo.teamgray.backend.language.services.LanguageService;
 import vk.itmo.teamgray.backend.link.dto.LinkCreateDto;
+import vk.itmo.teamgray.backend.link.dto.LinkDto;
+import vk.itmo.teamgray.backend.link.mapper.LinkMapper;
 import vk.itmo.teamgray.backend.link.services.LinkService;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeUpdateDto;
+import vk.itmo.teamgray.backend.resume.mapper.ResumeMapper;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.skill.dto.SkillCreateDto;
+import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
+import vk.itmo.teamgray.backend.skill.mapper.SkillMapper;
 import vk.itmo.teamgray.backend.skill.services.SkillService;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 @AllArgsConstructor
 @Component
@@ -57,26 +74,45 @@ public class ResumeSampleGenerator {
 
     private ResumeService resumeService;
 
+    private UserService userService;
+
+    private CertificationMapper certificationMapper;
+
+    private EducationMapper educationMapper;
+
+    private EducationInstitutionMapper educationInstitutionMapper;
+
+    private LanguageMapper languageMapper;
+
+    private LinkMapper linkMapper;
+
+    private CompanyMapper companyMapper;
+
+    private JobMapper jobMapper;
+
+    private SkillMapper skillMapper;
+
+    private ResumeMapper resumeMapper;
+
     private final Random random = new Random();
 
-    public ResumeDto generateResume(long userId) {
-        return generateResume(null, userId, "", false);
+    public ResumeDto generateResume() {
+        return generateResume(null, "", false);
     }
 
-    ResumeDto generateResume(Long templateId, long userId, String suffix, boolean persist) {
-        var resume = resumeService.createResume(
-            new ResumeCreateDto("Test Summary " + suffix),
-            persist
-        );
+    ResumeDto generateResume(Long templateId, String suffix, boolean persist) {
+        var resume = createResume(new ResumeCreateDto("Test Summary " + suffix), persist);
 
         var updateDto = new ResumeUpdateDto();
 
         updateDto.setId(resume.getId());
         updateDto.setTemplateId(templateId);
 
-        resumeService.updateResume(updateDto);
+        if (persist) {
+            resumeService.updateResume(updateDto);
+        }
 
-        var certification1 = certificationService.createCertification(
+        var certification1 = createCertification(
             new CertificationCreateDto(
                 resume.getId(),
                 "Test Name " + suffix,
@@ -89,7 +125,7 @@ public class ResumeSampleGenerator {
             persist
         );
 
-        var certification2 = certificationService.createCertification(
+        var certification2 = createCertification(
             new CertificationCreateDto(
                 resume.getId(),
                 "Language Test Name " + suffix,
@@ -103,11 +139,11 @@ public class ResumeSampleGenerator {
         );
 
         if (!persist) {
-            resume.setCertifications(List.of(certification1, certification2));
+            resume.setCertifications(Stream.of(certification1, certification2).collect(Collectors.toCollection(ArrayList::new)));
         }
 
         var skillz = Arrays.stream(SkillProficiency.values())
-            .map(proficiency -> skillService.createSkill(
+            .map(proficiency -> createSkill(
                     new SkillCreateDto(
                         resume.getId(),
                         "Skill " + proficiency + " " + suffix,
@@ -116,7 +152,7 @@ public class ResumeSampleGenerator {
                     persist
                 )
             )
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
             resume.setSkills(skillz);
@@ -124,7 +160,7 @@ public class ResumeSampleGenerator {
 
         var educationInstitutions = Arrays.stream(EducationDegreeType.values()).collect(Collectors.toMap(
             Function.identity(),
-            degreeType -> educationInstitutionService.createEducationInstitution(
+            degreeType -> createEducationInstitution(
                 new EducationInstitutionCreateDto(
                     "TestName " + degreeType + suffix
                 ),
@@ -138,7 +174,7 @@ public class ResumeSampleGenerator {
                 EducationDegreeType degreeType = entry.getKey();
                 EducationInstitutionDto suffixnstitution = entry.getValue();
 
-                return educationService.createEducation(
+                return createEducation(
                     new EducationCreateDto(
                         resume.getId(),
                         suffixnstitution.getId(),
@@ -153,7 +189,7 @@ public class ResumeSampleGenerator {
                     persist
                 );
             })
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
             resume.setEducations(educations);
@@ -166,7 +202,7 @@ public class ResumeSampleGenerator {
                     .findFirst()
                     .orElseThrow();
 
-                return languageService.createLanguage(
+                return createLanguage(
                     new LanguageCreateDto(
                         resume.getId(),
                         lang,
@@ -175,14 +211,14 @@ public class ResumeSampleGenerator {
                     persist
                 );
             })
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
             resume.setLanguages(languages);
         }
 
         var links = Stream.of("github", "linkedin")
-            .map(platform -> linkService.createLink(
+            .map(platform -> createLink(
                 new LinkCreateDto(
                     resume.getId(),
                     platform + " " + suffix,
@@ -190,25 +226,25 @@ public class ResumeSampleGenerator {
                 ),
                 persist
             ))
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
             resume.setLinks(links);
         }
 
         var companies = Stream.of("Google", "Microsoft")
-            .map(company -> companyService.createCompany(
+            .map(company -> createCompany(
                     new CompanyCreateDto(
                         company
                     ),
                     persist
                 )
             )
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
 
         var jobs = companies.stream()
-            .map(company -> jobService.createJob(
+            .map(company -> createJob(
                 new JobCreateDto(
                     resume.getId(),
                     company.getId(),
@@ -220,7 +256,7 @@ public class ResumeSampleGenerator {
                 ),
                 persist
             ))
-            .toList();
+            .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
             resume.setJobs(jobs);
@@ -230,6 +266,78 @@ public class ResumeSampleGenerator {
             return resumeService.findById(resume.getId());
         } else {
             return resume;
+        }
+    }
+
+    private CertificationDto createCertification(CertificationCreateDto certificationCreateDto, boolean persist) {
+        if (persist) {
+            return certificationService.createCertification(certificationCreateDto);
+        } else {
+            return certificationMapper.dryRun(certificationCreateDto);
+        }
+    }
+
+    private EducationDto createEducation(EducationCreateDto educationCreateDto, boolean persist) {
+        if (persist) {
+            return educationService.createEducation(educationCreateDto);
+        } else {
+            return educationMapper.dryRun(educationCreateDto);
+        }
+    }
+
+    private EducationInstitutionDto createEducationInstitution(EducationInstitutionCreateDto educationInstitutionCreateDto, boolean persist) {
+        if (persist) {
+            return educationInstitutionService.createEducationInstitution(educationInstitutionCreateDto);
+        } else {
+            return educationInstitutionMapper.dryRun(educationInstitutionCreateDto);
+        }
+    }
+
+    private LanguageDto createLanguage(LanguageCreateDto languageCreateDto, boolean persist) {
+        if (persist) {
+            return languageService.createLanguage(languageCreateDto);
+        } else {
+            return languageMapper.dryRun(languageCreateDto);
+        }
+    }
+
+    private LinkDto createLink(LinkCreateDto linkCreateDto, boolean persist) {
+        if (persist) {
+            return linkService.createLink(linkCreateDto);
+        } else {
+            return linkMapper.dryRun(linkCreateDto);
+        }
+    }
+
+    private CompanyDto createCompany(CompanyCreateDto companyCreateDto, boolean persist) {
+        if (persist) {
+            return companyService.createCompany(companyCreateDto);
+        } else {
+            return companyMapper.dryRun(companyCreateDto);
+        }
+    }
+
+    private JobDto createJob(JobCreateDto jobCreateDto, boolean persist) {
+        if (persist) {
+            return jobService.createJob(jobCreateDto);
+        } else {
+            return jobMapper.dryRun(jobCreateDto);
+        }
+    }
+
+    private SkillDto createSkill(SkillCreateDto skillCreateDto, boolean persist) {
+        if (persist) {
+            return skillService.createSkill(skillCreateDto);
+        } else {
+            return skillMapper.dryRun(skillCreateDto);
+        }
+    }
+
+    private ResumeDto createResume(ResumeCreateDto resumeCreateDto, boolean persist) {
+        if (persist) {
+            return resumeService.createResume(resumeCreateDto);
+        } else {
+            return resumeMapper.dryRun(resumeCreateDto);
         }
     }
 }

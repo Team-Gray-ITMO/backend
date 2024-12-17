@@ -31,6 +31,7 @@ openApi {
         systemProperties.put("server.port", "9090")
         systemProperties.put("spring.datasource.url", "jdbc:postgresql://localhost:5433/resumebuilder")
         systemProperties.put("s3.endpoint", "http://127.0.0.1:9001/")
+        systemProperties.put("spring.profiles.active", "test")
     }
 }
 
@@ -49,6 +50,8 @@ dependencies {
     implementation("org.apache.velocity:velocity-engine-core:2.4.1")
     implementation("org.apache.commons:commons-lang3:3.17.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+    implementation("org.apache.pdfbox:pdfbox:3.0.3")
 
     implementation("com.itextpdf:html2pdf:6.0.0")
 

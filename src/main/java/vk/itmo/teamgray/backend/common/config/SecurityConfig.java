@@ -1,7 +1,6 @@
 package vk.itmo.teamgray.backend.common.config;
 
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +22,9 @@ import vk.itmo.teamgray.backend.common.filters.VkIdAuthenticationFilter;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
     private final VkIdAuthenticationFilter filter;
@@ -51,30 +50,35 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .permitAll()
+            .logoutUrl("/logout")
+            .invalidateHttpSession(true)
+            .clearAuthentication(true)
+            .permitAll()
         );
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
-                .formLogin(withDefaults())
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(authorizeHttpRequests ->
-                        authorizeHttpRequests
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", API_VER + "/user/vk/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, API_VER + "/user").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .sessionManagement(sessionManagement ->
-                        sessionManagement
-                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .exceptionHandling(c -> c.authenticationEntryPoint(
-                        (request, response, authException) -> response.sendError(HttpStatus.UNAUTHORIZED.value())
-                ));
+            .csrf(AbstractHttpConfigurer::disable)
+            .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
+            .formLogin(withDefaults())
+            .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+            .authorizeHttpRequests(authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml",
+                        API_VER + "/user/vk/**"
+                    ).anonymous()
+                    .requestMatchers(HttpMethod.POST, API_VER + "/user").anonymous()
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(sessionManagement ->
+                sessionManagement
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .exceptionHandling(c -> c.authenticationEntryPoint(
+                (request, response, authException) -> response.sendError(HttpStatus.UNAUTHORIZED.value())
+            ));
 
 
         return http.build();

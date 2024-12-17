@@ -31,15 +31,9 @@ public class EducationInstitutionService extends BaseService<EducationInstitutio
     }
 
     public EducationInstitutionDto createEducationInstitution(EducationInstitutionCreateDto data) {
-        return createEducationInstitution(data, true);
-    }
-
-    public EducationInstitutionDto createEducationInstitution(EducationInstitutionCreateDto data, boolean persist) {
         var educationInstitution = new EducationInstitution(data);
 
-        if (persist) {
-            educationInstitution = educationInstitutionRepository.save(educationInstitution);
-        }
+        educationInstitution = educationInstitutionRepository.save(educationInstitution);
 
         return educationInstitutionMapper.toDto(educationInstitution);
     }

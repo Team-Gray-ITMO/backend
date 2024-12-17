@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.velocity.VelocityContext;
@@ -15,13 +14,11 @@ import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
-import vk.itmo.teamgray.backend.resume.generator.ResumeSampleGenerator;
 import vk.itmo.teamgray.backend.resume.services.ResumeService;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.exception.TemplateMergeServiceException;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.template.utils.TemplateUtils;
-import vk.itmo.teamgray.backend.user.service.UserService;
 
 import static vk.itmo.teamgray.backend.file.utils.ZipUtils.extractZipContents;
 import static vk.itmo.teamgray.backend.file.utils.ZipUtils.repackZip;
@@ -34,27 +31,16 @@ public class TemplateMergeService {
     private final TemplateService templateService;
 
     private final ResumeService resumeService;
-    private final UserService userService;
 
-    private final ResumeSampleGenerator resumeSampleGenerator;
-
-    public List<TemplateDto> getAllTemplatesAndFill() {
-        var sampleResume = resumeSampleGenerator.generateResume(userService.getAuthUser().getId());
-
-        return templateService.findAll().stream()
-            .peek(template -> template.setFile(mergeTemplate(template, resumeService.getResumeJsonForMerge(sampleResume))))
-            .toList();
-    }
-
-    public FileDto mergeTemplate(long resumeId, long templateId) {
+    public FileDto mergeTemplateToZip(long resumeId, long templateId) {
         var template = templateService.findById(templateId);
 
         var resume = resumeService.getResumeJsonForMerge(resumeService.findById(resumeId));
 
-        return mergeTemplate(template, resume);
+        return mergeTemplateToZip(template, resume);
     }
 
-    private FileDto mergeTemplate(TemplateDto templateDto, Map<String, Object> valuesMap) {
+    public FileDto mergeTemplateToZip(TemplateDto templateDto, Map<String, Object> valuesMap) {
         Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
 
         String templateContent = getTemplateContent(zipContents);
@@ -68,11 +54,17 @@ public class TemplateMergeService {
         return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
     }
 
+    // TODO We are losing other files from archive here (images for example). (We need to thing about how to pass images to PDF/DOCX/PNG converters)
     public byte[] mergeTemplateToHtml(ResumeDto resume) {
         var template = templateService.findById(resume.getTemplate().getId());
 
         var resumeMap = resumeService.getResumeJsonForMerge(resume);
 
+        return mergeTemplateToHtml(template, resumeMap);
+    }
+
+    // TODO We are losing other files from archive here (images for example). (We need to thing about how to pass images to PDF/DOCX/PNG converters)
+    public byte[] mergeTemplateToHtml(TemplateDto template, Map<String, Object> resumeMap) {
         Map<String, byte[]> zipContents = extractZipContents(template.getFile());
 
         String templateContent = getTemplateContent(zipContents);

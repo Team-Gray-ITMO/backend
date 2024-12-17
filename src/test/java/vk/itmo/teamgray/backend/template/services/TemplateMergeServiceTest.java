@@ -30,7 +30,7 @@ class TemplateMergeServiceTest extends TestBase {
     void testMerge() throws IOException {
         var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
 
-        FileDto mergedFile = templateMergeService.mergeTemplate(resume.getId(), sampleTemplate.getId());
+        FileDto mergedFile = templateMergeService.mergeTemplateToZip(resume.getId(), sampleTemplate.getId());
 
         assertNotNull(mergedFile);
         assertEquals(sampleTemplate.getFile().getFilename(), mergedFile.getFilename());
@@ -68,7 +68,7 @@ class TemplateMergeServiceTest extends TestBase {
 
         String htmlContent = new String(mergedHtml, StandardCharsets.UTF_8);
         assertNotNull(htmlContent);
-        assertTrue(htmlContent.contains("email1@example.com"));
+        assertTrue(htmlContent.contains("email@example.com"));
         assertTrue(htmlContent.contains("Test Summary 1"));
         assertTrue(htmlContent.contains("https://github.com"));
         assertTrue(htmlContent.contains("https://linkedin.com"));

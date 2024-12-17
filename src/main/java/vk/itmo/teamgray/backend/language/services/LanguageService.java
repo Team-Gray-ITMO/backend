@@ -32,17 +32,11 @@ public class LanguageService extends BaseService<Language> {
     }
 
     public LanguageDto createLanguage(LanguageCreateDto data) {
-        return createLanguage(data, true);
-    }
-
-    public LanguageDto createLanguage(LanguageCreateDto data, boolean persist) {
         var resume = resumeService.findEntityById(data.getResumeId());
 
         var language = new Language(data, resume);
 
-        if (persist) {
-            language = languageRepository.save(language);
-        }
+        language = languageRepository.save(language);
 
         return languageMapper.toDto(language);
     }

@@ -32,17 +32,11 @@ public class LinkService extends BaseService<Link> {
     }
 
     public LinkDto createLink(LinkCreateDto data) {
-        return createLink(data, true);
-    }
-
-    public LinkDto createLink(LinkCreateDto data, boolean persist) {
         var resume = resumeService.findEntityById(data.getResumeId());
 
         var link = new Link(data, resume);
 
-        if (persist) {
-            link = linkRepository.save(link);
-        }
+        link = linkRepository.save(link);
 
         return linkMapper.toDto(link);
     }

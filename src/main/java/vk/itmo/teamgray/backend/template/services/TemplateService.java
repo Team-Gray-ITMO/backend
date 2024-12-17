@@ -40,10 +40,6 @@ public class TemplateService extends BaseService<Template> {
     }
 
     public TemplateDto createTemplate(TemplateCreateDto dto) {
-        return createTemplate(dto, true);
-    }
-
-    public TemplateDto createTemplate(TemplateCreateDto dto, boolean persist) {
         var file = dto.getFile();
 
         var filePath = fileStorageService.uploadFile(file);
@@ -53,9 +49,7 @@ public class TemplateService extends BaseService<Template> {
         template.setCreatedAt(Instant.now());
         template.setFilePath(filePath);
 
-        if (persist) {
-            template = templateRepository.save(template);
-        }
+        template = templateRepository.save(template);
 
         return templateMapper.toDto(template);
     }
