@@ -9,7 +9,7 @@ public class HtmlFormat implements FileFormat {
 
     @Override
     public String getMimeType() {
-        return MIME_TYPE_OCTET_STREAM;
+        return MIME_TYPE;
     }
 
     @Override
