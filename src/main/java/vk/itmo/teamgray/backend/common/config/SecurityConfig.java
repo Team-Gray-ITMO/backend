@@ -1,8 +1,10 @@
 package vk.itmo.teamgray.backend.common.config;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,20 +14,21 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import vk.itmo.teamgray.backend.common.filters.VkIdAuthenticationFilter;
-import vk.itmo.teamgray.backend.user.service.UserService;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+    private final VkIdAuthenticationFilter filter;
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -40,28 +43,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public VkIdAuthenticationFilter vkIdAuthenticationFilter(UserService userService) {
-        return new VkIdAuthenticationFilter(
-            userService,
-            //Letting these endpoints skip VK ID filter, but not others.
-            List.of(
-                new AntPathRequestMatcher(API_VER + "/user", "POST"),
-                new AntPathRequestMatcher(API_VER + "/user/vk/**"),
-                new AntPathRequestMatcher(API_VER + "/user/vk/**"),
-                new AntPathRequestMatcher("/swagger-ui/**"),
-                new AntPathRequestMatcher("/v3/api-docs/**"),
-                new AntPathRequestMatcher("/v3/api-docs.yaml")
-            )
-        );
-    }
-
-    @Bean
     static GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, VkIdAuthenticationFilter vkIdFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.logout(logout -> logout
             .logoutUrl("/logout")
             .invalidateHttpSession(true)
@@ -73,8 +60,18 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
             .formLogin(withDefaults())
-            .addFilterBefore(vkIdFilter, UsernamePasswordAuthenticationFilter.class)
-            .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.anyRequest().authenticated())
+            .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+            .authorizeHttpRequests(authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml",
+                        API_VER + "/user/vk/**"
+                    ).anonymous()
+                    .requestMatchers(HttpMethod.POST, API_VER + "/user").anonymous()
+                    .anyRequest().authenticated()
+            )
             .sessionManagement(sessionManagement ->
                 sessionManagement
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
