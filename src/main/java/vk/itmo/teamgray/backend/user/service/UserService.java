@@ -19,7 +19,6 @@ import vk.itmo.teamgray.backend.user.repos.UserRepository;
 @Service
 @RequiredArgsConstructor
 @Transactional
-//TODO Integrate with Auth
 public class UserService extends BaseService<User> {
     private final UserRepository userRepository;
 

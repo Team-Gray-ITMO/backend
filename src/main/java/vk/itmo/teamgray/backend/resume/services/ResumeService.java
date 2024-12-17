@@ -71,8 +71,7 @@ public class ResumeService extends BaseService<Resume> {
     }
 
     public ResumeDto createResume(ResumeCreateDto data, boolean persist) {
-        //TODO Resolve user from auth context.
-        var user = userService.findEntityById(data.getUserId());
+        var user = userService.getAuthUser();
 
         var resume = new Resume(data, user, null);
 
