@@ -41,19 +41,9 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resume> resumes = new LinkedHashSet<>();
 
-    public User(UserCreateDto data) {
-        email = data.getEmail();
-        vkId = data.getVkId();
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return "USER";
-            }
-        });
+        return List.of((GrantedAuthority)() -> "USER");
     }
 
     @Override

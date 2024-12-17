@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vk.itmo.teamgray.backend.common.exception.DataConflictException;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.user.dto.UserCreateDto;
@@ -54,9 +55,27 @@ public class UserService extends BaseService<User> {
         return userMapper.toDto(findEntityById(id));
     }
 
-    public UserDto createUser(UserCreateDto data) {
+    public UserDto createUser(UserCreateDto createDto) {
+        var user = new User();
+
+        userRepository.findByVkId(createDto.getVkId())
+            .ifPresent(existingUser -> {
+                throw DataConflictException.unique(User.class, "VK ID", String.valueOf(createDto.getVkId()), existingUser.getId());
+            });
+
+        userRepository.findByEmail(createDto.getEmail())
+            .ifPresent(existingUser -> {
+                throw DataConflictException.unique(User.class, "Email", createDto.getEmail(), existingUser.getId());
+            });
+
+        user.setVkId(createDto.getVkId());
+        user.setEmail(createDto.getEmail());
+        user.setPhoneNumber(createDto.getPhoneNumber());
+        user.setDateOfBirth(createDto.getDateOfBirth());
+        user.setCityName(createDto.getCityName());
+
         return userMapper.toDto(
-            userRepository.save(new User(data))
+            userRepository.save(user)
         );
     }
 
