@@ -54,18 +54,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: User updated successfully
           content:
@@ -96,18 +96,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Successfully created user
           content:
@@ -134,18 +134,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -174,14 +174,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Template not found
         "200":
           description: Template updated successfully
           content:
@@ -208,18 +208,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Template created successfully
           content:
@@ -247,18 +247,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Skill updated
           content:
@@ -289,18 +289,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Skill created
           content:
@@ -327,18 +327,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Resumes retrieved successfully
           content:
@@ -372,18 +372,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Resume updated successfully
           content:
@@ -415,18 +415,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Resume created successfully
           content:
@@ -459,18 +459,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Link updated successfully
           content:
@@ -502,18 +502,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Link created successfully
           content:
@@ -545,18 +545,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Language record updated
           content:
@@ -587,18 +587,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Language record created
           content:
@@ -630,18 +630,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Job record updated
           content:
@@ -672,18 +672,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Job record created
           content:
@@ -715,18 +715,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Education record updated
           content:
@@ -757,18 +757,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Education record created
           content:
@@ -800,18 +800,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Institution updated
           content:
@@ -842,18 +842,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Institution created
           content:
@@ -885,18 +885,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Company record updated
           content:
@@ -927,18 +927,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Company record created
           content:
@@ -970,18 +970,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Certification updated
           content:
@@ -1012,18 +1012,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "201":
           description: Certification created
           content:
@@ -1056,18 +1056,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Successfully retrieved user
           content:
@@ -1100,14 +1100,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Template not found
         "200":
           description: Template retrieved successfully
           content:
@@ -1139,14 +1139,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Template not found
         "200":
           description: Template deleted successfully
   /api/v1/template/image:
@@ -1169,18 +1169,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Templates retrieved successfully
           content:
@@ -1215,14 +1215,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Template not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Template not found
         "200":
           description: Template retrieved successfully
           content:
@@ -1255,18 +1255,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Skill found
           content:
@@ -1298,14 +1298,14 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Skill not found
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Skill not found
         "204":
           description: Skill deleted
   /api/v1/resume/{resumeId}:
@@ -1335,18 +1335,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Resume retrieved successfully
           content:
@@ -1379,18 +1379,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Resume deleted successfully
   /api/v1/resume/{resumeId}/png:
@@ -1407,12 +1407,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "401":
-          description: Unauthorized - Access Denied
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "400":
           description: Bad Request - Invalid argument
           content:
@@ -1425,18 +1419,24 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
+        "401":
+          description: Unauthorized - Access Denied
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: PNG retrieved successfully
           content:
@@ -1467,18 +1467,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: PDF retrieved successfully
           content:
@@ -1509,18 +1509,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: HTML retrieved successfully
           content:
@@ -1539,12 +1539,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "401":
-          description: Unauthorized - Access Denied
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "400":
           description: Bad Request - Invalid argument
           content:
@@ -1557,18 +1551,24 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
+        "401":
+          description: Unauthorized - Access Denied
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: DOCX retrieved successfully
           content:
@@ -1600,18 +1600,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Link retrieved successfully
           content:
@@ -1644,18 +1644,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Link deleted successfully
   /api/v1/language/{id}:
@@ -1684,18 +1684,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Language record found
           content:
@@ -1727,18 +1727,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Language record deleted
   /api/v1/job/{id}:
@@ -1767,18 +1767,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Job record found
           content:
@@ -1810,18 +1810,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Job record deleted
   /api/v1/education/{id}:
@@ -1850,18 +1850,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Education record found
           content:
@@ -1893,18 +1893,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Education record deleted
   /api/v1/education-institution/{id}:
@@ -1933,18 +1933,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Institution found
           content:
@@ -1976,18 +1976,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Institution deleted
   /api/v1/company/{id}:
@@ -2016,18 +2016,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Company record found
           content:
@@ -2059,18 +2059,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Company record deleted
   /api/v1/certification/{id}:
@@ -2099,18 +2099,18 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "200":
           description: Certification found
           content:
@@ -2142,34 +2142,22 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConflictErrorResponse"
-        "404":
-          description: Not Found - Data not found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/NotFoundErrorResponse"
         "500":
           description: Internal Server Error - Unknown error occurred
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+        "404":
+          description: Not Found - Data not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
         "204":
           description: Certification deleted
 components:
   schemas:
-    UnauthorizedErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Description of the error
-          example: Unauthorized
-        code:
-          type: string
-          description: HTTP status code of the error
-          example: "401"
-      description: Error response object
     BadRequestErrorResponse:
       type: object
       properties:
@@ -2194,18 +2182,18 @@ components:
           description: HTTP status code of the error
           example: "409"
       description: Conflict Error Response
-    NotFoundErrorResponse:
+    UnauthorizedErrorResponse:
       type: object
       properties:
         message:
           type: string
           description: Description of the error
-          example: Not Found
+          example: Unauthorized
         code:
           type: string
           description: HTTP status code of the error
-          example: "404"
-      description: Not Found Error Response
+          example: "401"
+      description: Error response object
     InternalServerErrorResponse:
       type: object
       properties:
@@ -2218,6 +2206,18 @@ components:
           description: HTTP status code of the error
           example: "500"
       description: Internal Server Error Response
+    NotFoundErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of the error
+          example: Not Found
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "404"
+      description: Not Found Error Response
     UserDto:
       type: object
       properties:
