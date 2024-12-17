@@ -73,6 +73,8 @@ public class TemplateService extends BaseService<Template> {
 
         updated |= updateIfPresent(dto.getName(), template::setName);
 
+        String oldPath = template.getFilePath();
+
         if (dto.getFile() != null) {
             var file = dto.getFile();
 
@@ -92,10 +94,16 @@ public class TemplateService extends BaseService<Template> {
             template = templateRepository.save(template);
         }
 
+        fileStorageService.deleteFile(oldPath);
+
         return templateMapper.toDto(template);
     }
 
     public void deleteById(Long id) {
+        var template = findEntityById(id);
+
+        fileStorageService.deleteFile(template.getFilePath());
+
         templateRepository.deleteById(id);
     }
 
