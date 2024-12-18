@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.common.config;
 
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,10 +15,13 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import vk.itmo.teamgray.backend.common.filters.VkIdAuthenticationFilter;
+import vk.itmo.teamgray.backend.user.service.UserService;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.API_VER;
@@ -27,7 +31,13 @@ import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.AP
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final VkIdAuthenticationFilter filter;
+    private final RequestMatcher[] allowMatchers = {
+        new AntPathRequestMatcher(API_VER + "/user", "POST"),
+        new AntPathRequestMatcher(API_VER + "/user/vk/**"),
+        new AntPathRequestMatcher("/swagger-ui/**"),
+        new AntPathRequestMatcher("/v3/api-docs/**"),
+        new AntPathRequestMatcher("/v3/api-docs.yaml")
+    };
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -43,12 +53,21 @@ public class SecurityConfig {
     }
 
     @Bean
+    public VkIdAuthenticationFilter vkIdAuthenticationFilter(UserService userService) {
+        return new VkIdAuthenticationFilter(
+            userService,
+            //Letting these endpoints skip VK ID filter, but not others.
+            Arrays.asList(allowMatchers)
+        );
+    }
+
+    @Bean
     static GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, VkIdAuthenticationFilter vkIdFilter) throws Exception {
         http.logout(logout -> logout
             .logoutUrl("/logout")
             .invalidateHttpSession(true)
@@ -60,16 +79,11 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
             .formLogin(withDefaults())
-            .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(vkIdFilter, UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests(authorizeHttpRequests ->
                 authorizeHttpRequests
-                    .requestMatchers(
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**",
-                        "/v3/api-docs.yaml",
-                        API_VER + "/user/vk/**"
-                    ).permitAll() // TODO Переделать на anonymous
-                    .requestMatchers(HttpMethod.POST, API_VER + "/user").permitAll()
+                    // TODO Переделать на anonymous
+                    .requestMatchers(allowMatchers).permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManagement ->

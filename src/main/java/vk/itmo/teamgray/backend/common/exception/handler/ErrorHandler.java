@@ -61,7 +61,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(new UnauthorizedErrorResponse(((Exception)exception).getMessage()));
+            .body(new UnauthorizedErrorResponse(exception.getMessage()));
     }
 
     @ExceptionHandler(DataNotFoundException.class)
