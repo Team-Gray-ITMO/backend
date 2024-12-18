@@ -1,6 +1,5 @@
 package vk.itmo.teamgray.backend.resume.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

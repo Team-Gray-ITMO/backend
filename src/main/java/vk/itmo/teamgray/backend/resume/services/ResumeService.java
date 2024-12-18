@@ -57,7 +57,10 @@ public class ResumeService extends BaseService<Resume> {
     public ResumeDto createResume(ResumeCreateDto data) {
         var authUser = userService.getAuthUser();
 
-        var resume = new Resume(data, authUser, null);
+        var resume = new Resume();
+
+        resume.setSummary(data.getSummary());
+        resume.setUser(authUser);
 
         resume = resumeRepository.save(resume);
 

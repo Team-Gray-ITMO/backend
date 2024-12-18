@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме</title>
+    <style>
+        /* Основные стили для всего документа */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Стили для заголовка */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        /* Стили для секций */
+        section {
+            background: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для заголовков секций */
+        h2 {
+            color: #333;
+        }
+
+        /* Стили для списков */
+        ul {
+            list-style-type: none; /* Убираем маркеры списка */
+            padding: 0; /* Убираем отступы */
+        }
+
+        ul li {
+            margin-bottom: 10px; /* Отступ между элементами списка */
+        }
+
+        /* Стили для ссылок */
+        a {
+            color: #007BFF; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        /* Адаптивные стили */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px; /* Уменьшаем отступы на мобильных устройствах */
+            }
+
+            section {
+                margin: 10px; /* Уменьшаем отступы между секциями на мобильных устройствах */
+                padding: 15px; /* Уменьшаем внутренние отступы на мобильных устройствах */
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Резюме</h1>
+</header>
+    <section>
+        <h2>Личная информация</h2>
+        #if ($user.cityName)
+            <p><strong>Город:</strong> ${user.cityName}</p>
+        #end
+        #if ($user.phoneNumber)
+            <p><strong>Номер Телефона:</strong> ${user.phoneNumber}</p>
+        #end
+        #if ($user.dateOfBirth)
+            <p><strong>Дата Рождения:</strong> ${user.dateOfBirth}</p>
+        #end
+        #if ($user.email)
+            <p><strong>Email:</strong> ${user.email}</p>
+        #end
+        #if ($user.vkId)
+            <p><strong>VK ID:</strong> ${user.vkId}</p>
+        #end
+    </section>
+
+    #if ($summary)
+    <section>
+        <h2>О Себе</h2>
+        <p>${summary}</p>
+    </section>
+    #end
+
+    #if ($links && $links.size() > 0)
+    <section>
+        <h2>Ссылки</h2>
+        <ul>
+            #foreach ($link in ${links})
+                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($skills && $skills.size() > 0)
+    <section>
+        <h2>Навыки</h2>
+        <ul>
+            #foreach ($skill in ${skills})
+                <li><strong>${skill.name}:</strong> ${skill.proficiency}</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($jobs && $jobs.size() > 0)
+    <section>
+        <h2>Опыт работы</h2>
+        <ul>
+            #foreach ($job in ${jobs})
+                <li>
+                    #if ($job.title)
+                        <p><strong>Должность:</strong> ${job.title}</p>
+                    #end
+                    #if ($job.company.name)
+                        <p><strong>Компания:</strong> ${job.company.name}</p>
+                    #end
+                    #if ($job.location)
+                        <p><strong>Местоположение:</strong> ${job.location}</p>
+                    #end
+                    #if ($job.startDate || $job.endDate)
+                        <p><strong>Период работы:</strong> ${utils.formatDate(${job.startDate})} - ${utils.formatDate(${job.endDate})}</p>
+                    #end
+                    #if ($job.description)
+                        <p><strong>Описание:</strong> ${job.description}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($educations && $educations.size() > 0)
+    <section>
+        <h2>Образование</h2>
+        <ul>
+            #foreach ($edu in ${educations})
+                <li>
+                    #if ($edu.institution.name)
+                        <p><strong>Институт:</strong> ${edu.institution.name}</p>
+                    #end
+                    #if ($edu.degreeName && $edu.degreeType)
+                        <p><strong>Степень:</strong> ${edu.degreeName} (${edu.degreeType})</p>
+                    #end
+                    #if ($edu.fieldOfStudy)
+                        <p><strong>Направление:</strong> ${edu.fieldOfStudy}</p>
+                    #end
+                    #if ($edu.specialization)
+                        <p><strong>Специализация:</strong> ${edu.specialization}</p>
+                    #end
+                    #if ($edu.startDate || $edu.endDate)
+                        <p><strong>Период обучения:</strong> ${utils.formatDate($edu.startDate)} - ${utils.formatDate($edu.endDate)}</p>
+                    #end
+                    #if ($edu.grade)
+                        <p><strong>Оценка:</strong> ${edu.grade}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($certifications && $certifications.size() > 0)
+    <section>
+        <h2>Сертификаты</h2>
+        <ul>
+            #foreach ($cert in ${certifications})
+                <li>
+                    #if ($cert.name)
+                        <p><strong>Название:</strong> ${cert.name}</p>
+                    #end
+                    #if ($cert.issuingOrganization)
+                        <p><strong>Организация:</strong> ${cert.issuingOrganization}</p>
+                    #end
+                    #if ($cert.issueDate)
+                        <p><strong>Дата выдачи:</strong> ${utils.formatDate($cert.issueDate)}</p>
+                    #end
+                    #if ($cert.expirationDate)
+                        <p><strong>Действителен до:</strong> ${utils.formatDate(${cert.expirationDate})}</p>
+                    #end
+                    #if ($cert.credentialUrl)
+                        <p><strong>Ссылка:</strong> <a href="${cert.credentialUrl}">${cert.credentialUrl}</a></p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($languages && $languages.size() > 0)
+    <section>
+        <h2>Языки</h2>
+        <ul>
+            #foreach ($language in ${languages})
+                <li><strong>${language.name}:</strong> ${language.proficiency}</li>
+            #end
+        </ul>
+    </section>
+    #end
+</body>
+</html>

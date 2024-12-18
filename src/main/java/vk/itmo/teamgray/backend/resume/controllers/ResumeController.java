@@ -95,7 +95,7 @@ public class ResumeController {
     @GetMapping("/{resumeId}/html")
     @Operation(
         summary = "Get Resume as HTML",
-        responses = @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = HtmlFormat.MIME_TYPE))
+        responses = @ApiResponse(description = "HTML retrieved successfully", responseCode = "200", content = @Content(mediaType = HtmlFormat.MIME_TYPE_OCTET_STREAM))
     )
     public ResponseEntity<ByteArrayResource> getHtml(@PathVariable Long resumeId) {
         byte[] htmlAsArray = resumeExportService.getResumeAsHtml(resumeId);

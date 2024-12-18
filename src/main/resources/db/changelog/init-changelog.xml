@@ -252,4 +252,10 @@
                                  onDelete="SET NULL"/>
     </changeSet>
 
+    <changeSet id="1734467881566-1" author="Boris Ivanov">
+        <addColumn tableName="template">
+            <column name="file_hash" type="VARCHAR(65)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
