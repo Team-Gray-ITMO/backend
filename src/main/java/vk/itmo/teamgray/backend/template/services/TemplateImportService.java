@@ -4,9 +4,8 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -14,9 +13,12 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.file.format.HtmlFormat;
+import vk.itmo.teamgray.backend.file.format.VmFormat;
 import vk.itmo.teamgray.backend.file.format.ZipFormat;
 import vk.itmo.teamgray.backend.file.utils.ZipUtils;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
@@ -41,7 +43,7 @@ public class TemplateImportService {
 
         log.info("Processing templates.");
 
-        processFilesFromClasspath("/templates", file -> {
+        processTemplatesFromClasspath("/templates", file -> {
             var templateCreateDto = formDto(file);
 
             if (hashes.contains(hash(templateCreateDto.getFile().getContent()))) {
@@ -67,39 +69,39 @@ public class TemplateImportService {
         );
     }
 
-    private void processFilesFromClasspath(String directoryPath, Consumer<FileDto> fileAction) {
-        URL resource = this.getClass().getResource(directoryPath);
+    private void processTemplatesFromClasspath(String directoryPath, Consumer<FileDto> fileAction) {
+        PathMatchingResourcePatternResolver scanner = new PathMatchingResourcePatternResolver();
 
-        if (resource == null) {
-            throw new TemplateImportServiceException(directoryPath + " not found");
+        var resources = getResources(scanner, "classpath*:" + directoryPath + "/**/*" + VmFormat.EXTENSION);
+
+        if (resources.isEmpty()) {
+            throw new TemplateImportServiceException(directoryPath + " is empty.");
         }
 
-        var file = new File(resource.getFile());
-
-        if (file.listFiles() == null) {
-            throw new TemplateImportServiceException(directoryPath + " returns null.");
-        }
-
-        Arrays.stream(Objects.requireNonNull(file.listFiles()))
-            .filter(File::isDirectory)
-            .map(File::listFiles)
-            .filter(Objects::nonNull)
-            .filter(fileList -> fileList.length == 1)
-            .map(fileList -> fileList[0])
-            .filter(singleFile -> singleFile.getName().endsWith(".vm"))
-            .forEach(templateFile -> {
+        resources.forEach(templateFile -> {
                 try {
                     fileAction.accept(
                         new FileDto(
-                            templateFile.getName(),
+                            templateFile.getFilename(),
                             HtmlFormat.MIME_TYPE,
-                            Files.readAllBytes(templateFile.toPath())
+                            templateFile.getContentAsByteArray()
                         )
                     );
                 } catch (IOException e) {
                     throw new TemplateImportServiceException("Could not process file", e);
                 }
             });
+    }
+
+    private static List<Resource> getResources(PathMatchingResourcePatternResolver scanner, String it) {
+        try {
+            return Arrays.stream(scanner.getResources(it))
+                .filter(Objects::nonNull)
+                .filter(Resource::exists)
+                .toList();
+        } catch (IOException e) {
+            throw new TemplateImportServiceException("Could not get resources: ", e);
+        }
     }
 
     private static String makeFileNamePretty(String fileName) {
