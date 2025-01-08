@@ -57,7 +57,7 @@ public class EducationService extends BaseService<Education> {
         updated |= updateIfPresent(updateDto.getStartDate(), education::setStartDate);
         updated |= updateIfPresent(updateDto.getEndDate(), education::setEndDate);
         updated |= updateIfPresent(updateDto.getGrade(), education::setGrade);
-        updated |= updateIfPresent(updateDto.getEducationInstitutionSubdivision(), education::setEducationInstitutionSubdivision);
+        updated |= updateIfPresent(updateDto.getInstitutionSubdivision(), education::setInstitutionSubdivision);
         updated |= updateIfPresent(updateDto.getFormat(), education::setFormat);
         updated |= updateIfPresent(updateDto.getAttendanceFormat(), education::setAttendanceFormat);
 

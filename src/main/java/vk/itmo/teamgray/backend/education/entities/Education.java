@@ -35,8 +35,8 @@ public class Education extends BaseEntity {
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
 
-    @Column(name = "education_institution_subdivision")
-    private String educationInstitutionSubdivision;
+    @Column(name = "institution_subdivision")
+    private String institutionSubdivision;
 
     @Column(name = "format")
     @Enumerated(EnumType.STRING)
@@ -71,7 +71,7 @@ public class Education extends BaseEntity {
     public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
         this.resume = resume;
         this.institution = institution;
-        educationInstitutionSubdivision = data.getEducationInstitutionSubdivision();
+        institutionSubdivision = data.getInstitutionSubdivision();
         format = data.getFormat();
         attendanceFormat = data.getAttendanceFormat();
         degreeType = data.getDegreeType();

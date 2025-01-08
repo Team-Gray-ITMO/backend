@@ -39,7 +39,7 @@ public class EducationDto {
     private EducationInstitutionDto institution;
 
     @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
-    private String educationInstitutionSubdivision;
+    private String institutionSubdivision;
 
     @Schema(description = "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)")
     private EducationFormat format;
