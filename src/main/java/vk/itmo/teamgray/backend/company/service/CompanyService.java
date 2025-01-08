@@ -41,7 +41,10 @@ public class CompanyService extends BaseService<Company> {
     public CompanyDto updateCompany(CompanyUpdateDto updateDto) {
         var company = findEntityById(updateDto.getId());
 
-        boolean updated = updateIfPresent(updateDto.getName(), company::setName);
+        boolean updated = false;
+
+        updated |= updateIfPresent(updateDto.getName(), company::setName);
+        updated |= updateIfPresent(updateDto.getUrl(), company::setUrl);
 
         if (updated) {
             company = companyRepository.save(company);

@@ -35,17 +35,17 @@ public class TemplateMergeService {
     public FileDto mergeTemplateToZip(long resumeId, long templateId) {
         var template = templateService.findById(templateId);
 
-        var resume = resumeService.getResumeJsonForMerge(resumeService.findById(resumeId));
+        var resume = resumeService.prepareResume(resumeService.findById(resumeId));
 
         return mergeTemplateToZip(template, resume);
     }
 
-    public FileDto mergeTemplateToZip(TemplateDto templateDto, Map<String, Object> valuesMap) {
+    public FileDto mergeTemplateToZip(TemplateDto templateDto, ResumeDto resume) {
         Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
 
         String templateContent = getTemplateContent(zipContents);
 
-        byte[] processedHtmlBytes = processHtml(valuesMap, templateContent);
+        byte[] processedHtmlBytes = processHtml(resume, templateContent);
 
         zipContents.put(INDEX_HTML_FILENAME, processedHtmlBytes);
 
@@ -54,22 +54,22 @@ public class TemplateMergeService {
         return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
     }
 
-    // TODO We are losing other files from archive here (images for example). (We need to thing about how to pass images to PDF/DOCX/PNG converters)
+    // TODO We are losing other files from archive here (images for example). (We need to think about how to pass images to PDF/DOCX/PNG converters)
     public byte[] mergeTemplateToHtml(ResumeDto resume) {
         var template = templateService.findById(resume.getTemplate().getId());
 
-        var resumeMap = resumeService.getResumeJsonForMerge(resume);
+        var preparedResume = resumeService.prepareResume(resume);
 
-        return mergeTemplateToHtml(template, resumeMap);
+        return mergeTemplateToHtml(template, preparedResume);
     }
 
-    // TODO We are losing other files from archive here (images for example). (We need to thing about how to pass images to PDF/DOCX/PNG converters)
-    public byte[] mergeTemplateToHtml(TemplateDto template, Map<String, Object> resumeMap) {
+    // TODO We are losing other files from archive here (images for example). (We need to think about how to pass images to PDF/DOCX/PNG converters)
+    public byte[] mergeTemplateToHtml(TemplateDto template, ResumeDto resume) {
         Map<String, byte[]> zipContents = extractZipContents(template.getFile());
 
         String templateContent = getTemplateContent(zipContents);
 
-        return processHtml(resumeMap, templateContent);
+        return processHtml(resume, templateContent);
     }
 
     private static String getTemplateContent(Map<String, byte[]> zipContents) {
@@ -82,7 +82,7 @@ public class TemplateMergeService {
         return new String(templateBytes, StandardCharsets.UTF_8);
     }
 
-    private static byte[] processHtml(Map<String, Object> valuesMap, String templateContent) {
+    private static byte[] processHtml(ResumeDto resume, String templateContent) {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADERS, "string");
         Velocity.addProperty("resource.loader.string.class", StringResourceLoader.class.getName());
         Velocity.init();
@@ -93,7 +93,7 @@ public class TemplateMergeService {
         VelocityContext context = new VelocityContext();
         context.put("utils", new TemplateUtils());
 
-        valuesMap.forEach(context::put);
+        context.put("resume", resume);
 
         try (
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

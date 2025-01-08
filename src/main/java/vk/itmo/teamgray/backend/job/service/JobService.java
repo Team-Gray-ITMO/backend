@@ -56,6 +56,7 @@ public class JobService extends BaseService {
         updated |= updateIfPresent(updateDto.getStartDate(), job::setStartDate);
         updated |= updateIfPresent(updateDto.getEndDate(), job::setEndDate);
         updated |= updateIfPresent(updateDto.getDescription(), job::setDescription);
+        updated |= updateIfPresent(updateDto.getAttendanceFormat(), job::setAttendanceFormat);
 
         updated |= resumeService.updateLinkToEntityIfPresent(updateDto.getResumeId(), job::setResume);
         updated |= companyService.updateLinkToEntityIfPresent(updateDto.getCompanyId(), job::setCompany);

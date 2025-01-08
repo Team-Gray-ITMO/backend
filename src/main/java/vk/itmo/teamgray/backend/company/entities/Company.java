@@ -19,7 +19,11 @@ public class Company extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "url")
+    private String url;
+
     public Company(CompanyCreateDto data) {
         name = data.getName();
+        url = data.getUrl();
     }
 }

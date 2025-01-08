@@ -49,6 +49,7 @@ dependencies {
     implementation("software.amazon.awssdk:s3:2.25.27")
     implementation("org.apache.velocity:velocity-engine-core:2.4.1")
     implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("io.hypersistence:hypersistence-utils-hibernate-63:3.9.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
     implementation("org.apache.pdfbox:pdfbox:3.0.3")

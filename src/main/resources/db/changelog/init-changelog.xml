@@ -258,4 +258,38 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1734467881566-2" author="Boris Ivanov">
+        <sql>
+            ALTER TABLE resume ADD COLUMN preferred_attendance_formats VARCHAR(64)[];
+        </sql>
+
+        <sql>
+            ALTER TABLE resume ADD COLUMN preferred_specialities VARCHAR(255)[];
+        </sql>
+
+        <addColumn tableName="resume">
+            <column name="ready_for_business_trips" type="BOOLEAN"/>
+
+            <column name="ready_for_relocation" type="BOOLEAN"/>
+        </addColumn>
+
+        <addColumn tableName="users">
+            <column name="preferred_contact" type="VARCHAR(64)"/>
+        </addColumn>
+
+        <addColumn tableName="company">
+            <column name="url" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addColumn tableName="job">
+            <column name="attendance_format" type="VARCHAR(64)"/>
+        </addColumn>
+
+        <addColumn tableName="education">
+            <column name="institution_subdivision" type="VARCHAR(512)"/>
+            <column name="format" type="VARCHAR(64)"/>
+            <column name="attendance_format" type="VARCHAR(64)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

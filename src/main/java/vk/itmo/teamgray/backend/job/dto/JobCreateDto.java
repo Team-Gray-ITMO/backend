@@ -5,6 +5,7 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,4 +32,7 @@ public class JobCreateDto {
 
     @Schema(description = "Job description")
     private String description;
+
+    @Schema(description = "Job attendance format")
+    private JobAttendanceFormat attendanceFormat;
 }

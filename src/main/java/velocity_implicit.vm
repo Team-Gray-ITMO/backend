@@ -1,0 +1,3 @@
+#* @implicitly included *#
+#* @vtlvariable name="resume" type="vk.itmo.teamgray.backend.resume.entities.Resume" *#
+#* @vtlvariable name="utils" type="vk.itmo.teamgray.backend.template.utils.TemplateUtils" *#

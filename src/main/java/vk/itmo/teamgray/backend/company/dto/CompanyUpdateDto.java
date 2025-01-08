@@ -13,4 +13,7 @@ public class CompanyUpdateDto {
 
     @Schema(description = "Name of the company")
     private String name;
+
+    @Schema(description = "Company URL")
+    private String url;
 }

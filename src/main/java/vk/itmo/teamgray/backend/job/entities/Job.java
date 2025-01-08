@@ -3,6 +3,8 @@ package vk.itmo.teamgray.backend.job.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +16,7 @@ import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.company.entities.Company;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
 @Getter
@@ -32,6 +35,10 @@ public class Job extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
+
+    @Column(name = "attendance_format")
+    @Enumerated(EnumType.STRING)
+    private JobAttendanceFormat attendanceFormat;
 
     @Column(name = "location")
     private String location;
@@ -54,5 +61,6 @@ public class Job extends BaseEntity {
         location = data.getLocation();
         startDate = data.getStartDate();
         endDate = data.getEndDate();
+        attendanceFormat = data.getAttendanceFormat();
     }
 }

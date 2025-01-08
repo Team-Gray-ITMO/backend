@@ -1,9 +1,7 @@
 package vk.itmo.teamgray.backend.resume.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +33,6 @@ public class ResumeService extends BaseService<Resume> {
     private final UserService userService;
 
     private final ResumeMapper resumeMapper;
-
-    private final ObjectMapper objectMapper;
 
     public List<ResumeDto> findAll() {
         return resumeMapper.toDtoList(
@@ -70,7 +66,15 @@ public class ResumeService extends BaseService<Resume> {
     public ResumeDto updateResume(ResumeUpdateDto updateDto) {
         var resume = findEntityById(updateDto.getId());
 
-        boolean updated = templateService.updateLinkToEntityIfPresent(updateDto.getTemplateId(), resume::setTemplate);
+        boolean updated = false;
+
+        updated |= updateIfPresent(updateDto.getSummary(), resume::setSummary);
+        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormats(), resume::setPreferredAttendanceFormats);
+        updated |= updateIfPresent(updateDto.getPreferredSpecialities(), resume::setPreferredSpecialities);
+        updated |= updateIfPresent(updateDto.getReadyForBusinessTrips(), resume::setReadyForBusinessTrips);
+        updated |= updateIfPresent(updateDto.getReadyForRelocation(), resume::setReadyForRelocation);
+
+        updated |= templateService.updateLinkToEntityIfPresent(updateDto.getTemplateId(), resume::setTemplate);
 
         if (updated) {
             resume = resumeRepository.save(resume);
@@ -84,8 +88,7 @@ public class ResumeService extends BaseService<Resume> {
         resumeRepository.delete(resume);
     }
 
-    @SuppressWarnings("unchecked")
-    public Map<String, Object> getResumeJsonForMerge(ResumeDto dto) {
+    public ResumeDto prepareResume(ResumeDto dto) {
         dto.getCertifications().sort(
             Comparator.comparing(CertificationDto::getIssueDate).reversed()
         );
@@ -111,6 +114,6 @@ public class ResumeService extends BaseService<Resume> {
             Comparator.comparing((LanguageDto it) -> it.getProficiency().ordinal()).reversed()
         );
 
-        return (Map<String, Object>)objectMapper.convertValue(dto, Map.class);
+        return dto;
     }
 }

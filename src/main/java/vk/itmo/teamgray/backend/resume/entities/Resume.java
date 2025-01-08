@@ -1,21 +1,27 @@
 package vk.itmo.teamgray.backend.resume.entities;
 
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.entities.Education;
 import vk.itmo.teamgray.backend.job.entities.Job;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.language.entities.Language;
 import vk.itmo.teamgray.backend.link.entities.Link;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
@@ -34,6 +40,21 @@ public class Resume extends BaseEntity {
 
     @Column(length = 2000)
     private String summary;
+
+    @Enumerated(EnumType.STRING)
+    @Type(ListArrayType.class)
+    @Column(name = "preferred_attendance_formats")
+    private List<String> preferredAttendanceFormats;
+
+    @Type(ListArrayType.class)
+    @Column(name = "preferred_specialities")
+    private List<String> preferredSpecialities;
+
+    @Column(name = "ready_for_business_trips")
+    private Boolean readyForBusinessTrips;
+
+    @Column(name = "ready_for_relocation")
+    private Boolean readyForRelocation;
 
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Job> jobs;
@@ -56,4 +77,26 @@ public class Resume extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "template_id")
     private Template template;
+
+    public List<JobAttendanceFormat> getPreferredAttendanceFormats() {
+        if (preferredAttendanceFormats == null) {
+            return null;
+        }
+
+        return preferredAttendanceFormats.stream()
+            .map(JobAttendanceFormat::valueOf)
+            .toList();
+    }
+
+    public void setPreferredAttendanceFormats(List<JobAttendanceFormat> preferredAttendanceFormats) {
+        if (preferredAttendanceFormats == null) {
+            this.preferredAttendanceFormats = null;
+
+            return;
+        }
+
+        this.preferredAttendanceFormats = preferredAttendanceFormats.stream()
+            .map(Enum::name)
+            .toList();
+    }
 }

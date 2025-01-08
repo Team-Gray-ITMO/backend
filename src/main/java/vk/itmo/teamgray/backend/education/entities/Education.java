@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 import vk.itmo.teamgray.backend.educationinstitution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 
@@ -32,6 +34,17 @@ public class Education extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "education_institution_id", nullable = false)
     private EducationInstitution institution;
+
+    @Column(name = "institution_subdivision")
+    private String institutionSubdivision;
+
+    @Column(name = "format")
+    @Enumerated(EnumType.STRING)
+    private EducationFormat format;
+
+    @Column(name = "attendance_format")
+    @Enumerated(EnumType.STRING)
+    private EducationAttendanceFormat attendanceFormat;
 
     @Column(name = "degree_type", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -58,6 +71,9 @@ public class Education extends BaseEntity {
     public Education(EducationCreateDto data, Resume resume, EducationInstitution institution) {
         this.resume = resume;
         this.institution = institution;
+        institutionSubdivision = data.getInstitutionSubdivision();
+        format = data.getFormat();
+        attendanceFormat = data.getAttendanceFormat();
         degreeType = data.getDegreeType();
         degreeName = data.getDegreeName();
         fieldOfStudy = data.getFieldOfStudy();

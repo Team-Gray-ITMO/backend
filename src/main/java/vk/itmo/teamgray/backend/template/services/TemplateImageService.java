@@ -41,7 +41,7 @@ public class TemplateImageService {
             new FileDto(
                 "image" + PngFormat.EXTENSION,
                 PngFormat.MIME_TYPE,
-                templateMergeService.mergeTemplateToHtml(template, resumeService.getResumeJsonForMerge(sampleResume))
+                templateMergeService.mergeTemplateToHtml(template, resumeService.prepareResume(sampleResume))
             )
         );
     }

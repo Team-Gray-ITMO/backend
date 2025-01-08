@@ -7,7 +7,9 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,16 @@ public class EducationCreateDto {
     @NotNull
     @Schema(description = "Education institution ID")
     private Long educationInstitutionId;
+
+    @NotNull
+    @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
+    private String institutionSubdivision;
+
+    @Schema(description = "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)")
+    private EducationFormat format;
+
+    @Schema(description = "Education attendance format")
+    private EducationAttendanceFormat attendanceFormat;
 
     @NotNull
     @Schema(description = "Degree type")

@@ -71,6 +71,7 @@ public class UserService extends BaseService<User> {
         user.setPhoneNumber(createDto.getPhoneNumber());
         user.setDateOfBirth(createDto.getDateOfBirth());
         user.setCityName(createDto.getCityName());
+        user.setPreferredContact(createDto.getPreferredContact());
 
         return userMapper.toDto(
             userRepository.save(user)
@@ -86,6 +87,7 @@ public class UserService extends BaseService<User> {
         updated |= updateIfPresent(updateDto.getPhoneNumber(), user::setPhoneNumber);
         updated |= updateIfPresent(updateDto.getDateOfBirth(), user::setDateOfBirth);
         updated |= updateIfPresent(updateDto.getCityName(), user::setCityName);
+        updated |= updateIfPresent(updateDto.getPreferredContact(), user::setPreferredContact);
 
         if (updated) {
             user = userRepository.save(user);
