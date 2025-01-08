@@ -16,6 +16,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
@@ -42,13 +43,18 @@ public class Resume extends BaseEntity {
     private String summary;
 
     @Enumerated(EnumType.STRING)
-    @Type(ListArrayType.class)
-    @Column(name = "preferred_attendance_formats", columnDefinition = "varchar(64)[]")
+    @Type(
+        value = ListArrayType.class,
+        parameters = @Parameter(
+            name = ListArrayType.SQL_ARRAY_TYPE,
+            value = "varchar(64)"
+        )
+    )
+    @Column(name = "preferred_attendance_formats")
     private List<JobAttendanceFormat> preferredAttendanceFormats;
 
-    @Enumerated(EnumType.STRING)
     @Type(ListArrayType.class)
-    @Column(name = "preferred_specialities", columnDefinition = "varchar(255)[]")
+    @Column(name = "preferred_specialities")
     private List<String> preferredSpecialities;
 
     @Column(name = "ready_for_business_trips")

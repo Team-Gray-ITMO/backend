@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,8 +20,10 @@ import vk.itmo.teamgray.backend.company.dto.CompanyCreateDto;
 import vk.itmo.teamgray.backend.company.dto.CompanyDto;
 import vk.itmo.teamgray.backend.company.mapper.CompanyMapper;
 import vk.itmo.teamgray.backend.company.service.CompanyService;
+import vk.itmo.teamgray.backend.education.dto.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
+import vk.itmo.teamgray.backend.education.dto.EducationFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
 import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.education.services.EducationService;
@@ -28,6 +31,7 @@ import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCre
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
 import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
 import vk.itmo.teamgray.backend.educationinstitution.services.EducationInstitutionService;
+import vk.itmo.teamgray.backend.job.dto.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.job.mapper.JobMapper;
@@ -172,12 +176,15 @@ public class ResumeSampleGenerator {
             .stream()
             .map(entry -> {
                 EducationDegreeType degreeType = entry.getKey();
-                EducationInstitutionDto suffixnstitution = entry.getValue();
+                EducationInstitutionDto suffixInstitution = entry.getValue();
 
                 return createEducation(
                     new EducationCreateDto(
                         resume.getId(),
-                        suffixnstitution.getId(),
+                        suffixInstitution.getId(),
+                        "TestSubdivision " + degreeType + " " + suffix,
+                        EducationFormat.FULL_TIME,
+                        EducationAttendanceFormat.ON_SITE,
                         degreeType,
                         "TestDegree " + degreeType + " " + suffix,
                         "TestField " + degreeType + " " + suffix,
@@ -235,7 +242,8 @@ public class ResumeSampleGenerator {
         var companies = Stream.of("Google", "Microsoft")
             .map(company -> createCompany(
                     new CompanyCreateDto(
-                        company
+                        company,
+                        company.toLowerCase(Locale.ROOT) + ".com"
                     ),
                     persist
                 )
@@ -252,7 +260,8 @@ public class ResumeSampleGenerator {
                     "TestLocation " + suffix,
                     Date.from(Instant.now()),
                     Date.from(Instant.now()),
-                    "TestDescription " + suffix
+                    "TestDescription " + suffix,
+                    JobAttendanceFormat.ON_SITE
                 ),
                 persist
             ))
