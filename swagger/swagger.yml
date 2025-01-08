@@ -2307,6 +2307,9 @@ components:
         name:
           type: string
           description: Name of the company
+        url:
+          type: string
+          description: Company URL
     CompanyDto:
       type: object
       description: Company Model
@@ -2318,6 +2321,9 @@ components:
         name:
           type: string
           description: Name of the company
+        url:
+          type: string
+          description: Company URL
     CompanyUpdateDto:
       type: object
       description: Company Update Model
@@ -2329,6 +2335,9 @@ components:
         name:
           type: string
           description: Name of the company
+        url:
+          type: string
+          description: Company URL
     ConflictErrorResponse:
       type: object
       description: Conflict Error Response
@@ -2345,6 +2354,13 @@ components:
       type: object
       description: Education Record Create Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         degreeName:
           type: string
           description: Name of the degree
@@ -2372,11 +2388,21 @@ components:
           description: Field of study
           maxLength: 255
           minLength: 0
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
         grade:
           type: string
           description: Grade
           maxLength: 255
           minLength: 0
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
         resumeId:
           type: integer
           format: int64
@@ -2394,11 +2420,19 @@ components:
       - degreeName
       - degreeType
       - educationInstitutionId
+      - institutionSubdivision
       - resumeId
     EducationDto:
       type: object
       description: Education Record Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         degreeName:
           type: string
           description: Degree name
@@ -2418,6 +2452,13 @@ components:
         fieldOfStudy:
           type: string
           description: Field of study
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
         grade:
           type: string
           description: Grade obtained
@@ -2427,6 +2468,9 @@ components:
           description: Education ID
         institution:
           $ref: "#/components/schemas/EducationInstitutionDto"
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
         specialization:
           type: string
           description: Specialization
@@ -2467,6 +2511,13 @@ components:
       type: object
       description: Education Record Update Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         degreeName:
           type: string
           description: Name of the degree
@@ -2490,6 +2541,13 @@ components:
         fieldOfStudy:
           type: string
           description: Field of study
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
         grade:
           type: string
           description: Grade
@@ -2497,6 +2555,9 @@ components:
           type: integer
           format: int64
           description: ID of the education
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
         resumeId:
           type: integer
           format: int64
@@ -2508,6 +2569,8 @@ components:
           type: string
           format: date-time
           description: Start date of the education
+      required:
+      - institutionSubdivision
     FileDto:
       type: object
       description: File Model
@@ -2536,6 +2599,13 @@ components:
       type: object
       description: Job Create Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         companyId:
           type: integer
           format: int64
@@ -2565,6 +2635,13 @@ components:
       type: object
       description: Job Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         company:
           $ref: "#/components/schemas/CompanyDto"
         description:
@@ -2592,6 +2669,13 @@ components:
       type: object
       description: Job Update Model
       properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         companyId:
           type: integer
           format: int64
@@ -2803,6 +2887,28 @@ components:
           description: List of links associated with the resume
           items:
             $ref: "#/components/schemas/LinkDto"
+        preferredAttendanceFormats:
+          type: array
+          description: Preferred Attendance Formats
+          items:
+            type: string
+            description: Preferred Attendance Formats
+            enum:
+            - ON_SITE
+            - HYBRID
+            - REMOTE
+        preferredSpecialities:
+          type: array
+          description: Preferred Specialities
+          items:
+            type: string
+            description: Preferred Specialities
+        readyForBusinessTrips:
+          type: boolean
+          description: Ready for Business Trips
+        readyForRelocation:
+          type: boolean
+          description: Ready for Relocation
         skills:
           type: array
           description: List of skills included in the resume
@@ -2823,6 +2929,28 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the resume
+        preferredAttendanceFormats:
+          type: array
+          description: Preferred Attendance Formats
+          items:
+            type: string
+            description: Preferred Attendance Formats
+            enum:
+            - ON_SITE
+            - HYBRID
+            - REMOTE
+        preferredSpecialities:
+          type: array
+          description: Preferred Specialities
+          items:
+            type: string
+            description: Preferred Specialities
+        readyForBusinessTrips:
+          type: boolean
+          description: Ready for Business Trips
+        readyForRelocation:
+          type: boolean
+          description: Ready for Relocation
         summary:
           type: string
           description: Updated summary or objective section of the resume
@@ -3002,6 +3130,12 @@ components:
         phoneNumber:
           type: string
           description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
         vkId:
           type: integer
           format: int64
@@ -3027,6 +3161,12 @@ components:
         phoneNumber:
           type: string
           description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
         vkId:
           type: integer
           format: int64
@@ -3048,3 +3188,9 @@ components:
         phoneNumber:
           type: string
           description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
