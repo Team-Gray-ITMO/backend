@@ -37,4 +37,13 @@ public class EducationDto {
 
     @Schema(description = "Education institution details")
     private EducationInstitutionDto institution;
+
+    @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
+    private String educationInstitutionSubdivision;
+
+    @Schema(description = "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)")
+    private EducationFormat format;
+
+    @Schema(description = "Education attendance format")
+    private EducationAttendanceFormat attendanceFormat;
 }

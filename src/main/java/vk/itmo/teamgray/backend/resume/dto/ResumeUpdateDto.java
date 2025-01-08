@@ -1,8 +1,10 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.job.dto.JobAttendanceFormat;
 
 @NoArgsConstructor
 @Data
@@ -16,4 +18,16 @@ public class ResumeUpdateDto {
 
     @Schema(description = "Template ID to be associated with the resume")
     private Long templateId;
+
+    @Schema(description = "Preferred Attendance Formats")
+    private List<JobAttendanceFormat> preferredAttendanceFormats;
+
+    @Schema(description = "Preferred Specialities")
+    private List<String> preferredSpecialities;
+
+    @Schema(description = "Ready for Business Trips")
+    private Boolean readyForBusinessTrips;
+
+    @Schema(description = "Ready for Relocation")
+    private Boolean readyForRelocation;
 }

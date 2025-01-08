@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.education.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,16 @@ public class EducationUpdateDto {
 
     @Schema(description = "ID of the education institution")
     private Long educationInstitutionId;
+
+    @NotNull
+    @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
+    private String educationInstitutionSubdivision;
+
+    @Schema(description = "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)")
+    private EducationFormat format;
+
+    @Schema(description = "Education attendance format")
+    private EducationAttendanceFormat attendanceFormat;
 
     @Schema(description = "Degree type")
     private EducationDegreeType degreeType;

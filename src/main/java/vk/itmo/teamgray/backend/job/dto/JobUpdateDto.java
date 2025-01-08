@@ -32,4 +32,7 @@ public class JobUpdateDto {
 
     @Schema(description = "Job description")
     private String description;
+
+    @Schema(description = "Job attendance format")
+    private JobAttendanceFormat attendanceFormat;
 }

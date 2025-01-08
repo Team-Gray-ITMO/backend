@@ -22,4 +22,7 @@ public class UserDto extends UserBaseDto {
 
     @Schema(description = "City name")
     private String cityName;
+
+    @Schema(description = "Preferred Contact")
+    private PreferredContact preferredContact;
 }

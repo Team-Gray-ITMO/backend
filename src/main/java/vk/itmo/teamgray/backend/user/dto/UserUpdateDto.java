@@ -23,4 +23,7 @@ public class UserUpdateDto implements Serializable {
 
     @Schema(description = "City name")
     private String cityName;
+
+    @Schema(description = "Preferred Contact")
+    private PreferredContact preferredContact;
 }

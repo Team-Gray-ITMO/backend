@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class CompanyCreateDto {
     @Schema(description = "Name of the company")
     private String name;
+
+    @Schema(description = "Company URL")
+    private String url;
 }

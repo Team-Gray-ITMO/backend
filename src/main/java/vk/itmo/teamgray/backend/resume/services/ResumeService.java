@@ -70,7 +70,15 @@ public class ResumeService extends BaseService<Resume> {
     public ResumeDto updateResume(ResumeUpdateDto updateDto) {
         var resume = findEntityById(updateDto.getId());
 
-        boolean updated = templateService.updateLinkToEntityIfPresent(updateDto.getTemplateId(), resume::setTemplate);
+        boolean updated = false;
+
+        updated |= updateIfPresent(updateDto.getSummary(), resume::setSummary);
+        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormats(), resume::setPreferredAttendanceFormats);
+        updated |= updateIfPresent(updateDto.getPreferredSpecialities(), resume::setPreferredSpecialities);
+        updated |= updateIfPresent(updateDto.getReadyForBusinessTrips(), resume::setReadyForBusinessTrips);
+        updated |= updateIfPresent(updateDto.getReadyForRelocation(), resume::setReadyForRelocation);
+
+        updated |= templateService.updateLinkToEntityIfPresent(updateDto.getTemplateId(), resume::setTemplate);
 
         if (updated) {
             resume = resumeRepository.save(resume);
