@@ -77,10 +77,10 @@ public abstract class TestBase {
         testUser = userService.createUser(
             new UserCreateDto(
                 "email@example.com",
-                1L,
-                String.valueOf(1),
+                69696969L,
+                "+79999696969",
                 Date.from(Instant.now()),
-                "City",
+                "г. Санкт-Петербург",
                 PreferredContact.EMAIL
             )
         );

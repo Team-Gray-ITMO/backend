@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
 
 @NoArgsConstructor

@@ -16,13 +16,12 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import vk.itmo.teamgray.backend.cetification.entities.Certification;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
 import vk.itmo.teamgray.backend.education.entities.Education;
-import vk.itmo.teamgray.backend.job.dto.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.job.entities.Job;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.language.entities.Language;
 import vk.itmo.teamgray.backend.link.entities.Link;
 import vk.itmo.teamgray.backend.skill.entities.Skill;
@@ -43,25 +42,19 @@ public class Resume extends BaseEntity {
     private String summary;
 
     @Enumerated(EnumType.STRING)
-    @Type(
-        value = ListArrayType.class,
-        parameters = @Parameter(
-            name = ListArrayType.SQL_ARRAY_TYPE,
-            value = "varchar(64)"
-        )
-    )
+    @Type(ListArrayType.class)
     @Column(name = "preferred_attendance_formats")
-    private List<JobAttendanceFormat> preferredAttendanceFormats;
+    private List<String> preferredAttendanceFormats;
 
     @Type(ListArrayType.class)
     @Column(name = "preferred_specialities")
     private List<String> preferredSpecialities;
 
     @Column(name = "ready_for_business_trips")
-    private boolean readyForBusinessTrips;
+    private Boolean readyForBusinessTrips;
 
     @Column(name = "ready_for_relocation")
-    private boolean readyForRelocation;
+    private Boolean readyForRelocation;
 
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Job> jobs;
@@ -84,4 +77,26 @@ public class Resume extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "template_id")
     private Template template;
+
+    public List<JobAttendanceFormat> getPreferredAttendanceFormats() {
+        if (preferredAttendanceFormats == null) {
+            return null;
+        }
+
+        return preferredAttendanceFormats.stream()
+            .map(JobAttendanceFormat::valueOf)
+            .toList();
+    }
+
+    public void setPreferredAttendanceFormats(List<JobAttendanceFormat> preferredAttendanceFormats) {
+        if (preferredAttendanceFormats == null) {
+            this.preferredAttendanceFormats = null;
+
+            return;
+        }
+
+        this.preferredAttendanceFormats = preferredAttendanceFormats.stream()
+            .map(Enum::name)
+            .toList();
+    }
 }

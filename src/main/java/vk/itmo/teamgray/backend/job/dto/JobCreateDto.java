@@ -5,6 +5,7 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor

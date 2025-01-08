@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
 @Schema(description = "Job Update Model")

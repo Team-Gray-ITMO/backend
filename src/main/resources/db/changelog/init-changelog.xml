@@ -268,43 +268,27 @@
         </sql>
 
         <addColumn tableName="resume">
-            <column name="ready_for_business_trips" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
+            <column name="ready_for_business_trips" type="BOOLEAN"/>
 
-            <column name="ready_for_relocation" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
+            <column name="ready_for_relocation" type="BOOLEAN"/>
         </addColumn>
 
         <addColumn tableName="users">
-            <column name="preferred_contact" type="VARCHAR(64)">
-                <constraints nullable="true"/>
-            </column>
+            <column name="preferred_contact" type="VARCHAR(64)"/>
         </addColumn>
 
         <addColumn tableName="company">
-            <column name="url" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
+            <column name="url" type="VARCHAR(255)"/>
         </addColumn>
 
         <addColumn tableName="job">
-            <column name="attendance_format" type="VARCHAR(64)">
-                <constraints nullable="true"/>
-            </column>
+            <column name="attendance_format" type="VARCHAR(64)"/>
         </addColumn>
 
         <addColumn tableName="education">
-            <column name="institution_subdivision" type="VARCHAR(512)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="format" type="VARCHAR(64)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="attendance_format" type="VARCHAR(64)">
-                <constraints nullable="true"/>
-            </column>
+            <column name="institution_subdivision" type="VARCHAR(512)"/>
+            <column name="format" type="VARCHAR(64)"/>
+            <column name="attendance_format" type="VARCHAR(64)"/>
         </addColumn>
     </changeSet>
 

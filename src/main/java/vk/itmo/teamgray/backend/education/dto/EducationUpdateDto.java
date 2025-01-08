@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 
 @NoArgsConstructor
 @Schema(description = "Education Record Update Model")

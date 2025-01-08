@@ -24,5 +24,6 @@ public class Company extends BaseEntity {
 
     public Company(CompanyCreateDto data) {
         name = data.getName();
+        url = data.getUrl();
     }
 }

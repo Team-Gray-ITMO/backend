@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vk.itmo.teamgray.backend.job.dto.JobAttendanceFormat;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
 @Data

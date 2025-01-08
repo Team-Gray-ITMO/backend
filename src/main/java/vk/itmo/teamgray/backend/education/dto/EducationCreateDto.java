@@ -7,7 +7,9 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor

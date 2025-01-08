@@ -14,10 +14,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vk.itmo.teamgray.backend.common.entities.BaseEntity;
-import vk.itmo.teamgray.backend.education.dto.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
-import vk.itmo.teamgray.backend.education.dto.EducationFormat;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 import vk.itmo.teamgray.backend.educationinstitution.entities.EducationInstitution;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
 

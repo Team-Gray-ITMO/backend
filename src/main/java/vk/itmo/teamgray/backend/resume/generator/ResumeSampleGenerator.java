@@ -4,9 +4,12 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,20 +23,20 @@ import vk.itmo.teamgray.backend.company.dto.CompanyCreateDto;
 import vk.itmo.teamgray.backend.company.dto.CompanyDto;
 import vk.itmo.teamgray.backend.company.mapper.CompanyMapper;
 import vk.itmo.teamgray.backend.company.service.CompanyService;
-import vk.itmo.teamgray.backend.education.dto.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.dto.EducationCreateDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
-import vk.itmo.teamgray.backend.education.dto.EducationFormat;
+import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
 import vk.itmo.teamgray.backend.education.enums.EducationDegreeType;
+import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
 import vk.itmo.teamgray.backend.education.services.EducationService;
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCreateDto;
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
 import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
 import vk.itmo.teamgray.backend.educationinstitution.services.EducationInstitutionService;
-import vk.itmo.teamgray.backend.job.dto.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
+import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.job.mapper.JobMapper;
 import vk.itmo.teamgray.backend.job.service.JobService;
 import vk.itmo.teamgray.backend.language.dto.LanguageCreateDto;
@@ -105,12 +108,16 @@ public class ResumeSampleGenerator {
     }
 
     ResumeDto generateResume(Long templateId, String suffix, boolean persist) {
-        var resume = createResume(new ResumeCreateDto("Test Summary " + suffix), persist);
+        var resume = createResume(new ResumeCreateDto("Инженер-программист с 9000+ лет опыта. " + suffix), persist);
 
         var updateDto = new ResumeUpdateDto();
 
         updateDto.setId(resume.getId());
         updateDto.setTemplateId(templateId);
+        updateDto.setPreferredSpecialities(List.of("Инженер-Программист", "Специалист по ковырянию в носу"));
+        updateDto.setPreferredAttendanceFormats(Arrays.asList(JobAttendanceFormat.values()));
+        updateDto.setReadyForBusinessTrips(true);
+        updateDto.setReadyForRelocation(true);
 
         if (persist) {
             resumeService.updateResume(updateDto);
@@ -119,11 +126,11 @@ public class ResumeSampleGenerator {
         var certification1 = createCertification(
             new CertificationCreateDto(
                 resume.getId(),
-                "Test Name " + suffix,
-                "Test Org " + suffix,
-                Date.from(Instant.now()),
-                Date.from(Instant.now()),
-                "https://test" + suffix + ".com",
+                "Oracle Certified Developer " + suffix,
+                "Oracle " + suffix,
+                Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration())),
+                Date.from(Instant.now().plus(ChronoUnit.YEARS.getDuration())),
+                "https://oracle" + suffix + ".com",
                 null
             ),
             persist
@@ -132,12 +139,12 @@ public class ResumeSampleGenerator {
         var certification2 = createCertification(
             new CertificationCreateDto(
                 resume.getId(),
-                "Language Test Name " + suffix,
-                "Language Test Org " + suffix,
-                Date.from(Instant.now().plus(1, ChronoUnit.DAYS)),
-                Date.from(Instant.now().plus(1, ChronoUnit.DAYS)),
-                "https://test" + suffix + ".com",
-                LanguageProficiency.A1
+                "IELTS " + suffix,
+                "IELTS Org " + suffix,
+                Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration())),
+                Date.from(Instant.now().plus(ChronoUnit.YEARS.getDuration())),
+                "https://ielts" + suffix + ".com",
+                randomEnumValue(LanguageProficiency.values())
             ),
             persist
         );
@@ -146,12 +153,12 @@ public class ResumeSampleGenerator {
             resume.setCertifications(Stream.of(certification1, certification2).collect(Collectors.toCollection(ArrayList::new)));
         }
 
-        var skillz = Arrays.stream(SkillProficiency.values())
-            .map(proficiency -> createSkill(
+        var skillz = Stream.of("Java", "Kotlin", "JPA", "Hibernate", "Spring Framework")
+            .map(skill -> createSkill(
                     new SkillCreateDto(
                         resume.getId(),
-                        "Skill " + proficiency + " " + suffix,
-                        proficiency
+                        skill + " " + suffix,
+                        randomEnumValue(SkillProficiency.values())
                     ),
                     persist
                 )
@@ -162,36 +169,46 @@ public class ResumeSampleGenerator {
             resume.setSkills(skillz);
         }
 
-        var educationInstitutions = Arrays.stream(EducationDegreeType.values()).collect(Collectors.toMap(
-            Function.identity(),
-            degreeType -> createEducationInstitution(
-                new EducationInstitutionCreateDto(
-                    "TestName " + degreeType + suffix
-                ),
-                persist
-            )
-        ));
+        var educationInstitutions = Arrays.stream(EducationDegreeType.values())
+            .collect(Collectors.toMap(
+                Function.identity(),
+                degreeType -> createEducationInstitution(
+                    new EducationInstitutionCreateDto(
+                        "ФГБОУ " + degreeType.getTranslatedName() + " " + suffix
+                    ),
+                    persist
+                )
+            ));
+
+        var i = new AtomicInteger(0);
 
         var educations = educationInstitutions.entrySet()
             .stream()
+            .sorted(Comparator.comparingInt(i2 -> i2.getKey().ordinal()))
             .map(entry -> {
                 EducationDegreeType degreeType = entry.getKey();
                 EducationInstitutionDto suffixInstitution = entry.getValue();
+                String translatedName = degreeType.getTranslatedName();
+
+                boolean first = i.get() == 0;
+
+                var endDate = Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration().multipliedBy(i.getAndIncrement())));
+                var startDate = Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration().multipliedBy(i.getAndIncrement())));
 
                 return createEducation(
                     new EducationCreateDto(
                         resume.getId(),
                         suffixInstitution.getId(),
-                        "TestSubdivision " + degreeType + " " + suffix,
-                        EducationFormat.FULL_TIME,
-                        EducationAttendanceFormat.ON_SITE,
+                        "Подразделение " + translatedName + " " + suffix,
+                        randomEnumValue(EducationFormat.values()),
+                        randomEnumValue(EducationAttendanceFormat.values()),
                         degreeType,
-                        "TestDegree " + degreeType + " " + suffix,
-                        "TestField " + degreeType + " " + suffix,
-                        "TestSpec " + degreeType + " " + suffix,
-                        Date.from(Instant.now().plus(degreeType.ordinal(), ChronoUnit.DAYS)),
-                        Date.from(Instant.now().plus(degreeType.ordinal(), ChronoUnit.DAYS)),
-                        "Grade " + degreeType + " " + suffix
+                        "Степень " + translatedName + " " + suffix,
+                        "Направление " + translatedName + " " + suffix,
+                        "Профиль " + translatedName + " " + suffix,
+                        startDate,
+                        first ? null : endDate,
+                        String.valueOf(random.nextInt(3) + 2)
                     ),
                     persist
                 );
@@ -202,12 +219,9 @@ public class ResumeSampleGenerator {
             resume.setEducations(educations);
         }
 
-        var languages = Stream.of("RU", "EN", "DE")
+        var languages = Stream.of("Russian", "English", "German")
             .map(lang -> {
-                var proficiency = Arrays.stream(LanguageProficiency.values())
-                    .skip(random.nextInt(LanguageProficiency.values().length))
-                    .findFirst()
-                    .orElseThrow();
+                var proficiency = randomEnumValue(LanguageProficiency.values());
 
                 return createLanguage(
                     new LanguageCreateDto(
@@ -224,12 +238,12 @@ public class ResumeSampleGenerator {
             resume.setLanguages(languages);
         }
 
-        var links = Stream.of("github", "linkedin")
+        var links = Stream.of("GitHub", "LinkedIn")
             .map(platform -> createLink(
                 new LinkCreateDto(
                     resume.getId(),
                     platform + " " + suffix,
-                    "https://" + platform + ".com"
+                    "https://" + platform.toLowerCase(Locale.ROOT) + ".com"
                 ),
                 persist
             ))
@@ -243,28 +257,36 @@ public class ResumeSampleGenerator {
             .map(company -> createCompany(
                     new CompanyCreateDto(
                         company,
-                        company.toLowerCase(Locale.ROOT) + ".com"
+                        "https://" + company.toLowerCase(Locale.ROOT) + ".com"
                     ),
                     persist
                 )
             )
             .collect(Collectors.toCollection(ArrayList::new));
 
+        i.set(0);
 
         var jobs = companies.stream()
-            .map(company -> createJob(
-                new JobCreateDto(
-                    resume.getId(),
-                    company.getId(),
-                    "TestTitle " + suffix,
-                    "TestLocation " + suffix,
-                    Date.from(Instant.now()),
-                    Date.from(Instant.now()),
-                    "TestDescription " + suffix,
-                    JobAttendanceFormat.ON_SITE
-                ),
-                persist
-            ))
+            .map(company -> {
+                boolean first = i.get() == 0;
+
+                var endDate = Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration().multipliedBy(i.getAndIncrement())));
+                var startDate = Date.from(Instant.now().minus(ChronoUnit.YEARS.getDuration().multipliedBy(i.getAndIncrement())));
+
+                return createJob(
+                    new JobCreateDto(
+                        resume.getId(),
+                        company.getId(),
+                        "Инженер " + suffix,
+                        "Россия, г. Санкт-Петербург " + suffix,
+                        startDate,
+                        first ? null : endDate,
+                        "Работал в поле " + suffix,
+                        randomEnumValue(JobAttendanceFormat.values())
+                    ),
+                    persist
+                );
+            })
             .collect(Collectors.toCollection(ArrayList::new));
 
         if (!persist) {
@@ -276,6 +298,13 @@ public class ResumeSampleGenerator {
         } else {
             return resume;
         }
+    }
+
+    private <T> T randomEnumValue(T[] enumArray) {
+        return Arrays.stream(enumArray)
+            .skip(random.nextInt(enumArray.length))
+            .findFirst()
+            .orElseThrow();
     }
 
     private CertificationDto createCertification(CertificationCreateDto certificationCreateDto, boolean persist) {
