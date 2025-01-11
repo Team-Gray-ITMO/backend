@@ -7,17 +7,17 @@
     <style>
         /* Основные стили для всего документа */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'VK Sans', Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
+            background-color: #FFFFFF; /* VK White */
         }
 
         /* Стили для заголовка */
         header {
-            background: #333;
-            color: #fff;
+            background: #0077FF; /* VK Blue */
+            color: #FFFFFF; /* VK White */
             padding: 20px 0;
             text-align: center;
         }
@@ -28,16 +28,17 @@
 
         /* Стили для секций */
         section {
-            background: #fff;
+            background: #FFFFFF; /* VK White */
             margin: 20px auto;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: 'VK Sans Regular', Arial, sans-serif;
         }
 
         /* Стили для заголовков секций */
         h2 {
-            color: #333;
+            color: #0077FF; /* VK Blue */
         }
 
         /* Стили для списков */
@@ -48,8 +49,8 @@
 
         ul li {
             margin-bottom: 10px; /* Отступ между элементами списка */
-            background: #f9f9f9; /* Фоновый цвет элемента */
-            border: 1px solid #ddd; /* Граница элемента */
+            background: #F9F9F9; /* Легкий нейтральный цвет */
+            border: 1px solid #DEDEDE; /* Граница элемента VK Grey */
             border-radius: 5px; /* Скругленные углы */
             padding: 10px; /* Внутренние отступы */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
@@ -61,7 +62,7 @@
 
         /* Стили для ссылок */
         a {
-            color: #0077FF; /* Цвет ссылок */
+            color: #0077FF; /* Цвет ссылок VK Blue */
             text-decoration: none; /* Убираем подчеркивание */
         }
 

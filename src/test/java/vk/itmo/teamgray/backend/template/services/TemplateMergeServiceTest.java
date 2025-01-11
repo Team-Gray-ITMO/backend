@@ -28,6 +28,8 @@ class TemplateMergeServiceTest extends TestBase {
 
     @Test
     void testMerge() throws IOException {
+        var sampleTemplate = sampleTemplates.getLast();
+
         var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
 
         FileDto mergedFile = templateMergeService.mergeTemplateToZip(resume.getId(), sampleTemplate.getId());
@@ -62,7 +64,7 @@ class TemplateMergeServiceTest extends TestBase {
 
     @Test
     void testToHtml() {
-        var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getFirst().getId()).getFirst();
 
         byte[] mergedHtml = templateMergeService.mergeTemplateToHtml(resume);
 

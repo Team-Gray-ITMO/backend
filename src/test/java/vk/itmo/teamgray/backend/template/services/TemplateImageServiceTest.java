@@ -18,8 +18,8 @@ class TemplateImageServiceTest extends TestBase {
 
     @Test
     void testTemplate() throws JsonProcessingException {
-        var fileDto = sampleTemplate.getFile();
-        var name = sampleTemplate.getName() + "2";
+        var fileDto = sampleTemplates.getFirst().getFile();
+        var name = sampleTemplates.getFirst().getName() + "2";
 
         var template = templateService.createTemplate(
             new TemplateCreateDto(

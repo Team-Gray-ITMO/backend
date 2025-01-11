@@ -15,7 +15,7 @@ class ResumeServiceTest extends TestBase {
 
     @Test
     void testJsonAggregation() throws JsonProcessingException {
-        var resumes = resumeGenerator.generateResumes(5, sampleTemplate.getId()).stream()
+        var resumes = resumeGenerator.generateResumes(5, sampleTemplates.getFirst().getId()).stream()
             .map(resume -> resumeService.prepareResume(resume))
             .toList();
 

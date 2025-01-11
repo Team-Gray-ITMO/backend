@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,7 +59,7 @@ public abstract class TestBase {
 
     protected UserDto testUser;
 
-    protected TemplateDto sampleTemplate;
+    protected List<TemplateDto> sampleTemplates;
 
     @BeforeEach
     public void setUp() {
@@ -70,9 +71,7 @@ public abstract class TestBase {
 
         templateImportService.init();
 
-        sampleTemplate = templateService.findAll().stream()
-            .max(Comparator.comparing(TemplateDto::getCreatedAt))
-            .orElseThrow();
+        sampleTemplates = templateService.findAll();
 
         testUser = userService.createUser(
             new UserCreateDto(
