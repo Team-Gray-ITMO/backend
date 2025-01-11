@@ -18,12 +18,20 @@
         header {
             background: #0077FF; /* VK Blue */
             color: #FFFFFF; /* VK White */
-            padding: 20px 0;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
         }
 
         h1 {
             margin: 0;
+            font-size: 1.5rem;
         }
 
         /* Стили для секций */
@@ -50,7 +58,7 @@
         ul li {
             margin-bottom: 10px; /* Отступ между элементами списка */
             background: #F9F9F9; /* Легкий нейтральный цвет */
-            border: 1px solid #DEDEDE; /* Граница элемента VK Grey */
+            border: 1px solid #DEDEDE; /* VK Grey */
             border-radius: 5px; /* Скругленные углы */
             padding: 10px; /* Внутренние отступы */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
@@ -62,7 +70,7 @@
 
         /* Стили для ссылок */
         a {
-            color: #0077FF; /* Цвет ссылок VK Blue */
+            color: #0077FF; /* VK Blue */
             text-decoration: none; /* Убираем подчеркивание */
         }
 
@@ -85,6 +93,7 @@
 </head>
 <body>
 <header>
+    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMSAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yXzIpIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjUyOTQ0IDcuMDI5NDRDMC41IDE0LjA1ODkgMC41IDI1LjM3MjYgMC41IDQ4VjUyQzAuNSA3NC42Mjc0IDAuNSA4NS45NDExIDcuNTI5NDQgOTIuOTcwNkMxNC41NTg5IDEwMCAyNS44NzI2IDEwMCA0OC41IDEwMEg1Mi41Qzc1LjEyNzQgMTAwIDg2LjQ0MTEgMTAwIDkzLjQ3MDYgOTIuOTcwNkMxMDAuNSA4NS45NDExIDEwMC41IDc0LjYyNzQgMTAwLjUgNTJWNDhDMTAwLjUgMjUuMzcyNiAxMDAuNSAxNC4wNTg5IDkzLjQ3MDYgNy4wMjk0NEM4Ni40NDExIDAgNzUuMTI3NCAwIDUyLjUgMEg0OC41QzI1Ljg3MjYgMCAxNC41NTg5IDAgNy41Mjk0NCA3LjAyOTQ0Wk0xNy4zNzUyIDMwLjQxNjlDMTcuOTE2OCA1Ni40MTY5IDMwLjkxNjcgNzIuMDQxOCA1My43MDg0IDcyLjA0MThINTUuMDAwM1Y1Ny4xNjY4QzYzLjM3NTMgNTguMDAwMSA2OS43MDgyIDY0LjEyNTIgNzIuMjQ5OCA3Mi4wNDE4SDg0LjA4MzVDODAuODMzNSA2MC4yMDg1IDcyLjI5MTQgNTMuNjY2OCA2Ni45NTgxIDUxLjE2NjhDNzIuMjkxNCA0OC4wODM1IDc5Ljc5MTUgNDAuNTgzNSA4MS41ODMxIDMwLjQxNjlINzAuODMyOEM2OC40OTk1IDM4LjY2NjkgNjEuNTgzNiA0Ni4xNjY4IDU1LjAwMDMgNDYuODc1MVYzMC40MTY5SDQ0LjI0OTlWNTkuMjUwMUMzNy41ODMzIDU3LjU4MzUgMjkuMTY2OCA0OS41MDAyIDI4Ljc5MTggMzAuNDE2OUgxNy4zNzUyWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8yXzIiPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuNSkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="VK Logo">
     <h1>Резюме</h1>
 </header>
 <section>
