@@ -5,7 +5,7 @@ import vk.itmo.teamgray.backend.common.enums.TranslatableEnum;
 
 @Getter
 public enum EducationAttendanceFormat implements TranslatableEnum {
-    ON_SITE("Очный"),
+    ON_SITE("Очное Посещение"),
     HYBRID("Гибридный"),
     REMOTE("Удалённый");
 

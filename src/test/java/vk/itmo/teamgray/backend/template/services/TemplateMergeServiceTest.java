@@ -30,7 +30,7 @@ class TemplateMergeServiceTest extends TestBase {
     void testMerge() throws IOException {
         var sampleTemplate = sampleTemplates.getLast();
 
-        var resume = resumeGenerator.generateResumes(1, sampleTemplate.getId()).getFirst();
+        var resume = resumeGenerator.generateResume(sampleTemplate.getId(), "");
 
         FileDto mergedFile = templateMergeService.mergeTemplateToZip(resume.getId(), sampleTemplate.getId());
 

@@ -16,4 +16,8 @@ public class ResumeTestGenerator {
             .mapToObj(i -> resumeSampleGenerator.generateResume(templateId, String.valueOf(i), true))
             .toList();
     }
+
+    public ResumeDto generateResume(long templateId, String suffix) {
+        return resumeSampleGenerator.generateResume(templateId, suffix, true);
+    }
 }

@@ -103,6 +103,9 @@
         <ul>
             #foreach ($job in ${resume.jobs})
                 <li>
+                    #if ($job.startDate || $job.endDate)
+                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})} - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
+                    #end
                     #if ($job.title)
                         <p><strong>Должность:</strong> ${job.title}</p>
                     #end
@@ -115,8 +118,8 @@
                     #if ($job.location)
                         <p><strong>Местоположение:</strong> ${job.location}</p>
                     #end
-                    #if ($job.startDate || $job.endDate)
-                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})} - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
+                    #if ($job.attendanceFormat)
+                        <p><strong>Формат работы:</strong> ${utils.translate(${job.attendanceFormat})}</p>
                     #end
                     #if ($job.description)
                         <p><strong>Описание:</strong> ${job.description}</p>
@@ -133,6 +136,9 @@
         <ul>
             #foreach ($edu in ${resume.educations})
                 <li>
+                    #if ($edu.startDate || $edu.endDate)
+                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)} - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
+                    #end
                     #if ($edu.institution.name)
                         <p><strong>Институт:</strong> ${edu.institution.name}</p>
                     #end
@@ -155,10 +161,7 @@
                         <p><strong>Форма обучения:</strong> ${utils.translate(${edu.format})}</p>
                     #end
                     #if ($edu.attendanceFormat)
-                        <p><strong>Удалённость:</strong> ${utils.translate(${edu.attendanceFormat})}</p>
-                    #end
-                    #if ($edu.startDate || $edu.endDate)
-                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)} - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
+                        <p><strong>Формат обучения:</strong> ${utils.translate(${edu.attendanceFormat})}</p>
                     #end
                     #if ($edu.grade)
                         <p><strong>Оценка:</strong> ${edu.grade}</p>
