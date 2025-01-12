@@ -217,6 +217,9 @@
                     #if ($job.location)
                         <p><strong>Местоположение:</strong> ${job.location}</p>
                     #end
+                    #if ($job.attendanceFormat)
+                        <p><strong>Формат работы:</strong> ${utils.translate(${job.attendanceFormat})}</p>
+                    #end
                     #if ($job.description)
                         <p><strong>Описание:</strong> ${job.description}</p>
                     #end
