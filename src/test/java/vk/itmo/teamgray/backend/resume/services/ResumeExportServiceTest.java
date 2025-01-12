@@ -42,7 +42,7 @@ class ResumeExportServiceTest extends TestBase {
 
     @Test
     void testHtmlResumeExport() throws IOException {
-        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getFirst().getId()).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getLast().getId()).getFirst();
 
         byte[] htmlResume = resumeExportService.getResumeAsHtml(resume.getId());
         assertThat(htmlResume).isNotNull();
@@ -52,7 +52,7 @@ class ResumeExportServiceTest extends TestBase {
 
     @Test
     void testPdfResumeExport() throws IOException {
-        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getFirst().getId()).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getLast().getId()).getFirst();
 
         byte[] pdfResume = resumeExportService.getResumeAsPdf(resume.getId());
         assertThat(pdfResume).isNotNull();
@@ -62,7 +62,7 @@ class ResumeExportServiceTest extends TestBase {
 
     @Test
     void testPngResumeExport() throws IOException {
-        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getFirst().getId()).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getLast().getId()).getFirst();
 
         byte[] pngResume = resumeExportService.getResumeAsPng(resume.getId());
         assertThat(pngResume).isNotNull();
@@ -72,7 +72,7 @@ class ResumeExportServiceTest extends TestBase {
 
     @Test
     void testDocxResumeExport() throws IOException {
-        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getFirst().getId()).getFirst();
+        var resume = resumeGenerator.generateResumes(1, sampleTemplates.getLast().getId()).getFirst();
 
         byte[] docxResume = resumeExportService.getResumeAsDocx(resume.getId());
         assertThat(docxResume).isNotNull();
