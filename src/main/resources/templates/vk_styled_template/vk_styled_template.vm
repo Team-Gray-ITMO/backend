@@ -12,7 +12,7 @@
 
         @font-face {
             font-family: 'VK Sans Display';
-            src: url(${utils.injectResourceAsBase64("font/truetype", "assets/font/vk_sans_display_regular.ttf")}) format('truetype');
+            src: url(${utils.injectResourceAsBase64("font/truetype", "/assets/font/vk_sans_display_regular.ttf")}) format('truetype');
             font-weight: normal;
             font-style: normal;
         }
