@@ -5,13 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Резюме</title>
     <style>
+        @page {
+            size: A4;
+            margin: 5mm;
+        }
+
         /* Основные стили для всего документа */
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
-            margin: 0;
+            margin: 1px;
             padding: 0;
             background-color: #f4f4f4;
+            /* Limiting width to A4 size */
+            min-width: 210mm;
+            max-width: 210mm;
         }
 
         /* Стили для заголовка */
@@ -69,16 +77,12 @@
             text-decoration: underline; /* Подчеркивание при наведении */
         }
 
-        /* Адаптивные стили */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px; /* Уменьшаем отступы на мобильных устройствах */
-            }
-
-            section {
-                margin: 10px; /* Уменьшаем отступы между секциями на мобильных устройствах */
-                padding: 15px; /* Уменьшаем внутренние отступы на мобильных устройствах */
-            }
+        /* Для маленьких экранов при просмотре не конвертированного HTML. */
+        @media (max-width: 210mm), (max-height: 297mm) {
+            width: 100%;
+            height: auto;
+            margin: 10px;
+            padding: 15px;
         }
     </style>
 </head>
@@ -112,52 +116,37 @@
     </section>
     #end
 
-<section>
-    <h2>Предпочтения</h2>
-
     #if ($resume.preferredSpecialities && $resume.preferredSpecialities.size() > 0)
-        <section>
-            <h3>Специальности</h3>
-            <ul>
-                #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
-                    <li>${preferredSpeciality}</li>
-                #end
-            </ul>
-        </section>
+    <section>
+        <h2>Специальности</h2>
+        <ul>
+            #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
+                <li>${preferredSpeciality}</li>
+            #end
+        </ul>
+    </section>
     #end
 
     #if ($resume.preferredAttendanceFormats && $resume.preferredAttendanceFormats.size() > 0)
-        <section>
-            <h3>Форматы Работы</h3>
-            <ul>
-                #foreach ($preferredAttendanceFormat in ${resume.preferredAttendanceFormats})
-                    <li>${utils.translate(${preferredAttendanceFormat})}</li>
-                #end
-            </ul>
-        </section>
+    <section>
+        <h2>Форматы Работы</h2>
+        <ul>
+            #foreach ($preferredAttendanceFormat in ${resume.preferredAttendanceFormats})
+                <li>${utils.translate(${preferredAttendanceFormat})}</li>
+            #end
+        </ul>
+    </section>
     #end
 
     #if ($resume.readyForRelocation || $resume.readyForBusinessTrips)
-        <section>
-            <h3>Условия Работы</h3>
-            <ul>
-                #if ($resume.readyForRelocation)
-                    <li>Готов к Переезду</li>
-                #end
-                #if ($resume.readyForBusinessTrips)
-                    <li>Готов к Командировкам</li>
-                #end
-            </ul>
-        </section>
-    #end
-</section>
-
-    #if ($resume.links && $resume.links.size() > 0)
     <section>
-        <h2>Ссылки</h2>
+        <h2>Условия Работы</h2>
         <ul>
-            #foreach ($link in ${resume.links})
-                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
+            #if ($resume.readyForRelocation)
+                <li>Готов к Переезду</li>
+            #end
+            #if ($resume.readyForBusinessTrips)
+                <li>Готов к Командировкам</li>
             #end
         </ul>
     </section>
@@ -174,6 +163,17 @@
     </section>
     #end
 
+    #if ($resume.languages && $resume.languages.size() > 0)
+    <section>
+        <h2>Языки</h2>
+        <ul>
+            #foreach ($language in ${resume.languages})
+                <li><strong>${language.name}:</strong> ${language.proficiency}</li>
+            #end
+        </ul>
+    </section>
+    #end
+
     #if ($resume.jobs && $resume.jobs.size() > 0)
     <section>
         <h2>Опыт работы</h2>
@@ -181,7 +181,8 @@
             #foreach ($job in ${resume.jobs})
                 <li>
                     #if ($job.startDate || $job.endDate)
-                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})} - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
+                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})}
+                            - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
                     #end
                     #if ($job.title)
                         <p><strong>Должность:</strong> ${job.title}</p>
@@ -190,7 +191,7 @@
                         <p><strong>Компания:</strong> ${job.company.name} </p>
                     #end
                     #if ($job.company.url)
-                        <p><strong>Ссылка:</strong> <a href="${job.company.url}">${job.company.url}</a> </p>
+                        <p><strong>Ссылка:</strong> <a href="${job.company.url}">${job.company.url}</a></p>
                     #end
                     #if ($job.location)
                         <p><strong>Местоположение:</strong> ${job.location}</p>
@@ -214,7 +215,8 @@
             #foreach ($edu in ${resume.educations})
                 <li>
                     #if ($edu.startDate || $edu.endDate)
-                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)} - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
+                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)}
+                            - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
                     #end
                     #if ($edu.institution.name)
                         <p><strong>Институт:</strong> ${edu.institution.name}</p>
@@ -279,12 +281,12 @@
     </section>
     #end
 
-    #if ($resume.languages && $resume.languages.size() > 0)
+    #if ($resume.links && $resume.links.size() > 0)
     <section>
-        <h2>Языки</h2>
+        <h2>Ссылки</h2>
         <ul>
-            #foreach ($language in ${resume.languages})
-                <li><strong>${language.name}:</strong> ${language.proficiency}</li>
+            #foreach ($link in ${resume.links})
+                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
             #end
         </ul>
     </section>
