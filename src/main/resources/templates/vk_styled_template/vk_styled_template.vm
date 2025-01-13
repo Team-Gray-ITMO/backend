@@ -41,7 +41,7 @@
 
         header img {
             align-items: center;
-            width: 150px;
+            width: 167px;
             height: 30px;
             margin-top: 10px;
             margin-left: 15px;
