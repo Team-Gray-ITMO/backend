@@ -1,9 +1,12 @@
 package vk.itmo.teamgray.backend.template.utils;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Date;
 import vk.itmo.teamgray.backend.common.enums.TranslatableEnum;
+import vk.itmo.teamgray.backend.file.utils.FileUtils;
 
 public class TemplateUtils {
     public static String formatDateAsMonthOrNow(Date date) {
@@ -48,5 +51,11 @@ public class TemplateUtils {
 
     public String translate(TranslatableEnum translatable) {
         return translatable.getTranslatedName();
+    }
+
+    public String injectResourceAsBase64(String mimeType, String resourcePath) throws IOException {
+        var resource = FileUtils.getLocalResource("classpath*:" + resourcePath);
+
+        return "data:" + mimeType + ";base64," + Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
     }
 }

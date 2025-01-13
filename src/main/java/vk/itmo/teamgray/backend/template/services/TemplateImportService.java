@@ -5,21 +5,18 @@ import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.file.format.HtmlFormat;
 import vk.itmo.teamgray.backend.file.format.VmFormat;
 import vk.itmo.teamgray.backend.file.format.ZipFormat;
+import vk.itmo.teamgray.backend.file.utils.FileUtils;
 import vk.itmo.teamgray.backend.file.utils.ZipUtils;
 import vk.itmo.teamgray.backend.template.dto.TemplateCreateDto;
 import vk.itmo.teamgray.backend.template.exception.TemplateImportServiceException;
@@ -70,9 +67,7 @@ public class TemplateImportService {
     }
 
     private void processTemplatesFromClasspath(String directoryPath, Consumer<FileDto> fileAction) {
-        PathMatchingResourcePatternResolver scanner = new PathMatchingResourcePatternResolver();
-
-        var resources = getResources(scanner, "classpath*:" + directoryPath + "/**/*" + VmFormat.EXTENSION);
+        var resources = FileUtils.getLocalResources("classpath*:" + directoryPath + "/**/*" + VmFormat.EXTENSION);
 
         if (resources.isEmpty()) {
             throw new TemplateImportServiceException(directoryPath + " is empty.");
@@ -91,17 +86,6 @@ public class TemplateImportService {
                     throw new TemplateImportServiceException("Could not process file", e);
                 }
             });
-    }
-
-    private static List<Resource> getResources(PathMatchingResourcePatternResolver scanner, String it) {
-        try {
-            return Arrays.stream(scanner.getResources(it))
-                .filter(Objects::nonNull)
-                .filter(Resource::exists)
-                .toList();
-        } catch (IOException e) {
-            throw new TemplateImportServiceException("Could not get resources: ", e);
-        }
     }
 
     private static String makeFileNamePretty(String fileName) {

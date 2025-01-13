@@ -17,7 +17,7 @@ public class ResumeTestGenerator {
             .toList();
     }
 
-    public ResumeDto generateResume(long templateId, String suffix) {
+    public ResumeDto generateResume(Long templateId, String suffix) {
         return resumeSampleGenerator.generateResume(templateId, suffix, true);
     }
 }
