@@ -1,6 +1,13 @@
 package vk.itmo.teamgray.backend.file;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,8 +29,14 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.resume.exceptions.ConversionException;
 
+import static vk.itmo.teamgray.backend.file.utils.FileUtils.getLocalResources;
+
 @Service
 public class FileConversionService {
+    private PageSize pageSize = PageSize.A4;
+
+    private ConverterProperties converterProperties = getConverterProperties(pageSize);
+
     public byte[] convertPdfToPng(byte[] pdfFile) {
         try (PDDocument document = new PDFParser(new RandomAccessReadBuffer(pdfFile)).parse()) {
             PDFRenderer renderer = new PDFRenderer(document);
@@ -41,9 +54,15 @@ public class FileConversionService {
     }
 
     public byte[] convertHtmlToPdf(byte[] htmlTemplate) {
-        try {
-            ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
-            HtmlConverter.convertToPdf(new ByteArrayInputStream(htmlTemplate), pdfOutputStream);
+        try (ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
+
+            pdfDocument.setDefaultPageSize(pageSize);
+
+            HtmlConverter.convertToPdf(new ByteArrayInputStream(htmlTemplate), pdfDocument, converterProperties);
+
+            pdfDocument.close();
+
             return pdfOutputStream.toByteArray();
         } catch (IOException e) {
             throw new ConversionException("ERROR.CONVERT_TO_PDF: " + e.getMessage());
@@ -80,5 +99,30 @@ public class FileConversionService {
         } catch (IOException ex) {
             throw new ConversionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
         }
+    }
+
+    private static ConverterProperties getConverterProperties(PageSize pageSize) {
+        ConverterProperties converterProperties = new ConverterProperties();
+
+        FontProvider fontProvider  = new FontProvider();
+
+        var fonts = getLocalResources("classpath*:/assets/font/*");
+
+        fonts.forEach(resource -> {
+            try {
+                fontProvider.addFont(resource.getContentAsByteArray());
+            } catch (IOException e) {
+                throw new ConversionException("ERROR.IMPORT_FONT: " + e.getMessage());
+            }
+        });
+
+        fontProvider.addStandardPdfFonts();
+        fontProvider.addSystemFonts();
+        converterProperties.setFontProvider(fontProvider);
+
+        MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.SCREEN);
+        mediaDeviceDescription.setWidth(pageSize.getWidth());
+        converterProperties.setMediaDeviceDescription(mediaDeviceDescription);
+        return converterProperties;
     }
 }
