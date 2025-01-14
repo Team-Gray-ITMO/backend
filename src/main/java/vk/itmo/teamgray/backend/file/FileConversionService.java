@@ -13,12 +13,17 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -26,6 +31,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import org.springframework.stereotype.Service;
 import vk.itmo.teamgray.backend.resume.exceptions.ConversionException;
 
@@ -38,19 +45,13 @@ public class FileConversionService {
     private ConverterProperties converterProperties = getConverterProperties(pageSize);
 
     public byte[] convertPdfToPng(byte[] pdfFile) {
-        try (PDDocument document = new PDFParser(new RandomAccessReadBuffer(pdfFile)).parse()) {
-            PDFRenderer renderer = new PDFRenderer(document);
+        List<byte[]> pngPages = convertPdfToPngPages(pdfFile, 1);
 
-            BufferedImage image = renderer.renderImageWithDPI(0, 300, ImageType.RGB);
-
-            ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(image, "PNG", pngOutputStream);
-
-            return pngOutputStream.toByteArray();
-
-        } catch (IOException e) {
-            throw new ConversionException("ERROR.CONVERT_TO_PNG: " + e.getMessage());
+        if (pngPages.isEmpty()) {
+            throw new ConversionException("ERROR.CONVERT_TO_PNG: No pages found in PDF.");
         }
+
+        return pngPages.getFirst();
     }
 
     public byte[] convertHtmlToPdf(byte[] htmlTemplate) {
@@ -71,14 +72,61 @@ public class FileConversionService {
 
     public byte[] convertHtmlToDocx(byte[] htmlTemplate) {
         String htmlContent = new String(htmlTemplate, StandardCharsets.UTF_8);
-
-        XWPFDocument document = new XWPFDocument();
-
         Document htmlDocument = Jsoup.parse(htmlContent);
+
+        boolean hasStyles = !htmlDocument.select("style").isEmpty() || !htmlDocument.select("[style]").isEmpty();
+
+        try (XWPFDocument docxDocument = createDocumentWithMinimalMargins(hasStyles)) {
+            if (hasStyles) {
+                return convertStyledHtmlToDocx(htmlTemplate, docxDocument);
+            } else {
+                return convertPlainHtmlToDocx(htmlDocument, docxDocument);
+            }
+        } catch (IOException | InvalidFormatException e) {
+            throw new ConversionException("ERROR.CONVERT_TO_DOCX: " + e.getMessage());
+        }
+    }
+
+    private XWPFDocument createDocumentWithMinimalMargins(boolean hasStyles) {
+        XWPFDocument document = new XWPFDocument();
+        CTSectPr sectPr = document.getDocument().getBody().addNewSectPr();
+        CTPageMar pageMar = sectPr.addNewPgMar();
+
+        int marginTwips = hasStyles
+            ? 0
+            : 567; //10mm
+
+        pageMar.setTop(marginTwips);
+        pageMar.setBottom(marginTwips);
+        pageMar.setLeft(marginTwips);
+        pageMar.setRight(marginTwips);
+
+        return document;
+    }
+
+    private byte[] convertStyledHtmlToDocx(byte[] htmlTemplate, XWPFDocument docxDocument) throws IOException, InvalidFormatException {
+        List<byte[]> pngPages = convertPdfToPngPages(convertHtmlToPdf(htmlTemplate), null);
+
+        for (byte[] imageBytes : pngPages) {
+            XWPFParagraph paragraph = docxDocument.createParagraph();
+            XWPFRun run = paragraph.createRun();
+            run.addPicture(
+                new ByteArrayInputStream(imageBytes),
+                XWPFDocument.PICTURE_TYPE_PNG,
+                "Page.png",
+                Units.toEMU(pageSize.getWidth()),
+                Units.toEMU(pageSize.getHeight())
+            );
+        }
+
+        return writeDocxToByteArray(docxDocument);
+    }
+
+    private byte[] convertPlainHtmlToDocx(Document htmlDocument, XWPFDocument docxDocument) throws IOException {
         Elements paragraphs = htmlDocument.body().select("p, h1, h2, h3, h4, h5, h6");
 
         for (Element paragraph : paragraphs) {
-            XWPFParagraph docParagraph = document.createParagraph();
+            XWPFParagraph docParagraph = docxDocument.createParagraph();
             XWPFRun run = docParagraph.createRun();
             run.setText(paragraph.text());
 
@@ -92,13 +140,37 @@ public class FileConversionService {
             }
         }
 
+        return writeDocxToByteArray(docxDocument);
+    }
+
+    private byte[] writeDocxToByteArray(XWPFDocument document) throws IOException {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             document.write(outputStream);
-            document.close();
             return outputStream.toByteArray();
-        } catch (IOException ex) {
-            throw new ConversionException("ERROR.CONVERT_TO_DOCX: " + ex.getMessage());
         }
+    }
+
+    private List<byte[]> convertPdfToPngPages(byte[] pdfFile, Integer limit) {
+        List<byte[]> pngImages = new ArrayList<>();
+
+        try (PDDocument document = new PDFParser(new RandomAccessReadBuffer(pdfFile)).parse()) {
+            PDFRenderer renderer = new PDFRenderer(document);
+
+            limit = Math.min(Objects.requireNonNullElse(limit, document.getNumberOfPages()), document.getNumberOfPages());
+
+            for (int pageIndex = 0; pageIndex < limit; pageIndex++) {
+                BufferedImage image = renderer.renderImageWithDPI(pageIndex, 300, ImageType.RGB);
+
+                ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+                ImageIO.write(image, "PNG", pngOutputStream);
+
+                pngImages.add(pngOutputStream.toByteArray());
+            }
+        } catch (IOException e) {
+            throw new ConversionException("ERROR.CONVERT_PDF_TO_PNG: " + e.getMessage());
+        }
+
+        return pngImages;
     }
 
     private static ConverterProperties getConverterProperties(PageSize pageSize) {
