@@ -5,9 +5,9 @@ import vk.itmo.teamgray.backend.common.enums.TranslatableEnum;
 
 @Getter
 public enum EducationFormat implements TranslatableEnum {
-    FULL_TIME("Очный"),
-    PART_TIME("Очно-Заочный"),
-    CORRESPONDENCE("Заочный");
+    FULL_TIME("Очная"),
+    PART_TIME("Очно-Заочная"),
+    CORRESPONDENCE("Заочная");
 
     private final String translatedName;
 

@@ -4,10 +4,159 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Резюме</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 5mm;
+        }
+
+        @font-face {
+            font-family: 'VK Sans Display';
+            src: url(${utils.injectResourceAsBase64("font/truetype", "/assets/font/vk_sans_display_regular.ttf")}) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Основные стили для всего документа */
+        body {
+            font-family: 'VK Sans Display', Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #FFFFFF; /* VK White */
+            color: #000000;
+            /* Limiting width to A4 size */
+            min-width: 210mm;
+            max-width: 210mm;
+        }
+
+        /* Стили для заголовка */
+        header {
+            background: #0077FF; /* VK Blue */
+            color: #FFFFFF; /* VK White */
+            display: block;
+            align-items: center;
+            padding: 10px 10px;
+        }
+
+        header img {
+            align-items: center;
+            width: 167px;
+            height: 30px;
+            margin-top: 10px;
+            margin-left: 15px;
+            margin-right: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Стили для секций */
+        section {
+            border: 1px solid #DEDEDE; /* VK Grey */
+            background: #FFFFFF; /* VK White */
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            page-break-inside: avoid;
+        }
+
+        section.list-section {
+            padding: 0;
+        }
+
+        /* Стили для заголовков секций */
+        h2 {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 3px;
+            color: #000000; /* VK Black */
+            font-size: 1.2rem;
+        }
+
+        h2.list-section-title {
+            margin: 10px 20px;
+        }
+
+        /* Стили для списков */
+        ul {
+            list-style: none;
+            padding: 0; /* Убираем отступы */
+            margin: 0;
+        }
+
+        ul li {
+            margin-bottom: 0; /* Отступ между элементами списка */
+            background: #FFFFFF; /* VK White */
+            border-bottom: 1px solid #DEDEDE; /* VK Grey */
+            padding: 10px 20px; /* Внутренние отступы */
+        }
+
+        ul li:first-child {
+            border-top: 1px solid #DEDEDE; /* VK Grey */
+        }
+
+        ul li:last-child {
+            border-bottom: 1px solid #DEDEDE; /* VK Grey */
+            border-radius: 8px;
+        }
+
+        ul.tag-list {
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        ul.tag-list li {
+            margin: 3px;
+            background-color: #0077FF; /* VK Blue */
+            color: #FFFFFF; /* VK White */
+            padding: 5px 10px;
+            border-radius: 20px; /* Закруглённые углы тэгов (пилюля) */
+            border: none;
+            font-size: 0.8rem;
+            display: inline-block;
+            white-space: nowrap; /* Убираем оборачивание */
+        }
+
+        /* Стили для ссылок */
+        a {
+            color: #0077FF; /* VK Blue */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+
+        p {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        /* Ограничиваем дробление элементов при попиле на страницы */
+        h1, h2, p, li {
+            page-break-inside: avoid;
+        }
+
+        /* Для маленьких экранов при просмотре не конвертированного HTML. */
+        @media (max-width: 210mm), (max-height: 297mm) {
+            width: 100%;
+            height: auto;
+            margin: 10px;
+            padding: 15px;
+        }
+    </style>
 </head>
 <body>
 <header>
-    <h1>Резюме</h1>
+    <img
+        src="${utils.injectResourceAsBase64("image/svg+xml", "/assets/logo/vk_education_logo_white.svg")}"
+        alt="VK Logo"/>
 </header>
 <section>
     <h2>Личная информация</h2>
@@ -38,7 +187,7 @@
     #if ($resume.preferredSpecialities && $resume.preferredSpecialities.size() > 0)
     <section>
         <h2>Специальности</h2>
-        <ul>
+        <ul class="tag-list">
             #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
                 <li>${preferredSpeciality}</li>
             #end
@@ -49,7 +198,7 @@
     #if ($resume.preferredAttendanceFormats && $resume.preferredAttendanceFormats.size() > 0)
     <section>
         <h2>Форматы Работы</h2>
-        <ul>
+        <ul class="tag-list">
             #foreach ($preferredAttendanceFormat in ${resume.preferredAttendanceFormats})
                 <li>${utils.translate(${preferredAttendanceFormat})}</li>
             #end
@@ -60,7 +209,7 @@
     #if ($resume.readyForRelocation || $resume.readyForBusinessTrips)
     <section>
         <h2>Условия Работы</h2>
-        <ul>
+        <ul class="tag-list">
             #if ($resume.readyForRelocation)
                 <li>Готов к Переезду</li>
             #end
@@ -74,7 +223,7 @@
     #if ($resume.skills && $resume.skills.size() > 0)
     <section>
         <h2>Навыки</h2>
-        <ul>
+        <ul class="tag-list">
             #foreach ($skill in ${resume.skills})
                 <li><strong>${skill.name}:</strong> ${utils.translate(${skill.proficiency})}</li>
             #end
@@ -85,7 +234,7 @@
     #if ($resume.languages && $resume.languages.size() > 0)
     <section>
         <h2>Языки</h2>
-        <ul>
+        <ul class="tag-list">
             #foreach ($language in ${resume.languages})
                 <li><strong>${language.name}:</strong> ${language.proficiency}</li>
             #end
@@ -94,8 +243,8 @@
     #end
 
     #if ($resume.jobs && $resume.jobs.size() > 0)
-    <section>
-        <h2>Опыт работы</h2>
+    <section class="list-section">
+        <h2 class="list-section-title">Опыт работы</h2>
         <ul>
             #foreach ($job in ${resume.jobs})
                 <li>
@@ -128,8 +277,8 @@
     #end
 
     #if ($resume.educations && $resume.educations.size() > 0)
-    <section>
-        <h2>Образование</h2>
+    <section class="list-section">
+        <h2 class="list-section-title">Образование</h2>
         <ul>
             #foreach ($edu in ${resume.educations})
                 <li>
@@ -171,8 +320,8 @@
     #end
 
     #if ($resume.certifications && $resume.certifications.size() > 0)
-    <section>
-        <h2>Сертификаты</h2>
+    <section class="list-section">
+        <h2 class="list-section-title">Сертификаты</h2>
         <ul>
             #foreach ($cert in ${resume.certifications})
                 <li>
@@ -201,8 +350,8 @@
     #end
 
     #if ($resume.links && $resume.links.size() > 0)
-    <section>
-        <h2>Ссылки</h2>
+    <section class="list-section">
+        <h2 class="list-section-title">Ссылки</h2>
         <ul>
             #foreach ($link in ${resume.links})
                 <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>

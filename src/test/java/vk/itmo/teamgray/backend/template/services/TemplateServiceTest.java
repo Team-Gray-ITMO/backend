@@ -16,8 +16,8 @@ class TemplateServiceTest extends TestBase {
 
     @Test
     void testTemplate() {
-        var fileDto = sampleTemplate.getFile();
-        var name = sampleTemplate.getName() + "2";
+        var fileDto = sampleTemplates.getFirst().getFile();
+        var name = sampleTemplates.getFirst().getName() + "2";
 
         var template = templateService.createTemplate(
             new TemplateCreateDto(

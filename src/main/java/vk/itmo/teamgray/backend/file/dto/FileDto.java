@@ -1,12 +1,12 @@
 package vk.itmo.teamgray.backend.file.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.itextpdf.commons.utils.Base64;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Base64;
 
 
 @NoArgsConstructor
@@ -28,11 +28,11 @@ public class FileDto {
 
     //Serializing as base64, using as byte[]
     public String getContentBase64() {
-        return Base64.encodeBytes(content);
+        return Base64.getEncoder().encodeToString(content);
     }
 
     public void setContentBase64(String content) {
-        this.content = Base64.decode(content);
+        this.content = Base64.getDecoder().decode(content);
     }
 
     @JsonIgnore
