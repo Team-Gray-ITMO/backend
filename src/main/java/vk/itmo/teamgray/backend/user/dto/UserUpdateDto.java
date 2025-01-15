@@ -3,6 +3,9 @@ package vk.itmo.teamgray.backend.user.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Date;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +16,8 @@ import lombok.NoArgsConstructor;
 @Schema(description = "User Update Model")
 public class UserUpdateDto implements Serializable {
     @Schema(description = "User's email address")
+    @NotNull
+    @NotEmpty
     private String email;
 
     @Schema(description = "Phone number")
