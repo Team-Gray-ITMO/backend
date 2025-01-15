@@ -41,6 +41,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            page-break-inside: avoid;
         }
 
         /* Стили для заголовков секций */
@@ -75,6 +76,11 @@
 
         a:hover {
             text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        /* Ограничиваем дробление элементов при попиле на страницы */
+        h1, h2, p, li {
+            page-break-inside: avoid;
         }
 
         /* Для маленьких экранов при просмотре не конвертированного HTML. */
