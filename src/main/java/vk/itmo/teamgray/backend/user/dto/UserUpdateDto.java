@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Schema(description = "User Update Model")
 public class UserUpdateDto implements Serializable {
     @Schema(description = "User's email address")
-    @NotNull
     @NotEmpty
     private String email;
 

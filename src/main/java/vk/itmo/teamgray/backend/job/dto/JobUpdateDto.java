@@ -18,17 +18,14 @@ public class JobUpdateDto {
     private long id;
 
     @Schema(description = "Resume ID")
-    @NotNull
     @NotEmpty
     private Long resumeId;
 
     @Schema(description = "Company ID")
-    @NotNull
     @NotEmpty
     private Long companyId;
 
     @Schema(description = "Job title")
-    @NotNull
     @NotEmpty
     @Size(min = 1, max = 255)
     private String title;

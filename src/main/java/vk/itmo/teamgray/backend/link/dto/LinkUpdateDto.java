@@ -15,17 +15,14 @@ public class LinkUpdateDto {
     private long id;
 
     @Schema(description = "Resume ID to associate the link with")
-    @NotNull
     @NotEmpty
     private Long resumeId;
 
     @Schema(description = "Platform name")
-    @NotNull
     @Size(max = 255)
     private String platformName;
 
     @Schema(description = "Profile URL on the platform")
-    @NotNull
     @Size(max = 255)
     private String profileUrl;
 }

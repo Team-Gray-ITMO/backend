@@ -15,7 +15,6 @@ public class CompanyUpdateDto {
     private long id;
 
     @Schema(description = "Name of the company")
-    @NotNull
     @NotEmpty
     @Size(max = 255)
     private String name;

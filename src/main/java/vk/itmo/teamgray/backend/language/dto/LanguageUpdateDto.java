@@ -14,22 +14,18 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 @Schema(description = "Language Record Update Model")
 @Data
 public class LanguageUpdateDto implements Serializable {
-    @NotNull
     @Schema(description = "Language ID")
     private long id;
 
     @Schema(description = "Resume ID")
-    @NotNull
     @NotEmpty
     private Long resumeId;
 
-    @NotNull
     @NotEmpty
     @Size(min = 1, max = 255)
     @Schema(description = "Language name")
     private String name;
 
-    @NotNull
     @NotEmpty
     @Schema(description = "Language proficiency level")
     private LanguageProficiency proficiency;

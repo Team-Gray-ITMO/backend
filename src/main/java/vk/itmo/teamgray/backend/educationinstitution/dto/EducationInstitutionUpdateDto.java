@@ -15,7 +15,6 @@ public class EducationInstitutionUpdateDto {
     private long id;
 
     @Schema(description = "Name of the education institution")
-    @NotNull
     @NotEmpty
     @Size(min = 1, max = 255)
     private String name;

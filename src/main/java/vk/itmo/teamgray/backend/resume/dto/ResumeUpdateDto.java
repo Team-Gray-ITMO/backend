@@ -22,7 +22,6 @@ public class ResumeUpdateDto {
     private String summary;
 
     @Schema(description = "Template ID to be associated with the resume")
-    @NotNull
     private Long templateId;
 
     @Schema(description = "Preferred Attendance Formats")
@@ -32,10 +31,8 @@ public class ResumeUpdateDto {
     private List<String> preferredSpecialities;
 
     @Schema(description = "Ready for Business Trips")
-    @NotNull
     private Boolean readyForBusinessTrips;
 
     @Schema(description = "Ready for Relocation")
-    @NotNull
     private Boolean readyForRelocation;
 }

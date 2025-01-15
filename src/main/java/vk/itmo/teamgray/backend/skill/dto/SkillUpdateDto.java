@@ -15,17 +15,14 @@ public class SkillUpdateDto {
     private long id;
 
     @Schema(description = "Resume ID associated with the skill")
-    @NotNull
     @NotEmpty
     private Long resumeId;
 
     @Schema(description = "Name of the skill")
-    @NotNull
     @NotEmpty
     private String name;
 
     @Schema(description = "Proficiency level of the skill")
-    @NotNull
     @NotEmpty
     private SkillProficiency proficiency;
 }

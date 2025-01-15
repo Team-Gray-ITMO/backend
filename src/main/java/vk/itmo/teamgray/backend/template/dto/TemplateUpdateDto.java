@@ -19,7 +19,6 @@ public class TemplateUpdateDto {
     private long id;
 
     @Schema(description = "The name of the template")
-    @NotNull
     @NotEmpty
     private String name;
 

@@ -41,11 +41,9 @@ public class EducationUpdateDto {
     @Schema(description = "Education attendance format")
     private EducationAttendanceFormat attendanceFormat;
 
-    @NotNull
     @Schema(description = "Degree type")
     private EducationDegreeType degreeType;
 
-    @NotNull
     @Size(max = 255)
     @Schema(description = "Name of the degree")
     private String degreeName;
