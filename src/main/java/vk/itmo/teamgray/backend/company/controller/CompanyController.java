@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +45,7 @@ public class CompanyController {
         summary = "Create a new company record",
         responses = @ApiResponse(description = "Company record created", responseCode = "201", content = @Content(schema = @Schema(implementation = CompanyDto.class)))
     )
-    public ResponseEntity<CompanyDto> createCompany(@RequestBody @Valid CompanyCreateDto data) {
+    public ResponseEntity<CompanyDto> createCompany(@RequestBody @Validated CompanyCreateDto data) {
         return ResponseEntity
             .status(201)
             .body(companyService.createCompany(data));
@@ -55,7 +56,7 @@ public class CompanyController {
         summary = "Update an existing company record",
         responses = @ApiResponse(description = "Company record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CompanyDto.class)))
     )
-    public ResponseEntity<CompanyDto> updateCompany(@RequestBody @Valid CompanyUpdateDto data) {
+    public ResponseEntity<CompanyDto> updateCompany(@RequestBody @Validated CompanyUpdateDto data) {
         return ResponseEntity.ok(companyService.updateCompany(data));
     }
 

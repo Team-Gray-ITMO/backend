@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +46,7 @@ public class LinkController {
         summary = "Create a new Link", description = "Create a new link for a resume.",
         responses = @ApiResponse(description = "Link created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = LinkDto.class)))
     )
-    public ResponseEntity<LinkDto> create(@RequestBody @Valid LinkCreateDto linkCreateDto) {
+    public ResponseEntity<LinkDto> create(@RequestBody @Validated LinkCreateDto linkCreateDto) {
         return ResponseEntity
             .status(201)
             .body(linkService.createLink(linkCreateDto));
@@ -56,7 +57,7 @@ public class LinkController {
         summary = "Update an existing Link", description = "Update the details of an existing link.",
         responses = @ApiResponse(description = "Link updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = LinkDto.class)))
     )
-    public ResponseEntity<LinkDto> update(@RequestBody @Valid LinkUpdateDto linkUpdateDto) {
+    public ResponseEntity<LinkDto> update(@RequestBody @Validated LinkUpdateDto linkUpdateDto) {
         return ResponseEntity.ok(linkService.updateLink(linkUpdateDto));
     }
 

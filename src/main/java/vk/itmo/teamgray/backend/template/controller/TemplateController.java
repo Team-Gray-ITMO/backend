@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,7 +80,7 @@ public class TemplateController {
         @ApiResponse(description = "Invalid input data", responseCode = "400")
     })
     @PostMapping
-    public ResponseEntity<TemplateDto> createTemplate(@Valid @RequestBody TemplateCreateDto dto) {
+    public ResponseEntity<TemplateDto> createTemplate(@Validated @RequestBody TemplateCreateDto dto) {
         return ResponseEntity
             .status(201)
             .body(templateService.createTemplate(dto));
@@ -91,7 +92,7 @@ public class TemplateController {
         @ApiResponse(description = "Invalid input data", responseCode = "400")
     })
     @PutMapping
-    public ResponseEntity<TemplateDto> updateTemplate(@Valid @RequestBody TemplateUpdateDto dto) {
+    public ResponseEntity<TemplateDto> updateTemplate(@Validated @RequestBody TemplateUpdateDto dto) {
         return ResponseEntity.ok(templateService.updateTemplate(dto));
     }
 

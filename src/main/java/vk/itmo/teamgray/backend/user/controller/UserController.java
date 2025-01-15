@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,7 @@ public class UserController {
         responses = @ApiResponse(description = "Successfully created user", responseCode = "201", content = @Content(schema = @Schema(implementation = UserDto.class)))
     )
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateDto userCreateDto) {
+    public ResponseEntity<UserDto> createUser(@Validated @RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity
             .status(201)
             .body(userService.createUser(userCreateDto));
@@ -55,7 +56,7 @@ public class UserController {
         responses = @ApiResponse(description = "User updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = UserDto.class)))
     )
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserUpdateDto dto) {
+    public ResponseEntity<UserDto> updateUser(@Validated @RequestBody UserUpdateDto dto) {
         return ResponseEntity.ok(userService.updateUser(dto));
     }
 }

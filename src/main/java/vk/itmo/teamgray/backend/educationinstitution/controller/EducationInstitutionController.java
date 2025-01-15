@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +46,7 @@ public class EducationInstitutionController {
         summary = "Create a new education institution",
         responses = @ApiResponse(description = "Institution created", responseCode = "201", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class)))
     )
-    public ResponseEntity<EducationInstitutionDto> createInstitution(@RequestBody @Valid EducationInstitutionCreateDto data) {
+    public ResponseEntity<EducationInstitutionDto> createInstitution(@RequestBody @Validated EducationInstitutionCreateDto data) {
         return ResponseEntity
             .status(201)
             .body(educationInstitutionService.createEducationInstitution(data));
@@ -56,7 +57,7 @@ public class EducationInstitutionController {
         summary = "Update an existing education institution",
         responses = @ApiResponse(description = "Institution updated", responseCode = "200", content = @Content(schema = @Schema(implementation = EducationInstitutionDto.class)))
     )
-    public ResponseEntity<EducationInstitutionDto> updateInstitution(@RequestBody @Valid EducationInstitutionUpdateDto data) {
+    public ResponseEntity<EducationInstitutionDto> updateInstitution(@RequestBody @Validated EducationInstitutionUpdateDto data) {
         return ResponseEntity.ok(educationInstitutionService.updateEducationInstitution(data));
     }
 
