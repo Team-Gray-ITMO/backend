@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
@@ -53,8 +54,8 @@ public class ResumeDto {
     @Schema(description = "Template used for the resume")
     private TemplateBaseDto template;
 
-    @Schema(description = "Preferred Attendance Formats")
-    private List<JobAttendanceFormat> preferredAttendanceFormats;
+    @Schema(description = "Preferred Attendance Format")
+    private JobAttendanceFormat preferredAttendanceFormat;
 
     @Schema(description = "Preferred Specialities")
     private List<String> preferredSpecialities;
@@ -64,4 +65,7 @@ public class ResumeDto {
 
     @Schema(description = "Ready for Relocation")
     private Boolean readyForRelocation;
+
+    @Schema(description = "Resume related image (photo, avatar)")
+    private FileDto image;
 }

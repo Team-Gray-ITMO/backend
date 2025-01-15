@@ -2872,6 +2872,8 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the resume
+        image:
+          $ref: "#/components/schemas/FileDto"
         jobs:
           type: array
           description: List of job experiences included in the resume
@@ -2887,16 +2889,13 @@ components:
           description: List of links associated with the resume
           items:
             $ref: "#/components/schemas/LinkDto"
-        preferredAttendanceFormats:
-          type: array
-          description: Preferred Attendance Formats
-          items:
-            type: string
-            description: Preferred Attendance Formats
-            enum:
-            - ON_SITE
-            - HYBRID
-            - REMOTE
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         preferredSpecialities:
           type: array
           description: Preferred Specialities
@@ -2929,16 +2928,15 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the resume
-        preferredAttendanceFormats:
-          type: array
-          description: Preferred Attendance Formats
-          items:
-            type: string
-            description: Preferred Attendance Formats
-            enum:
-            - ON_SITE
-            - HYBRID
-            - REMOTE
+        image:
+          $ref: "#/components/schemas/FileDto"
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         preferredSpecialities:
           type: array
           description: Preferred Specialities

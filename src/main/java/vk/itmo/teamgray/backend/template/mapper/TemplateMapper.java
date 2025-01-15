@@ -9,25 +9,27 @@ import vk.itmo.teamgray.backend.template.dto.TemplateBaseDto;
 import vk.itmo.teamgray.backend.template.dto.TemplateDto;
 import vk.itmo.teamgray.backend.template.entities.Template;
 
+import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_TEMPLATE_BUCKET_NAME;
+
 @AllArgsConstructor
 @Component
 public class TemplateMapper {
     private final FileStorageService fileStorageService;
 
-    private static final TemplateMapperInternal INTERNAL_MAPPER = TemplateMapperInternal.INSTANCE;
+    private final TemplateMapperInternalImpl internalMapper;
 
     public TemplateBaseDto toBaseDto(Template entity) {
-        return INTERNAL_MAPPER.toBaseDto(entity);
+        return internalMapper.toBaseDto(entity);
     }
 
     public List<TemplateBaseDto> toBaseDtoList(List<Template> entities) {
-        return INTERNAL_MAPPER.toBaseDtoList(entities);
+        return internalMapper.toBaseDtoList(entities);
     }
 
     public TemplateDto toDto(Template entity) {
-        var dto = INTERNAL_MAPPER.toDto(entity);
+        var dto = internalMapper.toDto(entity);
 
-        FileDto file = fileStorageService.getFile(entity.getFilePath());
+        FileDto file = fileStorageService.getFile(RESUME_TEMPLATE_BUCKET_NAME, entity.getFilePath());
 
         dto.setFile(file);
 

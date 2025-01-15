@@ -1,8 +1,10 @@
 package vk.itmo.teamgray.backend.file;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +29,11 @@ import vk.itmo.teamgray.backend.file.exception.FileStorageServiceException;
 @Slf4j
 @Service
 public class FileStorageService {
+    public static final String RESUME_TEMPLATE_BUCKET_NAME = "resume-templates";
+    public static final String RESUME_IMAGE_BUCKET_NAME = "resume-images";
+    private static final List<String> BUCKET_NAMES = List.of(RESUME_TEMPLATE_BUCKET_NAME, RESUME_IMAGE_BUCKET_NAME);
+
     private final S3Client s3Client;
-    private final String bucketName;
 
     public FileStorageService(
         @Value("${s3.endpoint}")
@@ -41,10 +46,7 @@ public class FileStorageService {
         String accessKey,
 
         @Value("${s3.secretKey}")
-        String secretKey,
-
-        @Value("${s3.bucketName}")
-        String bucketName
+        String secretKey
     ) {
         this.s3Client = S3Client.builder()
             .endpointOverride(URI.create(endpoint))
@@ -56,13 +58,15 @@ public class FileStorageService {
                     AwsBasicCredentials.create(accessKey, secretKey)
                 ))
             .build();
-
-        this.bucketName = bucketName;
     }
 
 
     @PostConstruct
-    public void initializeBucket() {
+    public void initializeBuckets() {
+        BUCKET_NAMES.forEach(this::initializeBucket);
+    }
+
+    private void initializeBucket(String bucketName) {
         try {
             boolean success;
 
@@ -90,7 +94,7 @@ public class FileStorageService {
         }
     }
 
-    public String uploadFile(FileDto file) {
+    public String uploadFile(String bucketName, FileDto file) {
         String fileName = UUID.randomUUID() + "-" + file.getFilename();
 
         try {
@@ -109,8 +113,8 @@ public class FileStorageService {
         return fileName;
     }
 
-    public FileDto getFile(String filePath) {
-        var head = getHead(filePath);
+    public FileDto getFile(String bucketName, String filePath) {
+        var head = getHead(bucketName, filePath);
 
         if (head == null) {
             throw new FileStorageServiceException("File does not exist");
@@ -136,7 +140,7 @@ public class FileStorageService {
         }
     }
 
-    public void deleteFile(String fileName) {
+    public void deleteFile(String bucketName, String fileName) {
         try {
             s3Client.deleteObject(
                 DeleteObjectRequest.builder()
@@ -149,15 +153,19 @@ public class FileStorageService {
         }
     }
 
-    public boolean fileExists(String filePath) {
+    public boolean fileExists(String bucketName, String filePath) {
         try {
-            return getHead(filePath) != null;
+            return getHead(bucketName, filePath) != null;
         } catch (Exception e) {
             throw new FileStorageServiceException("Could not check if file exists", e);
         }
     }
 
-    private HeadObjectResponse getHead(String filePath) {
+    private HeadObjectResponse getHead(String bucketName, String filePath) {
+        if (StringUtils.isBlank(filePath)) {
+            return null;
+        }
+
         return s3Client.headObject(
             HeadObjectRequest.builder()
                 .bucket(bucketName)

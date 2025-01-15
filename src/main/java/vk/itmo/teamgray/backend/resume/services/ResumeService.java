@@ -2,6 +2,7 @@ package vk.itmo.teamgray.backend.resume.services;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,10 @@ import vk.itmo.teamgray.backend.cetification.dto.CertificationDto;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
 import vk.itmo.teamgray.backend.common.service.BaseService;
 import vk.itmo.teamgray.backend.education.dto.EducationDto;
+import vk.itmo.teamgray.backend.file.FileStorageService;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
+import vk.itmo.teamgray.backend.file.format.JpegFormat;
+import vk.itmo.teamgray.backend.file.format.PngFormat;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.language.dto.LanguageDto;
 import vk.itmo.teamgray.backend.link.dto.LinkDto;
@@ -22,6 +27,9 @@ import vk.itmo.teamgray.backend.skill.dto.SkillDto;
 import vk.itmo.teamgray.backend.template.services.TemplateService;
 import vk.itmo.teamgray.backend.user.service.UserService;
 
+import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_IMAGE_BUCKET_NAME;
+import static vk.itmo.teamgray.backend.file.utils.FileUtils.validateFileFormat;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -33,6 +41,8 @@ public class ResumeService extends BaseService<Resume> {
     private final UserService userService;
 
     private final ResumeMapper resumeMapper;
+
+    private final FileStorageService fileStorageService;
 
     public List<ResumeDto> findAll() {
         return resumeMapper.toDtoList(
@@ -68,8 +78,10 @@ public class ResumeService extends BaseService<Resume> {
 
         boolean updated = false;
 
+        updated |= updateImage(resume, updateDto.getImage());
+
         updated |= updateIfPresent(updateDto.getSummary(), resume::setSummary);
-        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormats(), resume::setPreferredAttendanceFormats);
+        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormat(), resume::setPreferredAttendanceFormat);
         updated |= updateIfPresent(updateDto.getPreferredSpecialities(), resume::setPreferredSpecialities);
         updated |= updateIfPresent(updateDto.getReadyForBusinessTrips(), resume::setReadyForBusinessTrips);
         updated |= updateIfPresent(updateDto.getReadyForRelocation(), resume::setReadyForRelocation);
@@ -81,6 +93,20 @@ public class ResumeService extends BaseService<Resume> {
         }
 
         return resumeMapper.toDto(resume);
+    }
+
+    private boolean updateImage(Resume resume, FileDto image) {
+        if (image == null) {
+            return false;
+        }
+
+        validateFileFormat(Set.of(PngFormat.MIME_TYPE, JpegFormat.MIME_TYPE), image);
+
+        var filePath = fileStorageService.uploadFile(RESUME_IMAGE_BUCKET_NAME, image);
+
+        resume.setImagePath(filePath);
+
+        return true;
     }
 
     public void deleteById(Long id) {

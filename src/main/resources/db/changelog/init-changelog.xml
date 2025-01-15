@@ -260,12 +260,12 @@
 
     <changeSet id="1734467881566-2" author="Boris Ivanov">
         <sql>
-            ALTER TABLE resume ADD COLUMN preferred_attendance_formats VARCHAR(64)[];
-        </sql>
-
-        <sql>
             ALTER TABLE resume ADD COLUMN preferred_specialities VARCHAR(255)[];
         </sql>
+
+        <addColumn tableName="resume">
+            <column name="preferred_attendance_format" type="VARCHAR(64)"/>
+        </addColumn>
 
         <addColumn tableName="resume">
             <column name="ready_for_business_trips" type="BOOLEAN"/>
@@ -289,6 +289,12 @@
             <column name="institution_subdivision" type="VARCHAR(512)"/>
             <column name="format" type="VARCHAR(64)"/>
             <column name="attendance_format" type="VARCHAR(64)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1734467881566-3" author="Boris Ivanov">
+        <addColumn tableName="resume">
+            <column name="image_path" type="VARCHAR(512)"/>
         </addColumn>
     </changeSet>
 

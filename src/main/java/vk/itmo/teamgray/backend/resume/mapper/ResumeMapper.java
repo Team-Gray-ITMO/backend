@@ -1,37 +1,44 @@
 package vk.itmo.teamgray.backend.resume.mapper;
 
+import io.micrometer.common.util.StringUtils;
 import java.util.List;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-import vk.itmo.teamgray.backend.cetification.mapper.CertificationMapper;
-import vk.itmo.teamgray.backend.education.mapper.EducationMapper;
-import vk.itmo.teamgray.backend.job.mapper.JobMapper;
-import vk.itmo.teamgray.backend.language.mapper.LanguageMapper;
-import vk.itmo.teamgray.backend.link.mapper.LinkMapper;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import vk.itmo.teamgray.backend.file.FileStorageService;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeCreateDto;
 import vk.itmo.teamgray.backend.resume.dto.ResumeDto;
 import vk.itmo.teamgray.backend.resume.entities.Resume;
-import vk.itmo.teamgray.backend.skill.mapper.SkillMapper;
 
-@Mapper(
-    componentModel = "spring",
-    uses = {
-        CertificationMapper.class,
-        EducationMapper.class,
-        JobMapper.class,
-        SkillMapper.class,
-        LanguageMapper.class,
-        LinkMapper.class
-    },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
-public interface ResumeMapper {
-    ResumeMapper INSTANCE = Mappers.getMapper(ResumeMapper.class);
+import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_IMAGE_BUCKET_NAME;
 
-    ResumeDto toDto(Resume entity);
+@AllArgsConstructor
+@Component
+public class ResumeMapper {
+    private final FileStorageService fileStorageService;
 
-    List<ResumeDto> toDtoList(List<Resume> entities);
+    private final ResumeMapperInternalImpl internalMapper;
 
-    ResumeDto dryRun(ResumeCreateDto createDto);
+    public ResumeDto toDto(Resume entity) {
+        var dto = internalMapper.toDto(entity);
+
+        String imagePath = entity.getImagePath();
+
+        if (StringUtils.isNotBlank(imagePath)) {
+            FileDto file = fileStorageService.getFile(RESUME_IMAGE_BUCKET_NAME, imagePath);
+            dto.setImage(file);
+        }
+
+        return dto;
+    }
+
+    public List<ResumeDto> toDtoList(List<Resume> entities) {
+        return entities.stream()
+            .map(this::toDto)
+            .toList();
+    }
+
+    public ResumeDto dryRun(ResumeCreateDto createDto) {
+        return internalMapper.dryRun(createDto);
+    }
 }
