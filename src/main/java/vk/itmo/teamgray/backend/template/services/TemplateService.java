@@ -18,7 +18,9 @@ import vk.itmo.teamgray.backend.template.entities.Template;
 import vk.itmo.teamgray.backend.template.mapper.TemplateMapper;
 import vk.itmo.teamgray.backend.template.repos.TemplateRepository;
 
+import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_TEMPLATE_BUCKET_NAME;
 import static vk.itmo.teamgray.backend.file.hash.HashUtils.hash;
+import static vk.itmo.teamgray.backend.file.utils.FileUtils.validateFileFormat;
 
 @RequiredArgsConstructor
 @Service
@@ -47,13 +49,11 @@ public class TemplateService extends BaseService<Template> {
     public TemplateDto createTemplate(TemplateCreateDto dto) {
         var file = dto.getFile();
 
-        if (!Objects.equals(file.getContentType(), ZipFormat.MIME_TYPE)) {
-            throw new IllegalArgumentException("Invalid file type: " + file.getContentType());
-        }
+        validateFileFormat(Set.of(ZipFormat.MIME_TYPE), file);
 
         String hash = hash(file.getContent());
 
-        var filePath = fileStorageService.uploadFile(file);
+        var filePath = fileStorageService.uploadFile(RESUME_TEMPLATE_BUCKET_NAME, file);
 
         var template = new Template();
         template.setName(dto.getName());
@@ -78,10 +78,12 @@ public class TemplateService extends BaseService<Template> {
         if (dto.getFile() != null) {
             var file = dto.getFile();
 
+            validateFileFormat(Set.of(ZipFormat.MIME_TYPE), file);
+
             String hash = hash(file.getContent());
 
             if (!Objects.equals(hash, template.getFileHash())) {
-                var filePath = fileStorageService.uploadFile(file);
+                var filePath = fileStorageService.uploadFile(RESUME_TEMPLATE_BUCKET_NAME, file);
 
                 template.setFilePath(filePath);
                 template.setFileHash(hash);
@@ -94,7 +96,7 @@ public class TemplateService extends BaseService<Template> {
             template = templateRepository.save(template);
         }
 
-        fileStorageService.deleteFile(oldPath);
+        fileStorageService.deleteFile(RESUME_TEMPLATE_BUCKET_NAME, oldPath);
 
         return templateMapper.toDto(template);
     }
@@ -102,7 +104,7 @@ public class TemplateService extends BaseService<Template> {
     public void deleteById(Long id) {
         var template = findEntityById(id);
 
-        fileStorageService.deleteFile(template.getFilePath());
+        fileStorageService.deleteFile(RESUME_TEMPLATE_BUCKET_NAME, template.getFilePath());
 
         templateRepository.deleteById(id);
     }

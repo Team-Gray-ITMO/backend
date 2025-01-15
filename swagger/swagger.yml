@@ -2872,6 +2872,8 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the resume
+        image:
+          $ref: "#/components/schemas/FileDto"
         jobs:
           type: array
           description: List of job experiences included in the resume
@@ -2929,6 +2931,8 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the resume
+        image:
+          $ref: "#/components/schemas/FileDto"
         preferredAttendanceFormats:
           type: array
           description: Preferred Attendance Formats

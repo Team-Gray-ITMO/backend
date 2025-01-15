@@ -36,6 +36,11 @@ public class FileDto {
     }
 
     @JsonIgnore
+    public boolean isContentPresent() {
+        return content != null && content.length > 0;
+    }
+
+    @JsonIgnore
     public byte[] getContent() {
         return content;
     }

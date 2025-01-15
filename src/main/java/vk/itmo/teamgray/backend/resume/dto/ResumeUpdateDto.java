@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
@@ -30,4 +31,7 @@ public class ResumeUpdateDto {
 
     @Schema(description = "Ready for Relocation")
     private Boolean readyForRelocation;
+
+    @Schema(description = "Resume related image (photo, avatar)")
+    private FileDto image;
 }

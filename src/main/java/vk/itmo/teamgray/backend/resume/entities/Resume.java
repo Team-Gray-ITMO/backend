@@ -78,6 +78,9 @@ public class Resume extends BaseEntity {
     @JoinColumn(name = "template_id")
     private Template template;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     public List<JobAttendanceFormat> getPreferredAttendanceFormats() {
         if (preferredAttendanceFormats == null) {
             return null;

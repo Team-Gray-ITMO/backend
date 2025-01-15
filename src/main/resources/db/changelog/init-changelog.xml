@@ -292,4 +292,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1734467881566-3" author="Boris Ivanov">
+        <addColumn tableName="resume">
+            <column name="image_path" type="VARCHAR(512)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

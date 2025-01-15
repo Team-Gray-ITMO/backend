@@ -37,15 +37,30 @@
         /* Стили для секций */
         section {
             background: #fff;
-            margin: 20px auto;
+            margin: 10px;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             page-break-inside: avoid;
         }
 
+        .personal-info {
+            position: relative;
+        }
+
+        .personal-info .avatar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 30px;
+            width: 120px;
+            max-height: 150px;
+            transform: translateY(20%);
+        }
+
         /* Стили для заголовков секций */
         h2 {
+            margin: 2px;
             color: #333;
         }
 
@@ -78,6 +93,10 @@
             text-decoration: underline; /* Подчеркивание при наведении */
         }
 
+        p {
+            margin: 2px;
+        }
+
         /* Ограничиваем дробление элементов при попиле на страницы */
         h1, h2, p, li {
             page-break-inside: avoid;
@@ -96,8 +115,13 @@
 <header>
     <h1>Резюме</h1>
 </header>
-<section>
+<section class="personal-info">
     <h2>Личная информация</h2>
+
+    #if ($resume.image.contentType && $resume.image.contentPresent)
+        <img src="data:${resume.image.contentType};base64,${resume.image.contentBase64}" alt="Avatar" class="avatar">
+    #end
+
     #if ($resume.user.cityName)
         <p><strong>Город:</strong> ${resume.user.cityName}</p>
     #end

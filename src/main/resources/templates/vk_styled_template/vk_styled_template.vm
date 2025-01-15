@@ -63,6 +63,21 @@
             page-break-inside: avoid;
         }
 
+        .personal-info {
+             position: relative;
+        }
+
+        .personal-info .avatar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 20px;
+            width: 120px;
+            max-height: 150px;
+            border-radius: 8px;
+            transform: translateY(15%);
+        }
+
         section.list-section {
             padding: 0;
         }
@@ -158,8 +173,13 @@
         src="${utils.injectResourceAsBase64("image/svg+xml", "/assets/logo/vk_education_logo_white.svg")}"
         alt="VK Logo"/>
 </header>
-<section>
+<section class="personal-info">
     <h2>Личная информация</h2>
+
+    #if ($resume.image.contentType && $resume.image.contentPresent)
+        <img src="data:${resume.image.contentType};base64,${resume.image.contentBase64}" alt="Avatar" class="avatar">
+    #end
+
     #if ($resume.user.cityName)
         <p><strong>Город:</strong> ${resume.user.cityName}</p>
     #end

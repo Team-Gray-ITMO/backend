@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.resume.generator;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionCre
 import vk.itmo.teamgray.backend.educationinstitution.dto.EducationInstitutionDto;
 import vk.itmo.teamgray.backend.educationinstitution.mapper.EducationInstitutionMapper;
 import vk.itmo.teamgray.backend.educationinstitution.services.EducationInstitutionService;
+import vk.itmo.teamgray.backend.file.dto.FileDto;
+import vk.itmo.teamgray.backend.file.format.PngFormat;
+import vk.itmo.teamgray.backend.file.utils.FileUtils;
 import vk.itmo.teamgray.backend.job.dto.JobCreateDto;
 import vk.itmo.teamgray.backend.job.dto.JobDto;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
@@ -112,6 +116,21 @@ public class ResumeSampleGenerator {
 
         var updateDto = new ResumeUpdateDto();
 
+        byte[] testAvatarData;
+
+        try {
+            testAvatarData = FileUtils.getLocalResource("/assets/sample_data/spotty_vintage" + PngFormat.EXTENSION).getContentAsByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        var image = new FileDto(
+            "spotty" + PngFormat.EXTENSION,
+            PngFormat.MIME_TYPE,
+            testAvatarData
+        );
+
+        updateDto.setImage(image);
         updateDto.setId(resume.getId());
         updateDto.setTemplateId(templateId);
         updateDto.setPreferredSpecialities(List.of("Инженер-Программист", "Специалист по ковырянию в носу"));
