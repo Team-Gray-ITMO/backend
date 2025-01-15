@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Schema(description = "User Update Model")
 public class UserUpdateDto implements Serializable {
     @Schema(description = "User's email address")
-    @NotEmpty
+    @NotBlank
+    @Email
     private String email;
 
     @Schema(description = "Phone number")

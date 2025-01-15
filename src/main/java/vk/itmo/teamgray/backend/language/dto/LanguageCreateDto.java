@@ -1,9 +1,7 @@
 package vk.itmo.teamgray.backend.language.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,17 +14,17 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 public class LanguageCreateDto {
     @Schema(description = "Resume ID")
     @NotNull
-    @NotEmpty
+    @Positive
     private Long resumeId;
 
     @Schema(description = "Language name")
     @NotNull
-    @NotEmpty
-    @Size(min = 1, max = 255)
+    @NotBlank
+    @Size(max = 255)
     private String name;
 
     @Schema(description = "Language proficiency level")
     @NotNull
-    @NotEmpty
+    @NotBlank
     private LanguageProficiency proficiency;
 }

@@ -1,11 +1,10 @@
 package vk.itmo.teamgray.backend.language.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+
 import java.io.Serializable;
 
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
@@ -18,15 +17,15 @@ public class LanguageUpdateDto implements Serializable {
     private long id;
 
     @Schema(description = "Resume ID")
-    @NotEmpty
+    @Positive
     private Long resumeId;
 
-    @NotEmpty
-    @Size(min = 1, max = 255)
+    @NotBlank
+    @Size(max = 255)
     @Schema(description = "Language name")
     private String name;
 
-    @NotEmpty
+    @NotBlank
     @Schema(description = "Language proficiency level")
     private LanguageProficiency proficiency;
 }

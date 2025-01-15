@@ -1,11 +1,10 @@
 package vk.itmo.teamgray.backend.education.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+
 import java.util.Date;
 
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
@@ -21,16 +20,16 @@ public class EducationUpdateDto {
 
     @Schema(description = "ID of the resume associated with this education")
     @NotNull
-    @NotEmpty
+    @Positive
     private Long resumeId;
 
     @Schema(description = "ID of the education institution")
     @NotNull
-    @NotEmpty
+    @Positive
     private Long educationInstitutionId;
 
     @NotNull
-    @NotEmpty
+    @NotBlank
     @Size(min = 1, max = 255)
     @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
     private String institutionSubdivision;
