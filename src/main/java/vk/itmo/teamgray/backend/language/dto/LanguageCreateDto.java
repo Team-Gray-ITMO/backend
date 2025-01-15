@@ -22,6 +22,7 @@ public class LanguageCreateDto {
     @Schema(description = "Language name")
     @NotNull
     @NotEmpty
+    @Size(min = 1, max = 255)
     private String name;
 
     @Schema(description = "Language proficiency level")

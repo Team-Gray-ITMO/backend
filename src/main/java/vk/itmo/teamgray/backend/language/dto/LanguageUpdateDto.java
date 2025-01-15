@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
+
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
@@ -23,6 +25,7 @@ public class LanguageUpdateDto implements Serializable {
 
     @NotNull
     @NotEmpty
+    @Size(min = 1, max = 255)
     @Schema(description = "Language name")
     private String name;
 
