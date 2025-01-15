@@ -16,7 +16,7 @@ import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_TEMPLATE_B
 public class TemplateMapper {
     private final FileStorageService fileStorageService;
 
-    private final TemplateMapperInternal internalMapper;
+    private final TemplateMapperInternalImpl internalMapper;
 
     public TemplateBaseDto toBaseDto(Template entity) {
         return internalMapper.toBaseDto(entity);

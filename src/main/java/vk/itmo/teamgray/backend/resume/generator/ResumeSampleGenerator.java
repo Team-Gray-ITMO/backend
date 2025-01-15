@@ -85,8 +85,6 @@ public class ResumeSampleGenerator {
 
     private ResumeService resumeService;
 
-    private UserService userService;
-
     private CertificationMapper certificationMapper;
 
     private EducationMapper educationMapper;

@@ -17,7 +17,7 @@ import static vk.itmo.teamgray.backend.file.FileStorageService.RESUME_IMAGE_BUCK
 public class ResumeMapper {
     private final FileStorageService fileStorageService;
 
-    private final ResumeMapperInternal internalMapper;
+    private final ResumeMapperInternalImpl internalMapper;
 
     public ResumeDto toDto(Resume entity) {
         var dto = internalMapper.toDto(entity);
