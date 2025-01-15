@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
@@ -17,7 +18,7 @@ public class ResumeUpdateDto {
     private long id;
 
     @Schema(description = "Updated summary or objective section of the resume")
-    @Max(2000)
+    @Size(max = 2000)
     private String summary;
 
     @Schema(description = "Template ID to be associated with the resume")
