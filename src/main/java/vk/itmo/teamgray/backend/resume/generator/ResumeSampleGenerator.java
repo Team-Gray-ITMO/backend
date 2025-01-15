@@ -132,7 +132,7 @@ public class ResumeSampleGenerator {
         updateDto.setId(resume.getId());
         updateDto.setTemplateId(templateId);
         updateDto.setPreferredSpecialities(List.of("Инженер-Программист", "Специалист по ковырянию в носу"));
-        updateDto.setPreferredAttendanceFormats(Arrays.asList(JobAttendanceFormat.values()));
+        updateDto.setPreferredAttendanceFormat(randomEnumValue(JobAttendanceFormat.values()));
         updateDto.setReadyForBusinessTrips(true);
         updateDto.setReadyForRelocation(true);
 

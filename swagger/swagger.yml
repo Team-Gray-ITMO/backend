@@ -2889,16 +2889,13 @@ components:
           description: List of links associated with the resume
           items:
             $ref: "#/components/schemas/LinkDto"
-        preferredAttendanceFormats:
-          type: array
-          description: Preferred Attendance Formats
-          items:
-            type: string
-            description: Preferred Attendance Formats
-            enum:
-            - ON_SITE
-            - HYBRID
-            - REMOTE
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         preferredSpecialities:
           type: array
           description: Preferred Specialities
@@ -2933,16 +2930,13 @@ components:
           description: Unique identifier for the resume
         image:
           $ref: "#/components/schemas/FileDto"
-        preferredAttendanceFormats:
-          type: array
-          description: Preferred Attendance Formats
-          items:
-            type: string
-            description: Preferred Attendance Formats
-            enum:
-            - ON_SITE
-            - HYBRID
-            - REMOTE
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
         preferredSpecialities:
           type: array
           description: Preferred Specialities

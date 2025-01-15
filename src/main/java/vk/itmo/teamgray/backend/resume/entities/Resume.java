@@ -42,9 +42,8 @@ public class Resume extends BaseEntity {
     private String summary;
 
     @Enumerated(EnumType.STRING)
-    @Type(ListArrayType.class)
-    @Column(name = "preferred_attendance_formats")
-    private List<String> preferredAttendanceFormats;
+    @Column(name = "preferred_attendance_format")
+    private JobAttendanceFormat preferredAttendanceFormat;
 
     @Type(ListArrayType.class)
     @Column(name = "preferred_specialities")
@@ -80,26 +79,4 @@ public class Resume extends BaseEntity {
 
     @Column(name = "image_path")
     private String imagePath;
-
-    public List<JobAttendanceFormat> getPreferredAttendanceFormats() {
-        if (preferredAttendanceFormats == null) {
-            return null;
-        }
-
-        return preferredAttendanceFormats.stream()
-            .map(JobAttendanceFormat::valueOf)
-            .toList();
-    }
-
-    public void setPreferredAttendanceFormats(List<JobAttendanceFormat> preferredAttendanceFormats) {
-        if (preferredAttendanceFormats == null) {
-            this.preferredAttendanceFormats = null;
-
-            return;
-        }
-
-        this.preferredAttendanceFormats = preferredAttendanceFormats.stream()
-            .map(Enum::name)
-            .toList();
-    }
 }

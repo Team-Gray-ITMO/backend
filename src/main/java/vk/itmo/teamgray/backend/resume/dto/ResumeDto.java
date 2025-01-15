@@ -54,8 +54,8 @@ public class ResumeDto {
     @Schema(description = "Template used for the resume")
     private TemplateBaseDto template;
 
-    @Schema(description = "Preferred Attendance Formats")
-    private List<JobAttendanceFormat> preferredAttendanceFormats;
+    @Schema(description = "Preferred Attendance Format")
+    private JobAttendanceFormat preferredAttendanceFormat;
 
     @Schema(description = "Preferred Specialities")
     private List<String> preferredSpecialities;

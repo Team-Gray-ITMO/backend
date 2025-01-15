@@ -260,12 +260,12 @@
 
     <changeSet id="1734467881566-2" author="Boris Ivanov">
         <sql>
-            ALTER TABLE resume ADD COLUMN preferred_attendance_formats VARCHAR(64)[];
-        </sql>
-
-        <sql>
             ALTER TABLE resume ADD COLUMN preferred_specialities VARCHAR(255)[];
         </sql>
+
+        <addColumn tableName="resume">
+            <column name="preferred_attendance_format" type="VARCHAR(64)"/>
+        </addColumn>
 
         <addColumn tableName="resume">
             <column name="ready_for_business_trips" type="BOOLEAN"/>

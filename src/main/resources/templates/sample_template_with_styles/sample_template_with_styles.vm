@@ -157,28 +157,20 @@
     </section>
     #end
 
-    #if ($resume.preferredAttendanceFormats && $resume.preferredAttendanceFormats.size() > 0)
-    <section>
-        <h2>Форматы Работы</h2>
-        <ul>
-            #foreach ($preferredAttendanceFormat in ${resume.preferredAttendanceFormats})
-                <li>${utils.translate(${preferredAttendanceFormat})}</li>
-            #end
-        </ul>
-    </section>
-    #end
-
-    #if ($resume.readyForRelocation || $resume.readyForBusinessTrips)
+    #if ($resume.readyForRelocation || $resume.readyForBusinessTrips || $resume.preferredAttendanceFormat)
     <section>
         <h2>Условия Работы</h2>
-        <ul>
-            #if ($resume.readyForRelocation)
-                <li>Готов к Переезду</li>
-            #end
-            #if ($resume.readyForBusinessTrips)
-                <li>Готов к Командировкам</li>
-            #end
-        </ul>
+            <ul>
+                #if ($resume.preferredAttendanceFormat)
+                    <li>Формат Работы: ${utils.translate(${resume.preferredAttendanceFormat})}</li>
+                #end
+                #if ($resume.readyForRelocation)
+                    <li>Готов к Переезду</li>
+                #end
+                #if ($resume.readyForBusinessTrips)
+                    <li>Готов к Командировкам</li>
+                #end
+            </ul>
     </section>
     #end
 

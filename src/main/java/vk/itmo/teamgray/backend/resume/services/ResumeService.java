@@ -81,7 +81,7 @@ public class ResumeService extends BaseService<Resume> {
         updated |= updateImage(resume, updateDto.getImage());
 
         updated |= updateIfPresent(updateDto.getSummary(), resume::setSummary);
-        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormats(), resume::setPreferredAttendanceFormats);
+        updated |= updateIfPresent(updateDto.getPreferredAttendanceFormat(), resume::setPreferredAttendanceFormat);
         updated |= updateIfPresent(updateDto.getPreferredSpecialities(), resume::setPreferredSpecialities);
         updated |= updateIfPresent(updateDto.getReadyForBusinessTrips(), resume::setReadyForBusinessTrips);
         updated |= updateIfPresent(updateDto.getReadyForRelocation(), resume::setReadyForRelocation);
