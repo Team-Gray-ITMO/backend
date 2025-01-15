@@ -15,6 +15,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,7 +68,7 @@ public class ResumeController {
         summary = "Create a new Resume", description = "Create a new resume for a user.",
         responses = @ApiResponse(description = "Resume created successfully", responseCode = "201", content = @Content(schema = @Schema(implementation = ResumeDto.class)))
     )
-    public ResponseEntity<ResumeDto> create(@RequestBody @Valid ResumeCreateDto resumeCreateDto) {
+    public ResponseEntity<ResumeDto> create(@RequestBody @Validated ResumeCreateDto resumeCreateDto) {
         return ResponseEntity
             .status(201)
             .body(resumeService.createResume(resumeCreateDto));
@@ -78,7 +79,7 @@ public class ResumeController {
         summary = "Update an existing Resume", description = "Update the details of an existing resume.",
         responses = @ApiResponse(description = "Resume updated successfully", responseCode = "200", content = @Content(schema = @Schema(implementation = ResumeDto.class)))
     )
-    public ResponseEntity<ResumeDto> update(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
+    public ResponseEntity<ResumeDto> update(@RequestBody @Validated ResumeUpdateDto resumeUpdateDto) {
         return ResponseEntity.ok(resumeService.updateResume(resumeUpdateDto));
     }
 
