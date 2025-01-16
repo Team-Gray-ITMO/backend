@@ -3,6 +3,7 @@ package vk.itmo.teamgray.backend.template.services;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import vk.itmo.teamgray.backend.file.FileConversionService;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.file.format.PngFormat;
 import vk.itmo.teamgray.backend.resume.generator.ResumeSampleGenerator;
@@ -19,6 +20,8 @@ public class TemplateImageService {
     private final TemplateService templateService;
 
     private final TemplateMergeService templateMergeService;
+
+    private final FileConversionService fileConversionService;
 
     private final ResumeService resumeService;
 
@@ -41,7 +44,14 @@ public class TemplateImageService {
             new FileDto(
                 "image" + PngFormat.EXTENSION,
                 PngFormat.MIME_TYPE,
-                templateMergeService.mergeTemplateToHtml(template, resumeService.prepareResume(sampleResume))
+                fileConversionService.convertPdfToPng(
+                    fileConversionService.convertHtmlToPdf(
+                        templateMergeService.mergeTemplateToHtml(
+                            template,
+                            resumeService.prepareResume(sampleResume)
+                        )
+                    )
+                )
             )
         );
     }
