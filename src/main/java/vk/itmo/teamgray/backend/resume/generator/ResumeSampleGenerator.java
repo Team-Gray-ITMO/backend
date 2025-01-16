@@ -110,7 +110,7 @@ public class ResumeSampleGenerator {
     }
 
     ResumeDto generateResume(Long templateId, String suffix, boolean persist) {
-        var resume = createResume(new ResumeCreateDto("Инженер-программист с 9000+ лет опыта. " + suffix), persist);
+        var resume = createResume(new ResumeCreateDto("Backend", "Инженер-программист с 9000+ лет опыта. " + suffix), persist);
 
         var updateDto = new ResumeUpdateDto();
 

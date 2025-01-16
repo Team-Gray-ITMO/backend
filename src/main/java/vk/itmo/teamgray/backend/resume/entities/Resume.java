@@ -41,6 +41,9 @@ public class Resume extends BaseEntity {
     @Column(length = 2000)
     private String summary;
 
+    @Column(name = "title")
+    private String title;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "preferred_attendance_format")
     private JobAttendanceFormat preferredAttendanceFormat;

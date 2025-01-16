@@ -65,6 +65,7 @@ public class ResumeService extends BaseService<Resume> {
 
         var resume = new Resume();
 
+        resume.setTitle(data.getTitle());
         resume.setSummary(data.getSummary());
         resume.setUser(authUser);
 
@@ -81,6 +82,7 @@ public class ResumeService extends BaseService<Resume> {
         updated |= updateImage(resume, updateDto.getImage());
 
         updated |= updateIfPresent(updateDto.getSummary(), resume::setSummary);
+        updated |= updateIfPresent(updateDto.getTitle(), resume::setTitle);
         updated |= updateIfPresent(updateDto.getPreferredAttendanceFormat(), resume::setPreferredAttendanceFormat);
         updated |= updateIfPresent(updateDto.getPreferredSpecialities(), resume::setPreferredSpecialities);
         updated |= updateIfPresent(updateDto.getReadyForBusinessTrips(), resume::setReadyForBusinessTrips);

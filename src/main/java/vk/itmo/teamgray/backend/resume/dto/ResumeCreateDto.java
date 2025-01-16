@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Schema(description = "Resume Create Model")
 public class ResumeCreateDto {
+    @Schema(description = "Resume Title")
+    @Size(max = 255)
+    private String title;
+
     @Schema(description = "Summary or objective of the resume")
     @Size(max = 2000)
     private String summary;

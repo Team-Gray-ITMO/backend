@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class ResumeDto {
 
     @Schema(description = "Date the resume was created")
     private Date createdAt;
+
+    @Schema(description = "Resume Title")
+    private String title;
 
     @Schema(description = "Summary of the resume")
     private String summary;

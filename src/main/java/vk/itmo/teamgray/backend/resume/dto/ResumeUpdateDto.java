@@ -18,6 +18,10 @@ public class ResumeUpdateDto {
     @Schema(description = "Unique identifier for the resume")
     private long id;
 
+    @Schema(description = "Resume Title")
+    @Size(max = 255)
+    private String title;
+
     @Schema(description = "Updated summary or objective section of the resume")
     @Size(max = 2000)
     private String summary;
