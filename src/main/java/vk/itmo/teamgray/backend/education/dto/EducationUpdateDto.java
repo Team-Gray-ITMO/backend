@@ -1,10 +1,11 @@
 package vk.itmo.teamgray.backend.education.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.*;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.education.enums.EducationAttendanceFormat;
@@ -15,6 +16,7 @@ import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 @Schema(description = "Education Record Update Model")
 @Data
 public class EducationUpdateDto {
+    @Positive
     @Schema(description = "ID of the education")
     private long id;
 

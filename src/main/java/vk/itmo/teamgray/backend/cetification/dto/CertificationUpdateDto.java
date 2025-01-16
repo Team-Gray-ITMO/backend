@@ -1,7 +1,7 @@
 package vk.itmo.teamgray.backend.cetification.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 import lombok.Data;
@@ -12,9 +12,11 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 @Schema(description = "Certification Update Model")
 @Data
 public class CertificationUpdateDto {
+    @Positive
     @Schema(description = "Certification ID")
     private long id;
 
+    @Positive
     @Schema(description = "Resume ID")
     private Long resumeId;
 

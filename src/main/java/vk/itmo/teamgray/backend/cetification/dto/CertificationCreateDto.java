@@ -2,6 +2,7 @@ package vk.itmo.teamgray.backend.cetification.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import vk.itmo.teamgray.backend.language.enums.LanguageProficiency;
 @Data
 public class CertificationCreateDto implements Serializable {
     @NotNull
+    @Positive
     @Schema(description = "Resume ID")
     private Long resumeId;
 

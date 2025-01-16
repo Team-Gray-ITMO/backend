@@ -2,8 +2,7 @@ package vk.itmo.teamgray.backend.template.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,8 @@ import vk.itmo.teamgray.backend.file.dto.FileDto;
 @AllArgsConstructor
 @Schema(description = "Template Update Model")
 public class TemplateUpdateDto {
+
+    @Positive
     @Schema(description = "The unique identifier of the template")
     private long id;
 

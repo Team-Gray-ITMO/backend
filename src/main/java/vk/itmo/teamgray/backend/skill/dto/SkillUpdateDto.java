@@ -2,8 +2,6 @@ package vk.itmo.teamgray.backend.skill.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +11,7 @@ import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 @Data
 @Schema(description = "Skill Update Model")
 public class SkillUpdateDto {
+    @Positive
     @Schema(description = "Unique identifier for the skill")
     private long id;
 

@@ -1,9 +1,10 @@
 package vk.itmo.teamgray.backend.job.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.util.Date;
-
-import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
@@ -12,6 +13,7 @@ import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 @Schema(description = "Job Update Model")
 @Data
 public class JobUpdateDto {
+    @Positive
     @Schema(description = "Job ID")
     private long id;
 
