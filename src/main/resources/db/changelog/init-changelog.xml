@@ -298,4 +298,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1734467881566-4" author="Boris Ivanov">
+        <addColumn tableName="resume">
+            <column name="title" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
