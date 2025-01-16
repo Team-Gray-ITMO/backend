@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +46,7 @@ public class SkillController {
         summary = "Create a new skill",
         responses = @ApiResponse(description = "Skill created", responseCode = "201", content = @Content(schema = @Schema(implementation = SkillDto.class)))
     )
-    public ResponseEntity<SkillDto> createSkill(@RequestBody @Valid SkillCreateDto data) {
+    public ResponseEntity<SkillDto> createSkill(@RequestBody @Validated SkillCreateDto data) {
         return ResponseEntity
             .status(201)
             .body(skillService.createSkill(data));
@@ -59,7 +60,7 @@ public class SkillController {
             @ApiResponse(description = "Invalid input or skill not found", responseCode = "400")
         }
     )
-    public ResponseEntity<SkillDto> updateSkill(@RequestBody @Valid SkillUpdateDto data) {
+    public ResponseEntity<SkillDto> updateSkill(@RequestBody @Validated SkillUpdateDto data) {
         return ResponseEntity.ok(skillService.updateSkill(data));
     }
 

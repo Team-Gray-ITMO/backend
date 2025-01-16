@@ -1,7 +1,9 @@
 package vk.itmo.teamgray.backend.education.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -17,14 +19,16 @@ import vk.itmo.teamgray.backend.education.enums.EducationFormat;
 @Data
 public class EducationCreateDto {
     @NotNull
+    @Positive
     @Schema(description = "Resume ID")
     private Long resumeId;
 
     @NotNull
+    @NotBlank
     @Schema(description = "Education institution ID")
     private Long educationInstitutionId;
 
-    @NotNull
+    @Size(min = 1, max = 255)
     @Schema(description = "Education institution subdivision (Faculty, Institute, etc.)")
     private String institutionSubdivision;
 

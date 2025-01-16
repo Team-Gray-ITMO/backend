@@ -52,6 +52,8 @@ dependencies {
     implementation("io.hypersistence:hypersistence-utils-hibernate-63:3.9.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.4.0")
+
     implementation("org.apache.pdfbox:pdfbox:3.0.3")
 
     implementation("com.itextpdf:html2pdf:6.0.0")

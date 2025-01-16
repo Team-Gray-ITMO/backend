@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +46,7 @@ public class LanguageController {
         summary = "Create a new language record",
         responses = @ApiResponse(description = "Language record created", responseCode = "201", content = @Content(schema = @Schema(implementation = LanguageDto.class)))
     )
-    public ResponseEntity<LanguageDto> createLanguage(@RequestBody @Valid LanguageCreateDto data) {
+    public ResponseEntity<LanguageDto> createLanguage(@RequestBody @Validated LanguageCreateDto data) {
         return ResponseEntity
             .status(201)
             .body(languageService.createLanguage(data));
@@ -56,7 +57,7 @@ public class LanguageController {
         summary = "Update an existing language record",
         responses = @ApiResponse(description = "Language record updated", responseCode = "200", content = @Content(schema = @Schema(implementation = LanguageDto.class)))
     )
-    public ResponseEntity<LanguageDto> updateLanguage(@RequestBody @Valid LanguageUpdateDto data) {
+    public ResponseEntity<LanguageDto> updateLanguage(@RequestBody @Validated LanguageUpdateDto data) {
         return ResponseEntity.ok(languageService.updateLanguage(data));
     }
 

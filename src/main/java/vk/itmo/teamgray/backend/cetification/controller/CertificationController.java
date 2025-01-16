@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +45,7 @@ public class CertificationController {
         summary = "Create a new certification",
         responses = @ApiResponse(description = "Certification created", responseCode = "201", content = @Content(schema = @Schema(implementation = CertificationDto.class)))
     )
-    public ResponseEntity<CertificationDto> createCertification(@RequestBody @Valid CertificationCreateDto data) {
+    public ResponseEntity<CertificationDto> createCertification(@RequestBody @Validated CertificationCreateDto data) {
         return ResponseEntity
             .status(201)
             .body(certificationService.createCertification(data));
@@ -55,7 +56,7 @@ public class CertificationController {
         summary = "Update an existing certification",
         responses = @ApiResponse(description = "Certification updated", responseCode = "200", content = @Content(schema = @Schema(implementation = CertificationDto.class)))
     )
-    public ResponseEntity<CertificationDto> updateCertification(@RequestBody @Valid CertificationUpdateDto data) {
+    public ResponseEntity<CertificationDto> updateCertification(@RequestBody @Validated CertificationUpdateDto data) {
         return ResponseEntity.ok(certificationService.updateCertification(data));
     }
 
