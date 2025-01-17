@@ -41,7 +41,13 @@ public class TemplateMergeService {
     }
 
     public FileDto mergeTemplateToZip(TemplateDto templateDto, ResumeDto resume) {
-        Map<String, byte[]> zipContents = extractZipContents(templateDto.getFile());
+        var file = templateDto.getFile();
+
+        if (file == null) {
+            throw new TemplateMergeServiceException("Template File not found for resume " + resume);
+        }
+
+        Map<String, byte[]> zipContents = extractZipContents(file);
 
         String templateContent = getTemplateContent(zipContents);
 
@@ -51,12 +57,18 @@ public class TemplateMergeService {
 
         byte[] newZipContent = repackZip(zipContents);
 
-        return new FileDto(templateDto.getFile().getFilename(), templateDto.getFile().getContentType(), newZipContent);
+        return new FileDto(file.getFilename(), file.getContentType(), newZipContent);
     }
 
     // TODO We are losing other files from archive here (images for example). (We need to think about how to pass images to PDF/DOCX/PNG converters)
     public byte[] mergeTemplateToHtml(ResumeDto resume) {
-        var template = templateService.findById(resume.getTemplate().getId());
+        var templateEntity = resume.getTemplate();
+
+        if (templateEntity == null) {
+            throw new TemplateMergeServiceException("Template not found for resume " + resume);
+        }
+
+        var template = templateService.findById(templateEntity.getId());
 
         var preparedResume = resumeService.prepareResume(resume);
 
@@ -65,6 +77,12 @@ public class TemplateMergeService {
 
     // TODO We are losing other files from archive here (images for example). (We need to think about how to pass images to PDF/DOCX/PNG converters)
     public byte[] mergeTemplateToHtml(TemplateDto template, ResumeDto resume) {
+        var file = template.getFile();
+
+        if (file == null) {
+            throw new TemplateMergeServiceException("Template File not found for resume " + resume);
+        }
+
         Map<String, byte[]> zipContents = extractZipContents(template.getFile());
 
         String templateContent = getTemplateContent(zipContents);
