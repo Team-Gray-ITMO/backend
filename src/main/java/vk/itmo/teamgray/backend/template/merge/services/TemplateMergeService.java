@@ -62,13 +62,13 @@ public class TemplateMergeService {
 
     // TODO We are losing other files from archive here (images for example). (We need to think about how to pass images to PDF/DOCX/PNG converters)
     public byte[] mergeTemplateToHtml(ResumeDto resume) {
-        var templateEntity = resume.getTemplate();
+        var templateDto = resume.getTemplate();
 
-        if (templateEntity == null) {
+        if (templateDto == null) {
             throw new TemplateMergeServiceException("Template not found for resume " + resume);
         }
 
-        var template = templateService.findById(templateEntity.getId());
+        var template = templateService.findById(templateDto.getId());
 
         var preparedResume = resumeService.prepareResume(resume);
 
