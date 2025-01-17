@@ -97,6 +97,12 @@ public class FileStorageService {
     public String uploadFile(String bucketName, FileDto file) {
         String fileName = UUID.randomUUID() + "-" + file.getFilename();
 
+        var content = file.getContent();
+
+        if (content == null || content.length == 0) {
+            throw new FileStorageServiceException("File content is empty.");
+        }
+
         try {
             s3Client.putObject(
                 PutObjectRequest.builder()
@@ -104,7 +110,7 @@ public class FileStorageService {
                     .key(fileName)
                     .contentType(file.getContentType())
                     .build(),
-                RequestBody.fromInputStream(new ByteArrayInputStream(file.getContent()), file.getContent().length)
+                RequestBody.fromInputStream(new ByteArrayInputStream(content), content.length)
             );
         } catch (Exception e) {
             throw new FileStorageServiceException("Could not upload file", e);
