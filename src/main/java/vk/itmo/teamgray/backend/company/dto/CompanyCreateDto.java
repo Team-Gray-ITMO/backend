@@ -2,7 +2,6 @@ package vk.itmo.teamgray.backend.company.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +14,6 @@ import org.hibernate.validator.constraints.URL;
 @Data
 public class CompanyCreateDto {
     @Schema(description = "Name of the company")
-    @NotNull
     @NotBlank
     @Size(max = 255)
     private String name;
