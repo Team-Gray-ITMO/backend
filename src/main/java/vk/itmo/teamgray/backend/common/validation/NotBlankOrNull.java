@@ -18,11 +18,9 @@ import org.hibernate.validator.constraints.ConstraintComposition;
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotBlankOrNull {
-    String message() default "The value must be null or at least {value}.";
+    String message() default "The value must be null or not blank.";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    int value() default 100;
 }
