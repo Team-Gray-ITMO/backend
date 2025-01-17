@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.common.validation.NotBlankOrNull;
 import vk.itmo.teamgray.backend.file.dto.FileDto;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
@@ -13,15 +14,16 @@ import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 @Data
 @Schema(description = "Resume Update Model")
 public class ResumeUpdateDto {
-
     @Positive
     @Schema(description = "Unique identifier for the resume")
     private long id;
 
+    @NotBlankOrNull
     @Schema(description = "Resume Title")
     @Size(max = 255)
     private String title;
 
+    @NotBlankOrNull
     @Schema(description = "Updated summary or objective section of the resume")
     @Size(max = 2000)
     private String summary;

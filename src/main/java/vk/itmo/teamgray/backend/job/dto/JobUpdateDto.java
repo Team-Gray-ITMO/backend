@@ -1,12 +1,13 @@
 package vk.itmo.teamgray.backend.job.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.common.validation.NotBlankOrNull;
 import vk.itmo.teamgray.backend.job.enums.JobAttendanceFormat;
 
 @NoArgsConstructor
@@ -26,19 +27,22 @@ public class JobUpdateDto {
     private Long companyId;
 
     @Schema(description = "Job title")
-    @NotBlank
+    @NotBlankOrNull
     @Size(max = 255)
     private String title;
 
+    @NotBlankOrNull
     @Schema(description = "Job location")
     private String location;
 
+    @Past
     @Schema(description = "Job start date")
     private Date startDate;
 
     @Schema(description = "Job end date")
     private Date endDate;
 
+    @NotBlankOrNull
     @Schema(description = "Job description")
     @Size(max = 2000)
     private String description;

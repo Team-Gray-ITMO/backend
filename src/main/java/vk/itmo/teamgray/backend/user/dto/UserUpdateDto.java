@@ -1,16 +1,14 @@
 package vk.itmo.teamgray.backend.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vk.itmo.teamgray.backend.common.validation.NotBlankOrNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,13 +16,14 @@ import lombok.NoArgsConstructor;
 @Schema(description = "User Update Model")
 public class UserUpdateDto implements Serializable {
     @Schema(description = "User's email address")
-    @NotBlank
+    @NotBlankOrNull
     @Email
     private String email;
 
     @Schema(description = "Phone number")
     private String phoneNumber;
 
+    @Past
     @Schema(description = "Date of birth")
     private Date dateOfBirth;
 

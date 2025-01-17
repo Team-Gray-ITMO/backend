@@ -15,17 +15,14 @@ import vk.itmo.teamgray.backend.skill.enums.SkillProficiency;
 @Schema(description = "Skill Create Model")
 public class SkillCreateDto {
     @Schema(description = "ID of the resume the skill is associated with")
-    @NotNull
     @Positive
-    private Long resumeId;
+    private long resumeId;
 
     @Schema(description = "Name of the skill")
-    @NotNull
     @NotBlank
     private String name;
 
-    @Schema(description = "Proficiency level of the skill")
     @NotNull
-    @NotBlank
+    @Schema(description = "Proficiency level of the skill")
     private SkillProficiency proficiency;
 }

@@ -2214,7 +2214,6 @@ components:
       required:
       - issuingOrganization
       - name
-      - resumeId
     CertificationDto:
       type: object
       description: Certification Model
@@ -2343,8 +2342,6 @@ components:
           description: Company URL
           maxLength: 255
           minLength: 0
-      required:
-      - name
     ConflictErrorResponse:
       type: object
       description: Conflict Error Response
@@ -2426,10 +2423,7 @@ components:
           format: date-time
           description: Start date of the education
       required:
-      - degreeName
       - degreeType
-      - educationInstitutionId
-      - resumeId
     EducationDto:
       type: object
       description: Education Record Model
@@ -2521,8 +2515,6 @@ components:
           description: Name of the education institution
           maxLength: 255
           minLength: 0
-      required:
-      - name
     EducationUpdateDto:
       type: object
       description: Education Record Update Model
@@ -2595,10 +2587,6 @@ components:
           type: string
           format: date-time
           description: Start date of the education
-      required:
-      - educationInstitutionId
-      - institutionSubdivision
-      - resumeId
     FileDto:
       type: object
       description: File Model
@@ -2664,7 +2652,6 @@ components:
           maxLength: 255
           minLength: 0
       required:
-      - companyId
       - resumeId
       - title
     JobDto:
@@ -2745,8 +2732,6 @@ components:
           description: Job title
           maxLength: 255
           minLength: 0
-      required:
-      - title
     LanguageCreateDto:
       type: object
       description: Language Record Create Model
@@ -2773,7 +2758,6 @@ components:
       required:
       - name
       - proficiency
-      - resumeId
     LanguageDto:
       type: object
       description: Language Record Model
@@ -2822,9 +2806,6 @@ components:
           type: integer
           format: int64
           description: Resume ID
-      required:
-      - name
-      - proficiency
     LinkCreateDto:
       type: object
       description: Link Create Model
@@ -2846,7 +2827,6 @@ components:
       required:
       - platformName
       - profileUrl
-      - resumeId
     LinkDto:
       type: object
       description: Link Model
@@ -3047,7 +3027,6 @@ components:
       required:
       - name
       - proficiency
-      - resumeId
     SkillDto:
       type: object
       description: Skill Model
@@ -3090,9 +3069,6 @@ components:
           type: integer
           format: int64
           description: Resume ID associated with the skill
-      required:
-      - name
-      - proficiency
     TemplateBaseDto:
       type: object
       description: Template Base Model
@@ -3121,6 +3097,7 @@ components:
           type: string
           description: The name of the template
       required:
+      - file
       - name
     TemplateDto:
       type: object
@@ -3167,8 +3144,6 @@ components:
         name:
           type: string
           description: The name of the template
-      required:
-      - name
     UnauthorizedErrorResponse:
       type: object
       description: Error response object
@@ -3277,5 +3252,3 @@ components:
           enum:
           - EMAIL
           - PHONE
-      required:
-      - email

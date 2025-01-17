@@ -16,10 +16,10 @@ import vk.itmo.teamgray.backend.file.dto.FileDto;
 @Schema(description = "Template Create Model")
 public class TemplateCreateDto {
     @Schema(description = "The name of the template")
-    @NotNull
     @NotBlank
     private String name;
 
     @Schema(description = "The file associated with the template (ZIP archive with an HTML)")
+    @NotNull
     private FileDto file;
 }
