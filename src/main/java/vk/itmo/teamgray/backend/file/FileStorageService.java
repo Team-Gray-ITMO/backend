@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,8 @@ public class FileStorageService {
     public static final String RESUME_TEMPLATE_BUCKET_NAME = "resume-templates";
     public static final String RESUME_IMAGE_BUCKET_NAME = "resume-images";
     private static final List<String> BUCKET_NAMES = List.of(RESUME_TEMPLATE_BUCKET_NAME, RESUME_IMAGE_BUCKET_NAME);
+
+    private static final Pattern ESCAPE_S3 = Pattern.compile("[\\\\{}^%`\\[\\]\"<>#|~\\x00-\\x1F\\x7F\\x80-\\xFF\\s&$@=;:+,?/\\t\\r\\n]");
 
     private final S3Client s3Client;
 
@@ -95,7 +98,7 @@ public class FileStorageService {
     }
 
     public String uploadFile(String bucketName, FileDto file) {
-        String fileName = UUID.randomUUID() + "-" + file.getFilename();
+        String fileName = generateFilename(file);
 
         var content = file.getContent();
 
@@ -117,6 +120,10 @@ public class FileStorageService {
         }
 
         return fileName;
+    }
+
+    private static String generateFilename(FileDto file) {
+        return UUID.randomUUID() + "-" + ESCAPE_S3.matcher(file.getFilename()).replaceAll("_");
     }
 
     public FileDto getFile(String bucketName, String filePath) {
