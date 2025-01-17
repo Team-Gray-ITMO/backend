@@ -112,4 +112,12 @@ public class TemplateService extends BaseService<Template> {
     public Set<String> getAllTemplateHashes() {
         return templateRepository.getAllTemplateHashes();
     }
+
+    public Set<String> getAllTemplateFilePaths() {
+        return templateRepository.getAllTemplateFilePaths();
+    }
+
+    public void dropTemplateByPath(String path) {
+        templateRepository.dropTemplateByFilePath(path);
+    }
 }

@@ -38,15 +38,27 @@ public class TemplateImportService {
     private void processFiles() {
         var hashes = templateService.getAllTemplateHashes();
 
+        var filePaths = templateService.getAllTemplateFilePaths();
+
         log.info("Processing templates.");
 
         processTemplatesFromClasspath("/templates", file -> {
             var templateCreateDto = formDto(file);
 
+            String filename = file.getFilename();
+
             if (hashes.contains(hash(templateCreateDto.getFile().getContent()))) {
-                log.info("Template already imported: {}", file.getFilename());
+                log.info("Template already imported: {}", filename);
             } else {
-                log.info("Creating new template: {}", file.getFilename());
+                var existingPath = filePaths.stream().filter(filePath -> filePath.contains(filename)).findAny();
+
+                if (existingPath.isPresent()) {
+                    log.info("Updating existing template: {}", filename);
+
+                    templateService.dropTemplateByPath(existingPath.get());
+                } else {
+                    log.info("Creating new template: {}", filename);
+                }
 
                 templateService.createTemplate(templateCreateDto);
             }
