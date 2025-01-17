@@ -25,6 +25,5 @@ public class LanguageCreateDto {
     private String name;
 
     @Schema(description = "Language proficiency level")
-    @NotNull
     private LanguageProficiency proficiency;
 }

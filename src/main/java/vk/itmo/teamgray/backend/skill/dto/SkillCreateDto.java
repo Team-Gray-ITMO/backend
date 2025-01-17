@@ -22,7 +22,6 @@ public class SkillCreateDto {
     @NotBlank
     private String name;
 
-    @NotNull
     @Schema(description = "Proficiency level of the skill")
     private SkillProficiency proficiency;
 }

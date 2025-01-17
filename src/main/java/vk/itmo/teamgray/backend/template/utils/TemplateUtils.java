@@ -41,12 +41,16 @@ public class TemplateUtils {
             .format(date.toInstant());
     }
 
+    public String trim(String string) {
+        return string.trim();
+    }
+
     public String trim(String string, int maxLength) {
         if (string == null || string.length() < maxLength) {
             return string;
         }
 
-        return string.substring(0, maxLength) + "[...]";
+        return string.trim().substring(0, maxLength) + "[...]";
     }
 
     public String translate(TranslatableEnum translatable) {

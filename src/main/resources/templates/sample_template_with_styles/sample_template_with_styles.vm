@@ -179,7 +179,7 @@
         <h2>Навыки</h2>
         <ul>
             #foreach ($skill in ${resume.skills})
-                <li><strong>${skill.name}:</strong> ${utils.translate(${skill.proficiency})}</li>
+                <li><strong>${skill.name}</strong>#if(${skill.proficiency})<strong>: </strong>${utils.translate(${skill.proficiency})}#end</li>
             #end
         </ul>
     </section>
@@ -190,7 +190,7 @@
         <h2>Языки</h2>
         <ul>
             #foreach ($language in ${resume.languages})
-                <li><strong>${language.name}:</strong> ${language.proficiency}</li>
+                <li><strong>${language.name}</strong>#if(${language.proficiency})<strong>: </strong>${language.proficiency}#end</li>
             #end
         </ul>
     </section>

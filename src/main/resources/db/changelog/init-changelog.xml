@@ -304,4 +304,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1734467881566-5" author="Boris Ivanov">
+        <dropNotNullConstraint tableName="languages" columnName="proficiency"/>
+        <dropNotNullConstraint tableName="skill" columnName="proficiency"/>
+    </changeSet>
 </databaseChangeLog>

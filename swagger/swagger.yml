@@ -2760,7 +2760,6 @@ components:
           description: Resume ID
       required:
       - name
-      - proficiency
     LanguageDto:
       type: object
       description: Language Record Model
@@ -3029,7 +3028,6 @@ components:
           description: ID of the resume the skill is associated with
       required:
       - name
-      - proficiency
     SkillDto:
       type: object
       description: Skill Model

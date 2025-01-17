@@ -30,7 +30,7 @@ public class Language extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "proficiency", nullable = false)
+    @Column(name = "proficiency")
     @Enumerated(EnumType.STRING)
     private LanguageProficiency proficiency;
 

@@ -30,7 +30,7 @@ public class Skill extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "proficiency", nullable = false)
+    @Column(name = "proficiency")
     @Enumerated(EnumType.STRING)
     private SkillProficiency proficiency;
 

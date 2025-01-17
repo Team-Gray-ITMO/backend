@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.resume.generator;
 
+import io.micrometer.common.util.StringUtils;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -174,7 +175,7 @@ public class ResumeSampleGenerator {
             .map(skill -> createSkill(
                     new SkillCreateDto(
                         resume.getId(),
-                        skill + " " + suffix,
+                        skill + (StringUtils.isNotBlank(suffix) ? " " : "") + suffix,
                         randomEnumValue(SkillProficiency.values())
                     ),
                     persist
