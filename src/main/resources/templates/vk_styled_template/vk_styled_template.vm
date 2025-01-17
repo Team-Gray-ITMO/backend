@@ -206,7 +206,11 @@
 
     #if ($resume.preferredSpecialities && $resume.preferredSpecialities.size() > 0)
     <section>
-        <h2>Специальности</h2>
+        #if($resume.preferredSpecialities.size() == 1)
+            <h2>Специальность</h2>
+        #else
+            <h2>Специальности</h2>
+        #end
         <ul class="tag-list">
             #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
                 <li>${preferredSpeciality}</li>
