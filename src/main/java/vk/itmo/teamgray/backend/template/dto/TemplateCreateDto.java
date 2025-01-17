@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.template.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,6 @@ public class TemplateCreateDto {
 
     @Schema(description = "The file associated with the template (ZIP archive with an HTML)")
     @NotNull
+    @Valid
     private FileDto file;
 }

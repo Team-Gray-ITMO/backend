@@ -2,6 +2,8 @@ package vk.itmo.teamgray.backend.file.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +17,17 @@ import java.util.Base64;
 public class FileDto {
     @Getter
     @Setter
+    @NotBlank
     @Schema(description = "The name of the file")
     private String filename;
 
     @Getter
     @Setter
+    @NotBlank
     @Schema(description = "The content type of the file")
     private String contentType;
 
+    @NotEmpty
     @Schema(description = "The binary content of the file")
     private byte[] content;
 

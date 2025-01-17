@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.template.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class TemplateUpdateDto {
     @NotBlankOrNull
     private String name;
 
+    @Valid
     @Schema(description = "The file associated with the template (ZIP archive with an HTML)")
     private FileDto file;
 }

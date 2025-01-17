@@ -1,5 +1,6 @@
 package vk.itmo.teamgray.backend.template.services;
 
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import vk.itmo.teamgray.backend.TestBase;
 import vk.itmo.teamgray.backend.common.exception.DataNotFoundException;
@@ -13,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TemplateServiceTest extends TestBase {
-    public static final byte[] EMPTY_BYTE_ARRAY = {};
-
     @Test
     void testTemplate() {
         var fileDto = sampleTemplates.getFirst().getFile();
@@ -38,7 +37,7 @@ class TemplateServiceTest extends TestBase {
 
         fileDto2.setFilename(fileDto.getFilename());
         fileDto2.setContentType(ZipFormat.MIME_TYPE);
-        fileDto2.setContent(EMPTY_BYTE_ARRAY);
+        fileDto2.setContent("TEST".getBytes(StandardCharsets.UTF_8));
 
         templateService.updateTemplate(
             new TemplateUpdateDto(

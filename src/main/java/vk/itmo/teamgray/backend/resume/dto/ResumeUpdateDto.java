@@ -1,6 +1,7 @@
 package vk.itmo.teamgray.backend.resume.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.util.List;
@@ -44,6 +45,7 @@ public class ResumeUpdateDto {
     @Schema(description = "Ready for Relocation")
     private Boolean readyForRelocation;
 
+    @Valid
     @Schema(description = "Resume related image (photo, avatar)")
     private FileDto image;
 }
