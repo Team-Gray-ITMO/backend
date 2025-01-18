@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Резюме</title>
+</head>
+<body>
+<header>
+    <h1>Резюме</h1>
+</header>
+<section>
+    <h2>Личная информация</h2>
+    #if ($resume.user.cityName)
+        <p><strong>Город:</strong> ${resume.user.cityName}</p>
+    #end
+    #if ($resume.user.dateOfBirth)
+        <p><strong>Дата Рождения:</strong> ${utils.formatBirthDate(${resume.user.dateOfBirth})}</p>
+    #end
+    #if ($resume.user.phoneNumber)
+        <p><strong>Номер Телефона:</strong> ${resume.user.phoneNumber}</p>
+    #end
+    #if ($resume.user.email)
+        <p><strong>Email:</strong> ${resume.user.email}</p>
+    #end
+    #if ($resume.user.vkId)
+        <p><strong>VK ID:</strong> ${resume.user.vkId}</p>
+    #end
+</section>
+
+    #if ($resume.summary)
+    <section>
+        <h2>О Себе</h2>
+        <p>${resume.summary}</p>
+    </section>
+    #end
+
+    #if ($resume.preferredSpecialities && $resume.preferredSpecialities.size() > 0)
+    <section>
+        #if($resume.preferredSpecialities.size() == 1)
+            <h2>Специальность</h2>
+        #else
+            <h2>Специальности</h2>
+        #end
+        <ul>
+            #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
+                <li>${preferredSpeciality}</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.readyForRelocation || $resume.readyForBusinessTrips || $resume.preferredAttendanceFormat)
+    <section>
+        <h2>Условия Работы</h2>
+        <ul>
+            #if ($resume.preferredAttendanceFormat)
+                <li><strong>Формат Работы:</strong> ${utils.translate(${resume.preferredAttendanceFormat})}</li>
+            #end
+            #if ($resume.readyForRelocation)
+                <li>Готов к Переезду</li>
+            #end
+            #if ($resume.readyForBusinessTrips)
+                <li>Готов к Командировкам</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.skills && $resume.skills.size() > 0)
+    <section>
+        <h2>Навыки</h2>
+        <ul>
+            #foreach ($skill in ${resume.skills})
+                <li><strong>${skill.name}</strong>#if(${skill.proficiency})<strong>: </strong>${utils.translate(${skill.proficiency})}#end</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.languages && $resume.languages.size() > 0)
+    <section>
+        <h2>Языки</h2>
+        <ul>
+            #foreach ($language in ${resume.languages})
+                <li><strong>${language.name}</strong>#if(${language.proficiency})<strong>: </strong>${language.proficiency}#end</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.jobs && $resume.jobs.size() > 0)
+    <section>
+        <h2>Опыт работы</h2>
+        <ul>
+            #foreach ($job in ${resume.jobs})
+                <li>
+                    #if ($job.startDate || $job.endDate)
+                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})}
+                            - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
+                    #end
+                    #if ($job.title)
+                        <p><strong>Должность:</strong> ${job.title}</p>
+                    #end
+                    #if ($job.company.name)
+                        <p><strong>Компания:</strong> ${job.company.name} </p>
+                    #end
+                    #if ($job.company.url)
+                        <p><strong>Ссылка:</strong> <a href="${job.company.url}">${job.company.url}</a></p>
+                    #end
+                    #if ($job.location)
+                        <p><strong>Местоположение:</strong> ${job.location}</p>
+                    #end
+                    #if ($job.attendanceFormat)
+                        <p><strong>Формат работы:</strong> ${utils.translate(${job.attendanceFormat})}</p>
+                    #end
+                    #if ($job.description)
+                        <p><strong>Описание:</strong> ${job.description}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.educations && $resume.educations.size() > 0)
+    <section>
+        <h2>Образование</h2>
+        <ul>
+            #foreach ($edu in ${resume.educations})
+                <li>
+                    #if ($edu.startDate || $edu.endDate)
+                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)}
+                            - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
+                    #end
+                    #if ($edu.institution.name)
+                        <p><strong>Институт:</strong> ${edu.institution.name}</p>
+                    #end
+                    #if ($edu.institutionSubdivision)
+                        <p><strong>Подразделение:</strong> ${edu.institutionSubdivision}</p>
+                    #end
+                    #if ($edu.degreeType)
+                        <p><strong>Тип Образования:</strong> ${utils.translate(${edu.degreeType})}</p>
+                    #end
+                    #if ($edu.degreeName)
+                        <p><strong>Степень:</strong> ${edu.degreeName}</p>
+                    #end
+                    #if ($edu.fieldOfStudy)
+                        <p><strong>Направление:</strong> ${edu.fieldOfStudy}</p>
+                    #end
+                    #if ($edu.specialization)
+                        <p><strong>Специализация:</strong> ${edu.specialization}</p>
+                    #end
+                    #if ($edu.format)
+                        <p><strong>Форма обучения:</strong> ${utils.translate(${edu.format})}</p>
+                    #end
+                    #if ($edu.attendanceFormat)
+                        <p><strong>Формат обучения:</strong> ${utils.translate(${edu.attendanceFormat})}</p>
+                    #end
+                    #if ($edu.grade)
+                        <p><strong>Оценка:</strong> ${edu.grade}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.certifications && $resume.certifications.size() > 0)
+    <section>
+        <h2>Сертификаты</h2>
+        <ul>
+            #foreach ($cert in ${resume.certifications})
+                <li>
+                    #if ($cert.name)
+                        <p><strong>Название:</strong> ${cert.name}</p>
+                    #end
+                    #if ($cert.issuingOrganization)
+                        <p><strong>Организация:</strong> ${cert.issuingOrganization}</p>
+                    #end
+                    #if ($cert.languageProficiency)
+                        <p><strong>Уровень владения языком:</strong> ${cert.languageProficiency}</p>
+                    #end
+                    #if ($cert.issueDate)
+                        <p><strong>Дата выдачи:</strong> ${utils.formatDateAsMonth($cert.issueDate)}</p>
+                    #end
+                    #if ($cert.expirationDate)
+                        <p><strong>Действителен до:</strong> ${utils.formatDateAsMonth(${cert.expirationDate})}</p>
+                    #end
+                    #if ($cert.credentialUrl)
+                        <p><strong>Ссылка:</strong> <a href="${cert.credentialUrl}">${cert.credentialUrl}</a></p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.links && $resume.links.size() > 0)
+    <section>
+        <h2>Ссылки</h2>
+        <ul>
+            #foreach ($link in ${resume.links})
+                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
+            #end
+        </ul>
+    </section>
+    #end
+</body>
+</html>

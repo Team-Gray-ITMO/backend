@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Резюме</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 5mm;
+        }
+
+        /* Основные стили для всего документа */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 1px;
+            padding: 0;
+            background-color: #f4f4f4;
+            /* Limiting width to A4 size */
+            min-width: 210mm;
+            max-width: 210mm;
+        }
+
+        /* Стили для заголовка */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        /* Стили для секций */
+        section {
+            background: #fff;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            page-break-inside: avoid;
+        }
+
+        .personal-info {
+            position: relative;
+        }
+
+        .personal-info .avatar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 30px;
+            width: 120px;
+            max-height: 150px;
+            transform: translateY(20%);
+        }
+
+        /* Стили для заголовков секций */
+        h2 {
+            margin: 2px;
+            color: #333;
+        }
+
+        /* Стили для списков */
+        ul {
+            list-style-type: none; /* Убираем маркеры списка */
+            padding: 0; /* Убираем отступы */
+        }
+
+        ul li {
+            margin-bottom: 10px; /* Отступ между элементами списка */
+            background: #f9f9f9; /* Фоновый цвет элемента */
+            border: 1px solid #ddd; /* Граница элемента */
+            border-radius: 5px; /* Скругленные углы */
+            padding: 10px; /* Внутренние отступы */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
+        }
+
+        ul li:last-child {
+            margin-bottom: 0; /* Убираем нижний отступ у последнего элемента */
+        }
+
+        /* Стили для ссылок */
+        a {
+            color: #007BFF; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        p {
+            margin: 2px;
+        }
+
+        /* Ограничиваем дробление элементов при попиле на страницы */
+        h1, h2, p, li {
+            page-break-inside: avoid;
+        }
+
+        /* Для маленьких экранов при просмотре не конвертированного HTML. */
+        @media (max-width: 210mm), (max-height: 297mm) {
+            width: 100%;
+            height: auto;
+            margin: 10px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Резюме</h1>
+</header>
+<section class="personal-info">
+    <h2>Личная информация</h2>
+
+    #if ($resume.image.contentType && $resume.image.contentPresent)
+        <img src="data:${resume.image.contentType};base64,${resume.image.contentBase64}" alt="Avatar" class="avatar">
+    #end
+
+    #if ($resume.user.cityName)
+        <p><strong>Город:</strong> ${resume.user.cityName}</p>
+    #end
+    #if ($resume.user.dateOfBirth)
+        <p><strong>Дата Рождения:</strong> ${utils.formatBirthDate(${resume.user.dateOfBirth})}</p>
+    #end
+    #if ($resume.user.phoneNumber)
+        <p><strong>Номер Телефона:</strong> ${resume.user.phoneNumber}</p>
+    #end
+    #if ($resume.user.email)
+        <p><strong>Email:</strong> ${resume.user.email}</p>
+    #end
+    #if ($resume.user.vkId)
+        <p><strong>VK ID:</strong> ${resume.user.vkId}</p>
+    #end
+</section>
+
+    #if ($resume.summary)
+    <section>
+        <h2>О Себе</h2>
+        <p>${resume.summary}</p>
+    </section>
+    #end
+
+    #if ($resume.preferredSpecialities && $resume.preferredSpecialities.size() > 0)
+    <section>
+        #if($resume.preferredSpecialities.size() == 1)
+            <h2>Специальность</h2>
+        #else
+            <h2>Специальности</h2>
+        #end
+        <ul>
+            #foreach ($preferredSpeciality in ${resume.preferredSpecialities})
+                <li>${preferredSpeciality}</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.readyForRelocation || $resume.readyForBusinessTrips || $resume.preferredAttendanceFormat)
+    <section>
+        <h2>Условия Работы</h2>
+            <ul>
+                #if ($resume.preferredAttendanceFormat)
+                    <li>Формат Работы: ${utils.translate(${resume.preferredAttendanceFormat})}</li>
+                #end
+                #if ($resume.readyForRelocation)
+                    <li>Готов к Переезду</li>
+                #end
+                #if ($resume.readyForBusinessTrips)
+                    <li>Готов к Командировкам</li>
+                #end
+            </ul>
+    </section>
+    #end
+
+    #if ($resume.skills && $resume.skills.size() > 0)
+    <section>
+        <h2>Навыки</h2>
+        <ul>
+            #foreach ($skill in ${resume.skills})
+                <li><strong>${skill.name}</strong>#if(${skill.proficiency})<strong>: </strong>${utils.translate(${skill.proficiency})}#end</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.languages && $resume.languages.size() > 0)
+    <section>
+        <h2>Языки</h2>
+        <ul>
+            #foreach ($language in ${resume.languages})
+                <li><strong>${language.name}</strong>#if(${language.proficiency})<strong>: </strong>${language.proficiency}#end</li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.jobs && $resume.jobs.size() > 0)
+    <section>
+        <h2>Опыт работы</h2>
+        <ul>
+            #foreach ($job in ${resume.jobs})
+                <li>
+                    #if ($job.startDate || $job.endDate)
+                        <p><strong>Период работы:</strong> ${utils.formatDateAsMonth(${job.startDate})}
+                            - ${utils.formatDateAsMonthOrNow(${job.endDate})}</p>
+                    #end
+                    #if ($job.title)
+                        <p><strong>Должность:</strong> ${job.title}</p>
+                    #end
+                    #if ($job.company.name)
+                        <p><strong>Компания:</strong> ${job.company.name} </p>
+                    #end
+                    #if ($job.company.url)
+                        <p><strong>Ссылка:</strong> <a href="${job.company.url}">${job.company.url}</a></p>
+                    #end
+                    #if ($job.location)
+                        <p><strong>Местоположение:</strong> ${job.location}</p>
+                    #end
+                    #if ($job.attendanceFormat)
+                        <p><strong>Формат работы:</strong> ${utils.translate(${job.attendanceFormat})}</p>
+                    #end
+                    #if ($job.description)
+                        <p><strong>Описание:</strong> ${job.description}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.educations && $resume.educations.size() > 0)
+    <section>
+        <h2>Образование</h2>
+        <ul>
+            #foreach ($edu in ${resume.educations})
+                <li>
+                    #if ($edu.startDate || $edu.endDate)
+                        <p><strong>Период обучения:</strong> ${utils.formatDateAsMonth($edu.startDate)}
+                            - ${utils.formatDateAsMonthOrNow($edu.endDate)}</p>
+                    #end
+                    #if ($edu.institution.name)
+                        <p><strong>Институт:</strong> ${edu.institution.name}</p>
+                    #end
+                    #if ($edu.institutionSubdivision)
+                        <p><strong>Подразделение:</strong> ${edu.institutionSubdivision}</p>
+                    #end
+                    #if ($edu.degreeType)
+                        <p><strong>Тип Образования:</strong> ${utils.translate(${edu.degreeType})}</p>
+                    #end
+                    #if ($edu.degreeName)
+                        <p><strong>Степень:</strong> ${edu.degreeName}</p>
+                    #end
+                    #if ($edu.fieldOfStudy)
+                        <p><strong>Направление:</strong> ${edu.fieldOfStudy}</p>
+                    #end
+                    #if ($edu.specialization)
+                        <p><strong>Специализация:</strong> ${edu.specialization}</p>
+                    #end
+                    #if ($edu.format)
+                        <p><strong>Форма обучения:</strong> ${utils.translate(${edu.format})}</p>
+                    #end
+                    #if ($edu.attendanceFormat)
+                        <p><strong>Формат обучения:</strong> ${utils.translate(${edu.attendanceFormat})}</p>
+                    #end
+                    #if ($edu.grade)
+                        <p><strong>Оценка:</strong> ${edu.grade}</p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.certifications && $resume.certifications.size() > 0)
+    <section>
+        <h2>Сертификаты</h2>
+        <ul>
+            #foreach ($cert in ${resume.certifications})
+                <li>
+                    #if ($cert.name)
+                        <p><strong>Название:</strong> ${cert.name}</p>
+                    #end
+                    #if ($cert.issuingOrganization)
+                        <p><strong>Организация:</strong> ${cert.issuingOrganization}</p>
+                    #end
+                    #if ($cert.languageProficiency)
+                        <p><strong>Уровень владения языком:</strong> ${cert.languageProficiency}</p>
+                    #end
+                    #if ($cert.issueDate)
+                        <p><strong>Дата выдачи:</strong> ${utils.formatDateAsMonth($cert.issueDate)}</p>
+                    #end
+                    #if ($cert.expirationDate)
+                        <p><strong>Действителен до:</strong> ${utils.formatDateAsMonth(${cert.expirationDate})}</p>
+                    #end
+                    #if ($cert.credentialUrl)
+                        <p><strong>Ссылка:</strong> <a href="${cert.credentialUrl}">${cert.credentialUrl}</a></p>
+                    #end
+                </li>
+            #end
+        </ul>
+    </section>
+    #end
+
+    #if ($resume.links && $resume.links.size() > 0)
+    <section>
+        <h2>Ссылки</h2>
+        <ul>
+            #foreach ($link in ${resume.links})
+                <li><strong>${link.platformName}:</strong> <a href="${link.profileUrl}">${link.profileUrl}</a></li>
+            #end
+        </ul>
+    </section>
+    #end
+</body>
+</html>

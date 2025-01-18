@@ -1,0 +1,3255 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- description: Generated server url
+  url: http://localhost:9090
+tags:
+- description: CRUD operations for links
+  name: Link
+- description: CRUD and other operations for resumes
+  name: Resume
+- description: CRUD operations for language records
+  name: Language
+- description: CRUD operations for job records
+  name: Job
+- description: CRUD operations for skills
+  name: Skill
+- description: CRUD and other operations for templates
+  name: Template
+- description: CRUD operations for certifications
+  name: Certification
+- description: CRUD operations for education records
+  name: Education
+- description: CRUD operations for education institutions
+  name: Education Institution
+- description: CRUD operations for company records
+  name: Company
+- description: Operations related to user management
+  name: User
+paths:
+  /api/v1/certification:
+    post:
+      operationId: createCertification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertificationCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDto"
+          description: Certification created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new certification
+      tags:
+      - Certification
+    put:
+      operationId: updateCertification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertificationUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDto"
+          description: Certification updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing certification
+      tags:
+      - Certification
+  /api/v1/certification/{id}:
+    delete:
+      operationId: deleteCertification
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Certification deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a certification by ID
+      tags:
+      - Certification
+    get:
+      operationId: getCertificationById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDto"
+          description: Certification found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get certification by ID
+      tags:
+      - Certification
+  /api/v1/company:
+    post:
+      operationId: createCompany
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CompanyDto"
+          description: Company record created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new company record
+      tags:
+      - Company
+    put:
+      operationId: updateCompany
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CompanyDto"
+          description: Company record updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing company record
+      tags:
+      - Company
+  /api/v1/company/{id}:
+    delete:
+      operationId: deleteCompany
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Company record deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a company record by ID
+      tags:
+      - Company
+    get:
+      operationId: getCompanyById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CompanyDto"
+          description: Company record found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get company record by ID
+      tags:
+      - Company
+  /api/v1/education:
+    post:
+      operationId: createEducation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EducationCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationDto"
+          description: Education record created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new education record
+      tags:
+      - Education
+    put:
+      operationId: updateEducation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EducationUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationDto"
+          description: Education record updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing education record
+      tags:
+      - Education
+  /api/v1/education-institution:
+    post:
+      operationId: createInstitution
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EducationInstitutionCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationInstitutionDto"
+          description: Institution created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new education institution
+      tags:
+      - Education Institution
+    put:
+      operationId: updateInstitution
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EducationInstitutionUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationInstitutionDto"
+          description: Institution updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing education institution
+      tags:
+      - Education Institution
+  /api/v1/education-institution/{id}:
+    delete:
+      operationId: deleteInstitution
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Institution deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete an education institution by ID
+      tags:
+      - Education Institution
+    get:
+      operationId: getInstitutionById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationInstitutionDto"
+          description: Institution found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get education institution by ID
+      tags:
+      - Education Institution
+  /api/v1/education/{id}:
+    delete:
+      operationId: deleteEducation
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Education record deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete an education record by ID
+      tags:
+      - Education
+    get:
+      operationId: getEducationById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EducationDto"
+          description: Education record found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get education record by ID
+      tags:
+      - Education
+  /api/v1/job:
+    post:
+      operationId: createJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobDto"
+          description: Job record created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new job record
+      tags:
+      - Job
+    put:
+      operationId: updateJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobDto"
+          description: Job record updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing job record
+      tags:
+      - Job
+  /api/v1/job/{id}:
+    delete:
+      operationId: deleteJob
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Job record deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a job record by ID
+      tags:
+      - Job
+    get:
+      operationId: getJobById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobDto"
+          description: Job record found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get a job record by ID
+      tags:
+      - Job
+  /api/v1/language:
+    post:
+      operationId: createLanguage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LanguageCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LanguageDto"
+          description: Language record created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new language record
+      tags:
+      - Language
+    put:
+      operationId: updateLanguage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LanguageUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LanguageDto"
+          description: Language record updated
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing language record
+      tags:
+      - Language
+  /api/v1/language/{id}:
+    delete:
+      operationId: deleteLanguage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Language record deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a language record by ID
+      tags:
+      - Language
+    get:
+      operationId: getLanguageById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LanguageDto"
+          description: Language record found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get a language record by ID
+      tags:
+      - Language
+  /api/v1/link:
+    post:
+      description: Create a new link for a resume.
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LinkCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LinkDto"
+          description: Link created successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new Link
+      tags:
+      - Link
+    put:
+      description: Update the details of an existing link.
+      operationId: update_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LinkUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LinkDto"
+          description: Link updated successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing Link
+      tags:
+      - Link
+  /api/v1/link/{id}:
+    delete:
+      description: Delete a link by its ID.
+      operationId: delete_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Link deleted successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete Link by ID
+      tags:
+      - Link
+    get:
+      description: Retrieve a link by its ID.
+      operationId: getById_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LinkDto"
+          description: Link retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Link by ID
+      tags:
+      - Link
+  /api/v1/resume:
+    get:
+      description: Retrieve all resumes.
+      operationId: findAll
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ResumeDto"
+          description: Resumes retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get all Resumes
+      tags:
+      - Resume
+    post:
+      description: Create a new resume for a user.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ResumeDto"
+          description: Resume created successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new Resume
+      tags:
+      - Resume
+    put:
+      description: Update the details of an existing resume.
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ResumeDto"
+          description: Resume updated successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing Resume
+      tags:
+      - Resume
+  /api/v1/resume/{resumeId}:
+    delete:
+      description: Delete a resume by its ID.
+      operationId: delete
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Resume deleted successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete Resume by ID
+      tags:
+      - Resume
+    get:
+      description: Retrieve a resume by its ID.
+      operationId: getById
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ResumeDto"
+          description: Resume retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Resume by ID
+      tags:
+      - Resume
+  /api/v1/resume/{resumeId}/docx:
+    get:
+      operationId: getDocx
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document: {}
+          description: DOCX retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+          description: Unauthorized - Access Denied
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Resume as DOCX
+      tags:
+      - Resume
+  /api/v1/resume/{resumeId}/html:
+    get:
+      operationId: getHtml
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            application/octet-stream: {}
+          description: HTML retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Resume as HTML
+      tags:
+      - Resume
+  /api/v1/resume/{resumeId}/pdf:
+    get:
+      operationId: getPdf
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            application/pdf: {}
+          description: PDF retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Resume as PDF
+      tags:
+      - Resume
+  /api/v1/resume/{resumeId}/png:
+    get:
+      operationId: getPng
+      parameters:
+      - in: path
+        name: resumeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            image/png: {}
+          description: PNG retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+          description: Unauthorized - Access Denied
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get Resume as PNG
+      tags:
+      - Resume
+  /api/v1/skill:
+    post:
+      operationId: createSkill
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SkillCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SkillDto"
+          description: Skill created
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new skill
+      tags:
+      - Skill
+    put:
+      operationId: updateSkill
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SkillUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SkillDto"
+          description: Skill updated
+        "400":
+          description: Invalid input or skill not found
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing skill
+      tags:
+      - Skill
+  /api/v1/skill/{id}:
+    delete:
+      operationId: deleteSkill
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Skill deleted
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          description: Skill not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a skill by ID
+      tags:
+      - Skill
+    get:
+      operationId: getSkillById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SkillDto"
+          description: Skill found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get a skill by ID
+      tags:
+      - Skill
+  /api/v1/template:
+    get:
+      description: Retrieve all templates.
+      operationId: getAllTemplates
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TemplateDto"
+          description: Templates retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get all Templates
+      tags:
+      - Template
+    post:
+      operationId: createTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TemplateDto"
+          description: Template created successfully
+        "400":
+          description: Invalid input data
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new template
+      tags:
+      - Template
+    put:
+      operationId: updateTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TemplateDto"
+          description: Template updated successfully
+        "400":
+          description: Invalid input data
+        "404":
+          description: Template not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing template
+      tags:
+      - Template
+  /api/v1/template/image:
+    get:
+      description: Retrieve all templates with images.
+      operationId: getAllTemplatesWithImages
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TemplateImageDto"
+          description: Templates retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get all Templates With Images of Filled Templates
+      tags:
+      - Template
+  /api/v1/template/image/{id}:
+    get:
+      operationId: getTemplateWithImage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TemplateImageDto"
+          description: Template retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          description: Template not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get a template with image of Filled Template by ID
+      tags:
+      - Template
+  /api/v1/template/{id}:
+    delete:
+      operationId: deleteTemplate
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Template deleted successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          description: Template not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Delete a template by ID
+      tags:
+      - Template
+    get:
+      operationId: getTemplateById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TemplateDto"
+          description: Template retrieved successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          description: Template not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get a template by ID
+      tags:
+      - Template
+  /api/v1/user:
+    post:
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+          description: Successfully created user
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Create a new user
+      tags:
+      - User
+    put:
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+          description: User updated successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Update an existing user
+      tags:
+      - User
+  /api/v1/user/vk/{vkId}:
+    get:
+      operationId: getUserByVkId
+      parameters:
+      - in: path
+        name: vkId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserBaseDto"
+          description: Successfully retrieved user
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorResponse"
+          description: Bad Request - Invalid argument
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+          description: Not Found - Data not found
+        "409":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConflictErrorResponse"
+          description: Conflict - Data conflict
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+          description: Internal Server Error - Unknown error occurred
+      summary: Get user by VK ID
+      tags:
+      - User
+components:
+  schemas:
+    BadRequestErrorResponse:
+      type: object
+      description: Bad Request Error Response
+      properties:
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "400"
+        message:
+          type: string
+          description: Description of the error
+          example: Invalid input provided
+    CertificationCreateDto:
+      type: object
+      description: Certification Create Model
+      properties:
+        credentialUrl:
+          type: string
+          description: URL providing details about the credential
+          maxLength: 255
+          minLength: 0
+        expirationDate:
+          type: string
+          format: date-time
+          description: Expiration date of the certification
+        issueDate:
+          type: string
+          format: date-time
+          description: Issue date of the certification
+        issuingOrganization:
+          type: string
+          description: Issuer of the certification
+          maxLength: 255
+          minLength: 0
+        languageProficiency:
+          type: string
+          description: Proficiency level in the associated language
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+        name:
+          type: string
+          description: Certification name
+          maxLength: 255
+          minLength: 0
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+      required:
+      - issuingOrganization
+      - name
+    CertificationDto:
+      type: object
+      description: Certification Model
+      properties:
+        credentialUrl:
+          type: string
+          description: URL with details about the certification
+        expirationDate:
+          type: string
+          format: date-time
+          description: Date when the certification expires
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the certification
+        issueDate:
+          type: string
+          format: date-time
+          description: Date when the certification was issued
+        issuingOrganization:
+          type: string
+          description: Organization that issued the certification
+        languageProficiency:
+          type: string
+          description: Proficiency level of the associated language
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+        name:
+          type: string
+          description: Name of the certification
+    CertificationUpdateDto:
+      type: object
+      description: Certification Update Model
+      properties:
+        credentialUrl:
+          type: string
+          description: URL providing details about the credential
+          maxLength: 255
+          minLength: 0
+        expirationDate:
+          type: string
+          format: date-time
+          description: Expiration date of the certification
+        id:
+          type: integer
+          format: int64
+          description: Certification ID
+        issueDate:
+          type: string
+          format: date-time
+          description: Issue date of the certification
+        issuingOrganization:
+          type: string
+          description: Issuer of the certification
+          maxLength: 255
+          minLength: 0
+        languageProficiency:
+          type: string
+          description: Proficiency level in the associated language
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+        name:
+          type: string
+          description: Certification name
+          maxLength: 255
+          minLength: 0
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+    CompanyCreateDto:
+      type: object
+      description: Company Create Model
+      properties:
+        name:
+          type: string
+          description: Name of the company
+          maxLength: 255
+          minLength: 0
+        url:
+          type: string
+          description: Company URL
+          maxLength: 255
+          minLength: 0
+      required:
+      - name
+    CompanyDto:
+      type: object
+      description: Company Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the company
+        name:
+          type: string
+          description: Name of the company
+        url:
+          type: string
+          description: Company URL
+    CompanyUpdateDto:
+      type: object
+      description: Company Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the company
+        name:
+          type: string
+          description: Name of the company
+          maxLength: 255
+          minLength: 0
+        url:
+          type: string
+          description: Company URL
+          maxLength: 255
+          minLength: 0
+    ConflictErrorResponse:
+      type: object
+      description: Conflict Error Response
+      properties:
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "409"
+        message:
+          type: string
+          description: Description of the error
+          example: Data Conflict
+    EducationCreateDto:
+      type: object
+      description: Education Record Create Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        degreeName:
+          type: string
+          description: Name of the degree
+          maxLength: 255
+          minLength: 0
+        degreeType:
+          type: string
+          description: Degree type
+          enum:
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
+        educationInstitutionId:
+          type: integer
+          format: int64
+          description: Education institution ID
+        endDate:
+          type: string
+          format: date-time
+          description: End date of the education
+        fieldOfStudy:
+          type: string
+          description: Field of study
+          maxLength: 255
+          minLength: 0
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
+        grade:
+          type: string
+          description: Grade
+          maxLength: 255
+          minLength: 0
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
+          maxLength: 255
+          minLength: 1
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+        specialization:
+          type: string
+          description: Specialization
+          maxLength: 255
+          minLength: 0
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the education
+      required:
+      - degreeType
+    EducationDto:
+      type: object
+      description: Education Record Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        degreeName:
+          type: string
+          description: Degree name
+        degreeType:
+          type: string
+          description: Degree type
+          enum:
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
+        endDate:
+          type: string
+          format: date-time
+          description: End date of the education
+        fieldOfStudy:
+          type: string
+          description: Field of study
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
+        grade:
+          type: string
+          description: Grade obtained
+        id:
+          type: integer
+          format: int64
+          description: Education ID
+        institution:
+          $ref: "#/components/schemas/EducationInstitutionDto"
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
+        specialization:
+          type: string
+          description: Specialization
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the education
+    EducationInstitutionCreateDto:
+      type: object
+      description: Education Institution Create Model
+      properties:
+        name:
+          type: string
+          description: Name of the education institution
+          maxLength: 255
+          minLength: 0
+      required:
+      - name
+    EducationInstitutionDto:
+      type: object
+      description: Education Institution Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the education institution
+        name:
+          type: string
+          description: Name of the education institution
+    EducationInstitutionUpdateDto:
+      type: object
+      description: Education Institution Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the education institution
+        name:
+          type: string
+          description: Name of the education institution
+          maxLength: 255
+          minLength: 0
+    EducationUpdateDto:
+      type: object
+      description: Education Record Update Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Education attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        degreeName:
+          type: string
+          description: Name of the degree
+          maxLength: 255
+          minLength: 0
+        degreeType:
+          type: string
+          description: Degree type
+          enum:
+          - UNIVERSITY
+          - COLLEGE
+          - HIGH_SCHOOL
+          - ELEMENTARY_SCHOOL
+          - OTHER
+        educationInstitutionId:
+          type: integer
+          format: int64
+          description: ID of the education institution
+        endDate:
+          type: string
+          format: date-time
+          description: End date of the education
+        fieldOfStudy:
+          type: string
+          description: Field of study
+          maxLength: 255
+          minLength: 0
+        format:
+          type: string
+          description: "Education format ([rus] ОЧНОЕ, ОЧНО-ЗАОЧНОЕ, ЗАОЧНОЕ)"
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CORRESPONDENCE
+        grade:
+          type: string
+          description: Grade
+          maxLength: 255
+          minLength: 0
+        id:
+          type: integer
+          format: int64
+          description: ID of the education
+        institutionSubdivision:
+          type: string
+          description: "Education institution subdivision (Faculty, Institute, etc.)"
+          maxLength: 255
+          minLength: 1
+        resumeId:
+          type: integer
+          format: int64
+          description: ID of the resume associated with this education
+        specialization:
+          type: string
+          description: Specialization within the field
+          maxLength: 255
+          minLength: 0
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the education
+    FileDto:
+      type: object
+      description: File Model
+      properties:
+        contentBase64:
+          type: string
+        contentType:
+          type: string
+          description: The content type of the file
+        filename:
+          type: string
+          description: The name of the file
+      required:
+      - contentType
+      - filename
+    InternalServerErrorResponse:
+      type: object
+      description: Internal Server Error Response
+      properties:
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "500"
+        message:
+          type: string
+          description: Description of the error
+          example: Internal Server Error
+    JobCreateDto:
+      type: object
+      description: Job Create Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        companyId:
+          type: integer
+          format: int64
+          description: ID of the company
+        description:
+          type: string
+          description: Job description
+          maxLength: 2000
+          minLength: 0
+        endDate:
+          type: string
+          format: date-time
+          description: Job end date
+        location:
+          type: string
+          description: Job location
+        resumeId:
+          type: integer
+          format: int64
+          description: ID of the resume
+        startDate:
+          type: string
+          format: date-time
+          description: Job start date
+        title:
+          type: string
+          description: Job title
+          maxLength: 255
+          minLength: 0
+      required:
+      - resumeId
+      - title
+    JobDto:
+      type: object
+      description: Job Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        company:
+          $ref: "#/components/schemas/CompanyDto"
+        description:
+          type: string
+          description: Job description
+        endDate:
+          type: string
+          format: date-time
+          description: Job end date
+        id:
+          type: integer
+          format: int64
+          description: Job ID
+        location:
+          type: string
+          description: Job location
+        startDate:
+          type: string
+          format: date-time
+          description: Job start date
+        title:
+          type: string
+          description: Job title
+    JobUpdateDto:
+      type: object
+      description: Job Update Model
+      properties:
+        attendanceFormat:
+          type: string
+          description: Job attendance format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        companyId:
+          type: integer
+          format: int64
+          description: Company ID
+        description:
+          type: string
+          description: Job description
+          maxLength: 2000
+          minLength: 0
+        endDate:
+          type: string
+          format: date-time
+          description: Job end date
+        id:
+          type: integer
+          format: int64
+          description: Job ID
+        location:
+          type: string
+          description: Job location
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+        startDate:
+          type: string
+          format: date-time
+          description: Job start date
+        title:
+          type: string
+          description: Job title
+          maxLength: 255
+          minLength: 0
+    LanguageCreateDto:
+      type: object
+      description: Language Record Create Model
+      properties:
+        name:
+          type: string
+          description: Language name
+          maxLength: 255
+          minLength: 0
+        proficiency:
+          type: string
+          description: Language proficiency level
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+      required:
+      - name
+    LanguageDto:
+      type: object
+      description: Language Record Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Language ID
+        name:
+          type: string
+          description: Language name
+        proficiency:
+          type: string
+          description: Language proficiency level
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+    LanguageUpdateDto:
+      type: object
+      description: Language Record Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Language ID
+        name:
+          type: string
+          description: Language name
+          maxLength: 255
+          minLength: 0
+        proficiency:
+          type: string
+          description: Language proficiency level
+          enum:
+          - A1
+          - A2
+          - B1
+          - B2
+          - C1
+          - C2
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+    LinkCreateDto:
+      type: object
+      description: Link Create Model
+      properties:
+        platformName:
+          type: string
+          description: Platform name
+          maxLength: 255
+          minLength: 0
+        profileUrl:
+          type: string
+          description: Profile URL on the platform
+          maxLength: 255
+          minLength: 0
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID
+      required:
+      - platformName
+      - profileUrl
+    LinkDto:
+      type: object
+      description: Link Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the link
+        platformName:
+          type: string
+          description: Platform name
+        profileUrl:
+          type: string
+          description: Profile URL on the platform
+    LinkUpdateDto:
+      type: object
+      description: Link Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the link
+        platformName:
+          type: string
+          description: Platform name
+          maxLength: 255
+          minLength: 0
+        profileUrl:
+          type: string
+          description: Profile URL on the platform
+          maxLength: 255
+          minLength: 0
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID to associate the link with
+    NotFoundErrorResponse:
+      type: object
+      description: Not Found Error Response
+      properties:
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "404"
+        message:
+          type: string
+          description: Description of the error
+          example: Not Found
+    ResumeCreateDto:
+      type: object
+      description: Resume Create Model
+      properties:
+        summary:
+          type: string
+          description: Summary or objective of the resume
+          maxLength: 2000
+          minLength: 0
+        title:
+          type: string
+          description: Resume Title
+          maxLength: 255
+          minLength: 0
+    ResumeDto:
+      type: object
+      description: Resume Model
+      properties:
+        certifications:
+          type: array
+          description: List of certifications included in the resume
+          items:
+            $ref: "#/components/schemas/CertificationDto"
+        createdAt:
+          type: string
+          format: date-time
+          description: Date the resume was created
+        educations:
+          type: array
+          description: List of educational qualifications included in the resume
+          items:
+            $ref: "#/components/schemas/EducationDto"
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the resume
+        image:
+          $ref: "#/components/schemas/FileDto"
+        jobs:
+          type: array
+          description: List of job experiences included in the resume
+          items:
+            $ref: "#/components/schemas/JobDto"
+        languages:
+          type: array
+          description: List of languages spoken as part of the resume
+          items:
+            $ref: "#/components/schemas/LanguageDto"
+        links:
+          type: array
+          description: List of links associated with the resume
+          items:
+            $ref: "#/components/schemas/LinkDto"
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        preferredSpecialities:
+          type: array
+          description: Preferred Specialities
+          items:
+            type: string
+            description: Preferred Specialities
+        readyForBusinessTrips:
+          type: boolean
+          description: Ready for Business Trips
+        readyForRelocation:
+          type: boolean
+          description: Ready for Relocation
+        skills:
+          type: array
+          description: List of skills included in the resume
+          items:
+            $ref: "#/components/schemas/SkillDto"
+        summary:
+          type: string
+          description: Summary of the resume
+        template:
+          $ref: "#/components/schemas/TemplateBaseDto"
+        title:
+          type: string
+          description: Resume Title
+        user:
+          $ref: "#/components/schemas/UserDto"
+    ResumeUpdateDto:
+      type: object
+      description: Resume Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the resume
+        image:
+          $ref: "#/components/schemas/FileDto"
+        preferredAttendanceFormat:
+          type: string
+          description: Preferred Attendance Format
+          enum:
+          - ON_SITE
+          - HYBRID
+          - REMOTE
+        preferredSpecialities:
+          type: array
+          description: Preferred Specialities
+          items:
+            type: string
+            description: Preferred Specialities
+        readyForBusinessTrips:
+          type: boolean
+          description: Ready for Business Trips
+        readyForRelocation:
+          type: boolean
+          description: Ready for Relocation
+        summary:
+          type: string
+          description: Updated summary or objective section of the resume
+          maxLength: 2000
+          minLength: 0
+        templateId:
+          type: integer
+          format: int64
+          description: Template ID to be associated with the resume
+        title:
+          type: string
+          description: Resume Title
+          maxLength: 255
+          minLength: 0
+    SkillCreateDto:
+      type: object
+      description: Skill Create Model
+      properties:
+        name:
+          type: string
+          description: Name of the skill
+        proficiency:
+          type: string
+          description: Proficiency level of the skill
+          enum:
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
+        resumeId:
+          type: integer
+          format: int64
+          description: ID of the resume the skill is associated with
+      required:
+      - name
+    SkillDto:
+      type: object
+      description: Skill Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the skill
+        name:
+          type: string
+          description: Name of the skill
+        proficiency:
+          type: string
+          description: Proficiency level of the skill
+          enum:
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
+    SkillUpdateDto:
+      type: object
+      description: Skill Update Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the skill
+        name:
+          type: string
+          description: Name of the skill
+        proficiency:
+          type: string
+          description: Proficiency level of the skill
+          enum:
+          - BEGINNER
+          - INTERMEDIATE
+          - ADVANCED
+          - EXPERT
+        resumeId:
+          type: integer
+          format: int64
+          description: Resume ID associated with the skill
+    TemplateBaseDto:
+      type: object
+      description: Template Base Model
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: The creation date of the template
+        filePath:
+          type: string
+          description: The file path in S3 associated with the template
+        id:
+          type: integer
+          format: int64
+          description: The ID of the template
+        name:
+          type: string
+          description: The name of the template
+    TemplateCreateDto:
+      type: object
+      description: Template Create Model
+      properties:
+        file:
+          $ref: "#/components/schemas/FileDto"
+        name:
+          type: string
+          description: The name of the template
+      required:
+      - file
+      - name
+    TemplateDto:
+      type: object
+      description: Template Model
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: Created At Timestamp
+        file:
+          $ref: "#/components/schemas/FileDto"
+        id:
+          type: integer
+          format: int64
+          description: The unique identifier of the template
+        name:
+          type: string
+          description: The name of the template
+    TemplateImageDto:
+      type: object
+      description: Template with Image Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: The unique identifier of the template
+        image:
+          $ref: "#/components/schemas/FileDto"
+        name:
+          type: string
+          description: The name of the template
+      required:
+      - name
+    TemplateUpdateDto:
+      type: object
+      description: Template Update Model
+      properties:
+        file:
+          $ref: "#/components/schemas/FileDto"
+        id:
+          type: integer
+          format: int64
+          description: The unique identifier of the template
+        name:
+          type: string
+          description: The name of the template
+    UnauthorizedErrorResponse:
+      type: object
+      description: Error response object
+      properties:
+        code:
+          type: string
+          description: HTTP status code of the error
+          example: "401"
+        message:
+          type: string
+          description: Description of the error
+          example: Unauthorized
+    UserBaseDto:
+      type: object
+      description: User Base Model
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: User's ID
+        vkId:
+          type: integer
+          format: int64
+          description: VK ID
+    UserCreateDto:
+      type: object
+      description: User Create Model
+      properties:
+        cityName:
+          type: string
+          description: City name
+        dateOfBirth:
+          type: string
+          format: date-time
+          description: Date of birth
+        email:
+          type: string
+          description: User's email address
+        phoneNumber:
+          type: string
+          description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
+        vkId:
+          type: integer
+          format: int64
+          description: VK ID
+      required:
+      - email
+      - vkId
+    UserDto:
+      type: object
+      description: User Model
+      properties:
+        cityName:
+          type: string
+          description: City name
+        dateOfBirth:
+          type: string
+          format: date-time
+          description: Date of birth
+        email:
+          type: string
+          description: User's email address
+        id:
+          type: integer
+          format: int64
+          description: User's ID
+        phoneNumber:
+          type: string
+          description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
+        vkId:
+          type: integer
+          format: int64
+          description: VK ID
+    UserUpdateDto:
+      type: object
+      description: User Update Model
+      properties:
+        cityName:
+          type: string
+          description: City name
+        dateOfBirth:
+          type: string
+          format: date-time
+          description: Date of birth
+        email:
+          type: string
+          description: User's email address
+        phoneNumber:
+          type: string
+          description: Phone number
+        preferredContact:
+          type: string
+          description: Preferred Contact
+          enum:
+          - EMAIL
+          - PHONE
