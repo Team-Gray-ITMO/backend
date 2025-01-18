@@ -33,6 +33,7 @@ import static vk.itmo.teamgray.backend.common.config.ApplicationConfiguration.AP
 public class SecurityConfig {
     private final RequestMatcher[] allowMatchers = {
         new AntPathRequestMatcher(API_VER + "/user", "POST"),
+        new AntPathRequestMatcher(API_VER + "/template/image"),
         new AntPathRequestMatcher(API_VER + "/user/vk/**"),
         new AntPathRequestMatcher("/swagger-ui/**"),
         new AntPathRequestMatcher("/v3/api-docs/**"),

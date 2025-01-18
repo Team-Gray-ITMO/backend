@@ -25,10 +25,16 @@ public class TemplateImageService {
 
     private final ResumeService resumeService;
 
+    private List<TemplateImageDto> cache;
+
     public List<TemplateImageDto> generateImagesForAllTemplates() {
-        return templateService.findAll().stream()
-            .map(this::getTemplateImageDto)
-            .toList();
+        if (cache == null) {
+            cache = templateService.findAll().stream()
+                .map(this::getTemplateImageDto)
+                .toList();
+        }
+
+        return cache;
     }
 
     public TemplateImageDto generateImageForTemplate(Long templateId) {
